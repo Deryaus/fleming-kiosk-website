@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .header-container {
+            position: relative;
+            width: 100%;
+            height: 20vh;
+            text-align: center;
+            overflow: hidden;
+        }
+        .header-container img {
+            width: 75%;
+            height: auto;
+            object-fit: cover;
+        }
+        .header-container h1 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 3em;
+            margin: 0;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .content-section {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .content-section img {
+            width: 50%;
+            height: auto;
+        }
+    </style>
+    <script>
+        let inactivityTimeout;
+
+        function resetInactivityTimeout() {
+            clearTimeout(inactivityTimeout);
+            inactivityTimeout = setTimeout(() => {
+                window.location.href = "{{ url_for('welcome') }}";
+            }, 30000); // 30 seconds
+        }
+
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            // Show the selected section
+            document.getElementById(sectionId).style.display = 'block';
+            resetInactivityTimeout();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            resetInactivityTimeout();
+            document.addEventListener('mousemove', resetInactivityTimeout);
+            document.addEventListener('keypress', resetInactivityTimeout);
+        });
+    </script>
+</head>
+<body>
+    <div class="header-container">
+        <img src="{{ url_for('static', filename='flemingbackground.png') }}" alt="Fleming College Logo">
+        <h1>Welcome to Fleming College</h1>
+    </div>
+    <div class="button-container">
+        <button class="btn" onclick="showSection('map-section')">Campus Map</button>
+        <button class="btn" onclick="showSection('schedule-section')">Event Schedule</button>
+        <button class="btn" onclick="showSection('faqs-section')">FAQs</button>
+    </div>
+    <div id="map-section" class="content-section">
+        <img src="{{ url_for('static', filename='campusmap.png') }}" alt="Campus Map">
+    </div>
+    <div id="schedule-section" class="content-section">
+        <h2>Event Schedule</h2>
+        <ul>
+            <li>Event 1: Date and Time</li>
+            <li>Event 2: Date and Time</li>
+            <li>Event 3: Date and Time</li>
+        </ul>
+    </div>
+    <div id="faqs-section" class="content-section">
+        <h2>FAQs</h2>
+        <p>Here are some frequently asked questions...</p>
+    </div>
+</body>
+</html>
