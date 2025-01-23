@@ -7,11 +7,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles_home.css') }}">
     <script>
         let inactivityTimeout;
+        let timeoutLength = 30000; // 30 seconds
         function resetInactivityTimeout() {
             clearTimeout(inactivityTimeout);
             inactivityTimeout = setTimeout(() => {
                 window.location.href = "{{ url_for('welcome') }}";
-            }, 30000); // 30 seconds
+            }, timeoutLength);
         }
 
         function showSection(sectionId) {
