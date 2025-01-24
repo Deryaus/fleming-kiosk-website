@@ -3,7 +3,7 @@ Description:
  Main program for Fleming kiosk webpage
 
 Usage:
- python kiosk.py
+ python main.py
 
 Parameters:
  None
@@ -18,6 +18,7 @@ app = Flask(__name__)
 @app.route('/')
 def welcome():
     return render_template('welcome.html')
+
 
 @app.route('/home')
 def home():
