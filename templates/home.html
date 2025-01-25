@@ -5,34 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles_home.css') }}">
-    <script>
-        let inactivityTimeout;
-        let timeoutLength = 30000; // 30 seconds
-        function resetInactivityTimeout() {
-            clearTimeout(inactivityTimeout);
-            inactivityTimeout = setTimeout(() => {
-                window.location.href = "{{ url_for('welcome') }}";
-            }, timeoutLength);
-        }
-
-        function showSection(sectionId) {
-            // Hide all sections
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.style.display = 'none';
-            });
-            // Show the selected section
-            document.getElementById(sectionId).style.display = 'block';
-            resetInactivityTimeout();
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            resetInactivityTimeout();
-            document.addEventListener('mousemove', resetInactivityTimeout);
-            document.addEventListener('keypress', resetInactivityTimeout);
-        });
-    </script>
+    <script src="{{ url_for('static', filename='home_scripts.js') }}"></script>
 </head>
-<body>
+<body data-welcome-url="{{ url_for('welcome') }}">
     <div class="header-container">
         <img src="{{ url_for('static', filename='flemingbackground.png') }}" alt="Fleming College Logo">
         <h1>Welcome to Fleming College</h1>
@@ -41,9 +16,10 @@
         <button class="btn" onclick="showSection('map-section')">Campus Map</button>
         <button class="btn" onclick="showSection('schedule-section')">Event Schedule</button>
         <button class="btn" onclick="showSection('faqs-section')">FAQs</button>
+        <button class="btn" onclick="showSection('Chat-with-blaze')">Chat With Blaze</button>
     </div>
     <div id="map-section" class="content-section">
-        <img src="{{ url_for('static', filename='campusmap.png') }}" alt="Campus Map">
+        <img src="{{ url_for('static', filename='campusmap-all-levels.png') }}" alt="Campus Map">
     </div>
     <div id="schedule-section" class="content-section">
         <h2>Event Schedule</h2>
@@ -56,6 +32,19 @@
     <div id="faqs-section" class="content-section">
         <h2>FAQs</h2>
         <p>Here are some frequently asked questions...</p>
+    </div>
+    <div id="Chat-with-blaze" class="content-section">
+        <h2>Chat With Blaze</h2>
+        <p>Blaze is here to help you with any questions you may have!</p>
+        <div class="chat-input-container">
+            <input type="text" id="chat-input" placeholder="Type here to ask a question..." onkeypress="handleEnterKey(event)">
+            <button class="mic-btn" onclick=>
+                <img src="{{ url_for('static', filename='mic-icon.png') }}" alt="Microphone">
+            </button>
+        </div>
+        <div class="chat-output-container">
+            <textarea id="chat-output" readonly></textarea>
+        </div>
     </div>
 </body>
 </html>

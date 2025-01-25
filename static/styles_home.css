@@ -57,10 +57,65 @@
             height: auto;
         }
         #map-section {
-            display: block; /* Show the map section by default */
+            display: block; 
         }
-        
+        #map-section img {
+            width: 110%;
+            height: auto;
+        }
         .content-section img {
             width: 50%;
             height: auto;
+        }
+        .chat-input-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+        
+        #chat-input {
+            width: 300px;
+            padding: 10px;
+            font-size: 1em;
+            border: 2px solid #007bff;
+            border-radius: 5px;
+        }
+        
+        .mic-btn {
+            padding: 1px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .mic-icon {
+            width: 40px;
+            height: 40px;
+        }
+        .mic-btn:hover {
+            background-color: #0056b3;
+        }
+        .chat-output-container {
+            margin-top: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        #chat-output {
+            width: 150%;
+            height: 300px;
+            padding: 10px;
+            font-size: 1em;
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            resize: none;
+            background-color: white;
+            margin: 100 auto;
         }
