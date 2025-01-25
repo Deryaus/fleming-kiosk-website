@@ -42,14 +42,19 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+/**
+ * Handles the 'Enter' key press event on the chat input field.
+ * When the 'Enter' key is pressed, it sends the user input to the python function,
+ * appends the user input and Python script response to the chat output, and clears the input field.
+ *
+ * @param {KeyboardEvent} event - The keyboard event triggered by pressing Enter.
+ */
 function handleEnterKey(event) {
     if (event.key === 'Enter') {
         const userInput = document.getElementById('chat-input').value;
         const chatOutput = document.getElementById('chat-output');
-
         // Add the user input to the chat output
         chatOutput.value += `Question: ${userInput}\n\n`;
-
         // Make call to python script
         fetch('/chat', {
             method: 'POST',
@@ -62,7 +67,7 @@ function handleEnterKey(event) {
         .then(response => response.json())
         .then(data => {
             // Add the response to the chat output
-            chatOutput.value += `${data.response}\n`;
+            chatOutput.value += `${data.response}\n\n`;
             // scroll to the bottom of the chat output
             chatOutput.scrollTop = chatOutput.scrollHeight;
         });       
