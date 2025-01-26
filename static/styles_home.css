@@ -95,6 +95,10 @@
             justify-content: center;
             align-items: center;
         }
+        .mic-btn.disabled {
+            cursor: not-allowed;
+        }
+
         .mic-icon {
             width: 40px;
             height: 40px;

@@ -67,11 +67,63 @@ function handleEnterKey(event) {
         .then(response => response.json())
         .then(data => {
             // Add the response to the chat output
-            chatOutput.value += `${data.response}\n\n`;
+            //chatOutput.value += `${data.response}\n\n`;
             // scroll to the bottom of the chat output
-            chatOutput.scrollTop = chatOutput.scrollHeight;
+            //chatOutput.scrollTop = chatOutput.scrollHeight;
+            typeEffect(data.response + '\n\n', chatOutput);
         });       
         // Clear the input field
         document.getElementById('chat-input').value = '';
     }
+}
+
+function startRecording() {
+    let timeoutLength = 2000; // 2 seconds
+    const micButton = document.querySelector('.mic-btn');
+    const chatOutput = document.getElementById('chat-output');
+    // Change to red while recording and disable button
+    micButton.style.backgroundColor = '#dc3545';
+    micButton.disabled = true;
+    // make a call to the python script
+    fetch('/record-audio', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    // use a promise to get the response
+    .then(response => response.json())
+    .then(data => {
+        // Wait for recording time before showing results
+        setTimeout(() => {
+            // Reset button color and re-enable button
+            micButton.disabled = false;
+            micButton.style.backgroundColor = '#007bff';
+            // Show the conversation
+            chatOutput.value += `Question: ${data.userInput}\n\n`;
+            typeEffect(data.output + '\n\n', chatOutput);
+        }, timeoutLength);
+    });
+}
+
+/**
+ * Simulates a typing effect by incrementally adding characters from a given text to an element's value.
+ *
+ * @param {string} text - The text to be typed out.
+ * @param {HTMLTextAreaElement} element - The HTML element where the text will be displayed.
+ */
+function typeEffect(text, element) {
+    let i = 0;
+    const typeSpeed = 25; // milliseconds per character
+    
+    function type() {
+        if (i < text.length) {
+            element.value += text.charAt(i);
+            // Scroll to the bottom of the chat output
+            element.scrollTop = element.scrollHeight;
+            i++;
+            setTimeout(type, typeSpeed);
+        }
+    }
+    type();
 }

@@ -38,7 +38,7 @@
         <p>Blaze is here to help you with any questions you may have!</p>
         <div class="chat-input-container">
             <input type="text" id="chat-input" placeholder="Type here to ask a question..." onkeypress="handleEnterKey(event)">
-            <button class="mic-btn" onclick=>
+            <button class="mic-btn" onclick="startRecording()">
                 <img src="{{ url_for('static', filename='mic-icon.png') }}" alt="Microphone">
             </button>
         </div>
