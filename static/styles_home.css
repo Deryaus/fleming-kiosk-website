@@ -1,130 +1,159 @@
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-        }
-        .header-container {
-            position: relative;
-            width: 100%;
-            height: 20vh;
-            text-align: center;
-            overflow: hidden;
-        }
-        .header-container img {
-            width: 75%;
-            height: auto;
-            object-fit: cover;
-        }
-        .header-container h1 {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-size: 3em;
-            margin: 0;
-        }
-        .button-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            font-size: 1.2em;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-            cursor: pointer;
-            margin: 0 10px;
-        }
-        .btn:hover {
-            background-color: #0056b3;
-        }
-        .content-section {
-            display: none;
-            margin-top: 20px;
-            text-align: center;
-        }
-        .content-section img {
-            width: 50%;
-            height: auto;
-        }
-        #map-section {
-            display: block; 
-        }
-        #map-section img {
-            width: 110%;
-            height: auto;
-        }
-        .content-section img {
-            width: 50%;
-            height: auto;
-        }
-        .chat-input-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 20px;
-            gap: 20px;
-            width: 80%;
-            margin-left: auto;
-            margin-right: 50px;
-        }
-        
-        #chat-input {
-            width: 600px;
-            padding: 15px;
-            font-size: 1.2em;
-            border: 2px solid #007bff;
-            border-radius: 5px;
-        }
-        
-        .mic-btn {
-            padding: 10px;
-            background-color: #007bff;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-shrink: 0;
-        }
+/* Style for the body element */
+body {
+    display: flex; /* Use flexbox layout */
+    flex-direction: column; /* Arrange children in a column */
+    align-items: center; /* Center children horizontally */
+    margin: 0; /* Remove default margin */
+    font-family: Arial, sans-serif; /* Set font family */
+    background-color: #f0f0f0; /* Set background color */
+}
 
-        .mic-btn.disabled {
-            cursor: not-allowed;
-        }
+/* Style for the header container */
+.header-container {
+    position: relative; /* Position relative for absolute positioning of children */
+    width: 100%;
+    height: 20vh; /* 20% of viewport height */
+    text-align: center; 
+    overflow: hidden; 
+}
 
-        .mic-icon {
-            width: 40px;
-            height: 40px;
-        }
-        .mic-btn:hover {
-            background-color: #0056b3;
-        }
-        .chat-output-container {
-            margin-top: 20px;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
-        #chat-output {
-            width: 150%;
-            height: 400px;
-            padding: 15px;
-            font-size: 1.2em;
-            border: 2px solid #007bff;
-            border-radius: 5px;
-            resize: none;
-            background-color: white;
-            margin: 0 auto;
-        }
+/* Style for images inside the header container */
+.header-container img {
+    width: 75%; /* 75% width of the container */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Cover the container */
+}
+
+/* Style for h1 inside the header container */
+.header-container h1 {
+    position: absolute; 
+    top: 50%; /* 50% from the top */
+    left: 50%; /* 50% from the left */
+    transform: translate(-50%, -50%); /* Center the element */
+    color: white; 
+    font-size: 3em; 
+    margin: 0; /* Remove default margin */
+}
+
+/* Style for the button container */
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Style for buttons */
+.btn {
+    display: inline-block; /* Inline-block display */
+    padding: 10px 20px; 
+    font-size: 1.2em;
+    color: #fff;
+    background-color: #007bff;
+    border: none; 
+    border-radius: 5px; /* Rounded corners */
+    text-decoration: none; /* No text decoration */
+    cursor: pointer; /* Pointer cursor on hover */
+    margin: 0 10px; /* Margin on left and right */
+}
+
+/* Style for button hover state */
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* Style for content sections */
+.content-section {
+    display: none; /* Hidden by default */
+    margin-top: 20px; /* Margin at the top */
+    text-align: center; 
+}
+
+/* Style for images inside content sections */
+.content-section img {
+    width: 50%; /* 50% width of the container */
+    height: auto; /* Maintain aspect ratio */
+}
+
+/* Style for the map section */
+#map-section {
+    display: block; /* Display block */
+}
+
+/* Style for images inside the map section */
+#map-section img {
+    width: 110%; 
+    height: auto; 
+}
+
+/* Style for the chat input container */
+.chat-input-container {
+    display: flex; 
+    justify-content: center;
+    align-items: center; 
+    margin-top: 20px;
+    gap: 20px; /* Gap between children */
+    width: 80%; 
+    margin-left: auto; 
+    margin-right: 50px; 
+}
+
+/* Style for the chat input */
+#chat-input {
+    width: 600px; 
+    padding: 15px;
+    font-size: 1.2em; 
+    border: 2px solid #007bff; 
+    border-radius: 5px; 
+}
+
+/* Style for the microphone button */
+.mic-btn {
+    padding: 10px; 
+    background-color: #007bff; 
+    border: none;
+    border-radius: 50%; /* Circular button */
+    cursor: pointer;
+    width: 60px; 
+    height: 60px; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+/* Style for disabled microphone button */
+.mic-btn.disabled {
+    cursor: not-allowed;
+}
+
+/* Style for the microphone icon */
+.mic-icon {
+    width: 40px; 
+    height: 40px;
+}
+
+/* Style for microphone button hover state */
+.mic-btn:hover {
+    background-color: #0056b3; 
+}
+
+/* Style for the chat output container */
+.chat-output-container {
+    margin-top: 20px; 
+    width: 100%; 
+    display: flex; 
+    justify-content: center; 
+}
+
+/* Style for the chat output */
+#chat-output {
+    width: 150%; 
+    height: 400px; 
+    padding: 15px; 
+    font-size: 1.2em; 
+    border: 2px solid #007bff; 
+    border-radius: 5px;
+    resize: none; /* Disable resizing */
+    background-color: white;
+    margin: 0 auto;
+}
