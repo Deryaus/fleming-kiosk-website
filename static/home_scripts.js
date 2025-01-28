@@ -1,5 +1,7 @@
-let inactivityTimeout;
-let timeoutLength = 300000; // 30 seconds // 300000 5 minutes for testing
+//let inactivityTimeout;
+//let timeoutLength = 300000; // 30 seconds // 300000 5 minutes for testing
+let keyboard;
+let shiftActive = false;
 
 /**
  * Resets the inactivity timeout timer. When the timer expires, redirects to the welcome page.
@@ -8,6 +10,8 @@ let timeoutLength = 300000; // 30 seconds // 300000 5 minutes for testing
  * The welcome URL is retrieved from the 'data-welcome-url' attribute of the document body.
  */
 function resetInactivityTimeout() {
+    let timeoutLength = 300000; // 5 minutes
+    let inactivityTimeout;
     clearTimeout(inactivityTimeout);
     inactivityTimeout = setTimeout(() => {
         window.location.href = document.body.getAttribute('data-welcome-url');
@@ -74,6 +78,7 @@ function handleEnterKey(event) {
         });       
         // Clear the input field
         document.getElementById('chat-input').value = '';
+        keyboard.setInput(''); // Clear Virtual keyboard input
     }
 }
 
@@ -126,4 +131,71 @@ function typeEffect(text, element) {
         }
     }
     type();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const input = document.querySelector('#chat-input');
+    keyboard = new SimpleKeyboard.default({
+        onChange: input => handleKeyboardInput(input),
+        onKeyPress: button => handleKeyPress(button),
+        layout: {
+            default: [
+                '1 2 3 4 5 6 7 8 9 0 {bksp}',
+                'q w e r t y u i o p',
+                'a s d f g h j k l',
+                '{shift} z x c v b n m . ?',
+                '@ .com {space} {enter}'
+            ],
+            shift: [
+                '! 2 3 4 5 6 7 8 9 0 {bksp}',
+                'Q W E R T Y U I O P',
+                'A S D F G H J K L',
+                '{shift} Z X C V B N M ? .',
+                '@ .com {space} {enter}'
+            ]
+        },
+        display: {
+            '{enter}': 'Enter',
+            '{bksp}': 'Backspace',
+            '{space}': ' ',
+            '{shift}': 'Shift'
+        }
+    });
+
+    // Show keyboard when chat input is focused
+    input.addEventListener('focus', () => {
+        const keyboard = document.querySelector('.simple-keyboard');
+        keyboard.classList.add('keyboard-visible');
+    });
+    
+    // Hide keyboard when mouse click outside of chat input
+    document.addEventListener('click', (event) => {
+        if (!event.target.closest('.simple-keyboard') && event.target !== input && !event.target.closest('.hg-button')) {
+            const keyboard = document.querySelector('.simple-keyboard');
+            keyboard.classList.remove('keyboard-visible');
+        }
+    });
+
+});
+
+function handleKeyboardInput(input) {
+    document.querySelector('#chat-input').value = input;
+}
+//TODO Fix The Shift Functionality
+function handleKeyPress(button) {
+    //let shiftActive = false;
+    if (button === '{enter}') {
+        const event = new KeyboardEvent('keypress', {'key': 'Enter'}); // Create a new 'Enter' key press event
+        handleEnterKey(event);
+    }
+    if (button === '{shift}') {
+        handleShift();
+    }
+}
+function handleShift() {
+    let currentLayout = keyboard.options.layoutName;
+    let shiftToggle = currentLayout === 'default' ? 'shift' : 'default';
+    keyboard.setOptions({
+        layoutName: shiftToggle
+    });
 }

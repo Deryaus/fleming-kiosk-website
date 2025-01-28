@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles_home.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/css/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/index.js"></script>
     <script src="{{ url_for('static', filename='home_scripts.js') }}"></script>
 </head>
 <body data-welcome-url="{{ url_for('welcome') }}">
@@ -45,6 +47,7 @@
         <div class="chat-output-container">
             <textarea id="chat-output" readonly></textarea>
         </div>
+        <div class="simple-keyboard"></div>
     </div>
 </body>
 </html>

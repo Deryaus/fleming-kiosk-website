@@ -157,3 +157,11 @@ body {
     background-color: white;
     margin: 0 auto;
 }
+.simple-keyboard {
+    max-width: 850px;
+    margin: 20px auto;
+    display: none; /* Hidden by default */  ;
+}
+.keyboard-visible {
+    display: block;
+}
