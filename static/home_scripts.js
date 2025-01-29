@@ -1,8 +1,5 @@
-//let inactivityTimeout;
-//let timeoutLength = 300000; // 30 seconds // 300000 5 minutes for testing
-let keyboard;
-let shiftActive = false;
-
+let inactivityTimeout;
+let timeoutLenght;
 /**
  * Resets the inactivity timeout timer. When the timer expires, redirects to the welcome page.
  * Clears any existing timeout before setting a new one.
@@ -10,8 +7,7 @@ let shiftActive = false;
  * The welcome URL is retrieved from the 'data-welcome-url' attribute of the document body.
  */
 function resetInactivityTimeout() {
-    let timeoutLength = 300000; // 5 minutes
-    let inactivityTimeout;
+    let timeoutLength = 300000; // 5 minutes //TODO change this for deployment
     clearTimeout(inactivityTimeout);
     inactivityTimeout = setTimeout(() => {
         window.location.href = document.body.getAttribute('data-welcome-url');
@@ -132,25 +128,30 @@ function typeEffect(text, element) {
     }
     type();
 }
-
+/**
+ * Attaches event listeners for the chat input field
+ * Creates a keyboard instance and displays it when the chat input is focused
+ * Hides the keyboard when the mouse is clicked outside of the chat input 
+ */
 document.addEventListener('DOMContentLoaded', () => {
     const input = document.querySelector('#chat-input');
+    keyboardElement = document.querySelector('.simple-keyboard');
     keyboard = new SimpleKeyboard.default({
         onChange: input => handleKeyboardInput(input),
         onKeyPress: button => handleKeyPress(button),
-        layout: {
+      layout: {
             default: [
-                '1 2 3 4 5 6 7 8 9 0 {bksp}',
+                '1 2 3 4 5 6 7 8 9 0 - {bksp}',
                 'q w e r t y u i o p',
                 'a s d f g h j k l',
                 '{shift} z x c v b n m . ?',
                 '@ .com {space} {enter}'
             ],
             shift: [
-                '! 2 3 4 5 6 7 8 9 0 {bksp}',
+                '! @ # $ % ^ & * ( ) _ {bksp}',
                 'Q W E R T Y U I O P',
                 'A S D F G H J K L',
-                '{shift} Z X C V B N M ? .',
+                '{shift} Z X C V B N M . ?',
                 '@ .com {space} {enter}'
             ]
         },
@@ -159,43 +160,58 @@ document.addEventListener('DOMContentLoaded', () => {
             '{bksp}': 'Backspace',
             '{space}': ' ',
             '{shift}': 'Shift'
-        }
+        } 
     });
-
     // Show keyboard when chat input is focused
     input.addEventListener('focus', () => {
-        const keyboard = document.querySelector('.simple-keyboard');
-        keyboard.classList.add('keyboard-visible');
+        keyboardElement.classList.add('keyboard-visible');
     });
-    
     // Hide keyboard when mouse click outside of chat input
     document.addEventListener('click', (event) => {
-        if (!event.target.closest('.simple-keyboard') && event.target !== input && !event.target.closest('.hg-button')) {
-            const keyboard = document.querySelector('.simple-keyboard');
-            keyboard.classList.remove('keyboard-visible');
+        if (!event.target.closest('.simple-keyboard') && event.target !== input) {
+            keyboardElement.classList.remove('keyboard-visible');
         }
     });
-
 });
-
+/**
+ * Handles the virtual keyboard input by updating the chat input field with the input value.
+ *
+ * @param {string} input - The input value from the keyboard.
+ */
 function handleKeyboardInput(input) {
     document.querySelector('#chat-input').value = input;
 }
-//TODO Fix The Shift Functionality
+
+/**
+ * handles special key press events from the virtual keyboard.
+ * Processes enter key to submit messages and shift key to toggle keyboard layout.
+ * 
+ * @param {string} button 
+ */
 function handleKeyPress(button) {
-    //let shiftActive = false;
     if (button === '{enter}') {
         const event = new KeyboardEvent('keypress', {'key': 'Enter'}); // Create a new 'Enter' key press event
         handleEnterKey(event);
     }
-    if (button === '{shift}') {
+    else if (button === '{shift}') {
         handleShift();
     }
+    else if (keyboard.options.layoutName === 'shift' && button !== '{bksp}' && button !== '{space}') {
+        keyboard.setOptions({
+            layoutName: 'default'
+       });
+       keyboardElement.classList.add('keyboard-visible');
+    }
 }
+/**
+ * Toggles the virtual keyboard layout between default and shift layouts.
+ * and ensures the keyboard remains visible
+ */
 function handleShift() {
     let currentLayout = keyboard.options.layoutName;
     let shiftToggle = currentLayout === 'default' ? 'shift' : 'default';
     keyboard.setOptions({
         layoutName: shiftToggle
     });
-}
+    keyboardElement.classList.add('keyboard-visible');
+} 
