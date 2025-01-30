@@ -1,6 +1,6 @@
 import google.generativeai as genai
 import asyncio
-from speech_to_text import speech_to_text_translation
+from speech_to_text import speech_to_text_translation, output_log_text
 from text_to_speech import sys_text_to_speech, play_edge_tts
 
 systemInstruction = "You are a friendly kiosk at a college designed to help students navigate through their school life"
@@ -9,6 +9,7 @@ systemInstruction = "You are a friendly kiosk at a college designed to help stud
 def query_gemini_model(version=11, transcription=None):
     """
     Queries the Gemini generative model with the specified version and transcription.
+    Saves the query and response to a log file.
 
     Args:
         version (int, optional): The version of the Gemini model to use. Defaults to 3.
@@ -27,6 +28,8 @@ def query_gemini_model(version=11, transcription=None):
         max_output_tokens=75,
         temperature=0.1,
     ))
+    output_log_text(transcription)
+    output_log_text(result.text)
     return result
 
 async def gemini_query_response_tts(text=None):
@@ -46,10 +49,12 @@ async def gemini_query_response_tts(text=None):
         - If the first candidate's finish reason is 3, it prints "Harmful content detected".
         - Otherwise, it prints the result text and attempts to play the text using Edge TTS.
     """
-    speech = text or speech_to_text_translation()
-    result = query_gemini_model(version=3, transcription=speech)
 
-    if result.candidates[0].finish_reason == 3:
+    #TODO: rework the function needs to return text before the audio plays
+    speech = text or speech_to_text_translation()
+    result = query_gemini_model(version=8, transcription=speech)
+
+    if result.candidates[0].finish_reason == 3: 
         print("Harmful content detected")
     else:
         try:
@@ -64,8 +69,9 @@ async def gemini_query_response_tts(text=None):
 
 if __name__ == "__main__":
     
-    i=7
-    #asyncio.run(gemini_query_response_tts("Is fleming college public?"))
+    i=8
+    asyncio.run(gemini_query_response_tts("Is fleming college public?"))
+    """
     print(query_gemini_model(i,"Is fleming college public?").text)    
 
     print(query_gemini_model(i,"Who is the college's mascot?").text)
@@ -74,17 +80,4 @@ if __name__ == "__main__":
     print(f"Model version {i} ********************\n")
 
 
-    """
-    speech = speech_to_text_translation()
-    result = query_gemini_model(version=3, transcription=speech)
-
-    if result.candidates[0].finish_reason == 3:
-        print("Harmful content detected")
-    else:
-        try:
-            print(result.text)
-            #sys_text_to_speech(result.text) #uncomment to use system text to speech
-            asyncio.run(play_edge_tts(result.text)) #uncomment to use edge text            
-        except Exception as e:
-            print(f"Error: {e}")
     """

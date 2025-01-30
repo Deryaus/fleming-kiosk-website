@@ -54,7 +54,7 @@ async def play_edge_tts(text):
     Raises:
         Exception: If there is an error during the text-to-speech conversion or audio playback.
     """
-    inter, warning = await text_to_speech(text, voice="en-CA-ClaraNeural", rate=150, pitch=20)
+    inter, warning = await text_to_speech(text, voice="en-CA-ClaraNeural", rate=125, pitch=20)
     try:
         playsound.playsound(inter)
     except Exception as e:
