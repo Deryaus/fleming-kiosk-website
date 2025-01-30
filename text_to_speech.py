@@ -41,23 +41,6 @@ async def text_to_speech(text, voice, rate, pitch):
     await communicate.save(tmp_path)    
     return tmp_path, None
 
-async def tts_interface(text, voice, rate, pitch):
-    """
-    Asynchronously converts text to speech using specified voice, rate, and pitch.
-
-    Args:
-        text (str): The text to be converted to speech.
-        voice (str): The voice to be used for speech synthesis.
-        rate (int): The rate (%) increase of the speech.
-        pitch (int): The pitch (Hz) increase of the speech.
-
-    Returns:
-        tuple: A tuple containing the audio data and a warning message if any. 
-               If there is no warning, the second element of the tuple will be None.
-    """
-    audio, _ = await text_to_speech(text, voice, rate, pitch)
-    return audio, None
-
 async def play_edge_tts(text):
     """
     Asynchronously converts text to speech using the specified voice and plays the audio.
