@@ -1,0 +1,5 @@
+google-generativeai
+speechrecognition
+pyttsx3
+pyaudio
+flask[async]

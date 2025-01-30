@@ -67,7 +67,7 @@ function handleEnterKey(event) {
         .then(response => response.json())
         .then(data => {
             // Add the response to the chat output
-            //chatOutput.value += `${data.response}\n\n`;
+           // chatOutput.value += `${data.response}\n\n`;
             // scroll to the bottom of the chat output
             //chatOutput.scrollTop = chatOutput.scrollHeight;
             typeEffect(data.response + '\n\n', chatOutput);
@@ -85,6 +85,7 @@ function startRecording() {
     // Change to red while recording and disable button
     micButton.style.backgroundColor = '#dc3545';
     micButton.disabled = true;
+    chatOutput.value += 'Listening...\n';
     // make a call to the python script
     fetch('/record-audio', {
         method: 'POST',
@@ -96,14 +97,22 @@ function startRecording() {
     .then(response => response.json())
     .then(data => {
         // Wait for recording time before showing results
-        setTimeout(() => {
+       /** setTimeout(() => {
             // Reset button color and re-enable button
             micButton.disabled = false;
             micButton.style.backgroundColor = '#007bff';
             // Show the conversation
             chatOutput.value += `Question: ${data.userInput}\n\n`;
             typeEffect(data.output + '\n\n', chatOutput);
-        }, timeoutLength);
+        }, timeoutLength);*/
+        chatOutput.value = chatOutput.value.replace('Listening...\n', '');
+        micButton.disabled = false;
+        micButton.style.backgroundColor = '#007bff';
+        //show the output
+        chatOutput.value += `Question: ${data.userInput}\n\n`;
+        chatOutput.value += `${data.output}\n\n`;
+        // Scroll to the bottom of the chat output
+        chatOutput.scrollTop = chatOutput.scrollHeight;
     });
 }
 
