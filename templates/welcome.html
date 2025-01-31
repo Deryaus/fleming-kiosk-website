@@ -5,17 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome To Fleming College</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles_welcome.css') }}">
- 
+    <script src="{{ url_for('static', filename='noise.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='util.js') }}"></script>
+    <script src="{{ url_for('static', filename='pipeline.js') }}"></script>
 </head>
-<body>
-    <div class="logo-container">
-        <img src="{{ url_for('static', filename='fleminglogo.png') }}" alt="Fleming College Logo" class="logo">
-    </div>
-    <div class="content-container">
-        <h1>Welcome to Fleming College</h1>
-        <nav>
-            <a href="{{ url_for('home') }}" class="btn">Click here to get started</a>
-        </nav>
-    </div>
+<body class="demo-5">
+    <main>
+        <div class="content content--canvas"></div>
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='fleminglogowhite.png') }}" alt="Fleming College Logo" class="logo">
+        </div>
+        <div class="content-container">
+            <h1>Welcome To Fleming College</h1>
+            <nav>
+                <a href="{{ url_for('home') }}" class="btn">Click Here To Get Started</a>
+            </nav>
+        </div>
+
+    </main>
 </body>
 </html>

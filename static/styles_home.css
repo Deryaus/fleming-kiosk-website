@@ -60,6 +60,7 @@ body {
 /* Style for button hover state */
 .btn:hover {
     background-color: #0056b3;
+    transform: scale(1.05);
 }
 
 
@@ -83,6 +84,7 @@ body {
    background-position: right center; /* change the direction of the change here */
    color: #fff;
    text-decoration: none;
+   transform: scale(1.05);
  }
 
 

@@ -19,6 +19,7 @@
         <button class="btn" onclick="showSection('schedule-section')">Event Schedule</button>
         <button class="btn" onclick="showSection('faqs-section')">FAQs</button>
         <button class="btn-blz" onclick="showSection('Chat-with-blaze')">Chat With Blaze</button>
+        <button class="btn" onclick="showSection('game-section')">WIN SWAG</button>
     </div>
     <div id="map-section" class="content-section">
         <img src="{{ url_for('static', filename='campusmap-all-levels.png') }}" alt="Campus Map">
@@ -49,5 +50,11 @@
         </div>
         <div class="simple-keyboard"></div>
     </div>
+    <div id ="game-section" class="content-section">
+        <h2>Win Swag</h2>
+        <p>Play a game for a chance to win some cool swag!</p>
+        <button class="btn" onclick="">Start Game</button>
+    </div>      
+
 </body>
 </html>
