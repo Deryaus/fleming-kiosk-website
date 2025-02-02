@@ -70,8 +70,12 @@ function handleEnterKey(event) {
            // chatOutput.value += `${data.response}\n\n`;
             // scroll to the bottom of the chat output
             //chatOutput.scrollTop = chatOutput.scrollHeight;
-            typeEffect(data.response + '\n\n', chatOutput);
-        });       
+            chatOutput.value += 'Blaze: \n';  
+            typeEffect(data.response + '\n\n', chatOutput, function() { 
+                chatOutput.value += '──────────────────────────────────────────────────────────────────────────────────\n\n';
+            });
+
+        });
         // Clear the input field
         document.getElementById('chat-input').value = '';
         keyboard.setInput(''); // Clear Virtual keyboard input
@@ -109,8 +113,9 @@ function startRecording() {
         micButton.disabled = false;
         micButton.style.backgroundColor = '#007bff';
         //show the output
-        chatOutput.value += `Question: ${data.userInput}\n\n`;
-        chatOutput.value += `${data.output}\n\n`;
+        chatOutput.value += `Question: ${data.user_input}\n\n`;
+        chatOutput.value += `Blaze: ${data.output}\n\n`;
+        chatOutput.value += '──────────────────────────────────────────────────────────────────────────────────\n\n';
         // Scroll to the bottom of the chat output
         chatOutput.scrollTop = chatOutput.scrollHeight;
     });
@@ -122,7 +127,7 @@ function startRecording() {
  * @param {string} text - The text to be typed out.
  * @param {HTMLTextAreaElement} element - The HTML element where the text will be displayed.
  */
-function typeEffect(text, element) {
+function typeEffect(text, element, callback) {
     let i = 0;
     const typeSpeed = 25; // milliseconds per character
     
@@ -133,6 +138,9 @@ function typeEffect(text, element) {
             element.scrollTop = element.scrollHeight;
             i++;
             setTimeout(type, typeSpeed);
+        }
+        else if (callback) {
+            callback();
         }
     }
     type();

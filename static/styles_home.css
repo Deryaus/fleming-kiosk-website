@@ -15,15 +15,32 @@ body {
     height: 20vh; /* 20% of viewport height */
     text-align: center; 
     overflow: hidden; 
+    align-items: center;
+    justify-content: space-between;
 }
 
 /* Style for images inside the header container */
 .header-container img {
-    width: 75%; /* 75% width of the container */
+    width: 100%; /* 100% width of the container */
     height: auto; /* Maintain aspect ratio */
     object-fit: cover; /* Cover the container */
 }
+.logo-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    text-align: left;
+    padding-top: 0px;
+    z-index: 1;
+}
 
+.logo {
+    position: absolute;
+    width: 300px;
+    height: auto;
+    margin: 0;
+    z-index: 1;
+}
 /* Style for h1 inside the header container */
 .header-container h1 {
     position: absolute; 
@@ -48,20 +65,24 @@ body {
     padding: 10px 20px; 
     font-size: 1.2em;
     color: #fff;
-    background-color: #007bff;
+    background: linear-gradient(45deg, var(--color-text), var(--color-link));
     box-shadow: 0 0 20px #eee;
     border-radius: 10px;
     text-decoration: none; /* No text decoration */
     cursor: pointer; /* Pointer cursor on hover */
     margin: 0 10px; /* Margin on left and right */
+    transition: all 0.3s ease;
 }
 
 
 /* Style for button hover state */
 .btn:hover {
-    background-color: #0056b3;
+    background: linear-gradient(45deg, var(--color-link), var(--color-link-hover));
     transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(10, 181, 228, 0.3);
+    text-decoration: none;
 }
+
 
 
 .btn-blz {background-image: linear-gradient(to right, #FF512F 0%, #F09819  51%, #FF512F  100%)}
@@ -70,7 +91,6 @@ body {
    padding: 10px 20px; 
    font-size: 1.2em;
    text-align: center;
-   text-transform: uppercase;
    transition: 0.5s;
    background-size: 200% auto;
    color: white;            
@@ -81,12 +101,11 @@ body {
  }
 
  .btn-blz:hover {
-   background-position: right center; /* change the direction of the change here */
+   background-position: right center; 
    color: #fff;
    text-decoration: none;
    transform: scale(1.05);
  }
-
 
 /* Style for content sections */
 .content-section {
@@ -192,3 +211,12 @@ body {
 .keyboard-visible {
     display: block;
 }
+
+/* pipeline color scheme */
+:root {
+    --color-text: #5c5ee7;
+    --color-link: #0ab5e4;
+    --color-link-hover: #fff;
+    --color-title: #0ab5e4;
+}
+
