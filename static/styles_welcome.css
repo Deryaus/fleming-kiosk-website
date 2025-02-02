@@ -36,6 +36,7 @@ main {
     width: 300px;
     height: auto;
     margin: 0;
+    position: fixed;
 }
 
 .content-container {
