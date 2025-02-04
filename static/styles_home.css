@@ -1,3 +1,13 @@
+
+:root {
+    /* pipeline color scheme */
+    --color-text: #5c5ee7;
+    --color-link: #0ab5e4;
+    --color-link-hover: #fff;
+    --color-title: #0ab5e4;
+}
+
+
 /* Style for the body element */
 body {
     display: flex; /* Use flexbox layout */
@@ -122,25 +132,30 @@ body {
 
 /* Style for the map section */
 #map-section {
-    display: block; /* Display block */
+    display: block; 
 }
+
 
 /* Style for images inside the map section */
 #map-section img {
-    width: 110%; 
-    height: auto; 
+    width: 100%; 
+    height: auto;
+    margin: 0 auto;
+    display: block; 
 }
 
+/**Chat with blaze sections*/
 /* Style for the chat input container */
 .chat-input-container {
     display: flex; 
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center; 
-    margin-top: 20px;
+    margin-top: 10px;
     gap: 20px; /* Gap between children */
     width: 80%; 
     margin-left: auto; 
-    margin-right: 50px; 
+    margin-right: 100px; 
+    padding-left: 150px;
 }
 
 /* Style for the chat input */
@@ -188,13 +203,14 @@ body {
     margin-top: 20px; 
     width: 100%; 
     display: flex; 
-    justify-content: center; 
+    justify-content: flex-end; 
+    padding-left: 100px;
 }
 
 /* Style for the chat output */
 #chat-output {
-    width: 150%; 
-    height: 400px; 
+    width: 80%; 
+    height: 350px; 
     padding: 15px; 
     font-size: 1.2em; 
     border: 2px solid #007bff; 
@@ -204,19 +220,56 @@ body {
     margin: 0 auto;
 }
 .simple-keyboard {
+    position: fixed;  
+    bottom: 0;       /* Stick to bottom */
+    left: 50%;       /* Center horizontally */
+    transform: translateX(-50%);  /* Center alignment correction */
     max-width: 850px;
     margin: 20px auto;
-    display: none; /* Hidden by default */  ;
+    display: none;   /* Hidden by default */
+    z-index: 9999;   /* Very high z-index to stay on top */
+    background-color: rgba(255, 255, 255, 0.95);  /* Semi-transparent background */
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);  
 }
 .keyboard-visible {
     display: block;
 }
 
-/* pipeline color scheme */
-:root {
-    --color-text: #5c5ee7;
-    --color-link: #0ab5e4;
-    --color-link-hover: #fff;
-    --color-title: #0ab5e4;
+.character {
+    position: fixed;
+    left: 50px;
+    top: 78%;
+    width: 720px;
+    height: 800px; /* Set specific height */
+    transform: translate(-50px, -50%);
+    overflow: hidden; /* Hide overflow */
 }
 
+.character img {
+    width: 500px;
+    height: 500px;
+    /**animation: moveSpritesheet 1s steps(3) infinite;*/
+    image-rendering: crisp-edges;
+}
+
+.blaze-logo {
+    position: fixed;
+    left: 85%;
+    top: 90%;
+    width: 300px;
+    height: auto;
+    overflow: hidden;
+
+}
+
+/** This will be used to animate sprite sheet if we get one later*/
+@keyframes moveSpritesheet {
+    from {
+       transform: translate3d(0px,0,0)
+    }
+    to {
+       transform: translate3d(-100%,0,0)
+    }
+ }
+ 

@@ -53,6 +53,7 @@ function handleEnterKey(event) {
     if (event.key === 'Enter') {
         const userInput = document.getElementById('chat-input').value;
         const chatOutput = document.getElementById('chat-output');
+        document.querySelector('.simple-keyboard').classList.remove('keyboard-visible');
         // Add the user input to the chat output
         chatOutput.value += `Question: ${userInput}\n\n`;
         // Make call to python script
