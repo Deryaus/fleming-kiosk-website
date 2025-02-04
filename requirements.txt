@@ -3,3 +3,6 @@ speechrecognition
 pyttsx3
 pyaudio
 flask[async]
+playsound
+edge-tts
+apscheduler

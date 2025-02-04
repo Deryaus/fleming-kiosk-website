@@ -11,9 +11,17 @@ Parameters:
 
 from flask import Flask, render_template, jsonify, request
 from geminiQuery import gemini_query_response_tts, query_gemini_model
+from events import get_all_events
+from apscheduler.schedulers.background import BackgroundScheduler
 
 
 app = Flask(__name__)
+
+#Scheduling grabbing the SAC calender image from the website once per da
+scheduler = BackgroundScheduler()
+scheduler.add_job(get_all_events, 'interval', days=1)
+scheduler.start()
+get_all_events()
 
 # Routes
 @app.route('/')
