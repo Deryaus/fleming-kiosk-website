@@ -16,6 +16,7 @@ body {
     margin: 0; /* Remove default margin */
     font-family: Arial, sans-serif; /* Set font family */
     background-color: #f0f0f0; /* Set background color */
+    overflow: hidden; /* Hide overflow */
 }
 
 /* Style for the header container */
@@ -41,7 +42,7 @@ body {
     left: 20px;
     text-align: left;
     padding-top: 0px;
-    z-index: 1;
+    z-index: 3;
 }
 
 .logo {
@@ -49,7 +50,7 @@ body {
     width: 300px;
     height: auto;
     margin: 0;
-    z-index: 1;
+    z-index: 3;
 }
 /* Style for h1 inside the header container */
 .header-container h1 {
@@ -144,6 +145,21 @@ body {
     display: block; 
 }
 
+#schedule-section img {
+    width: 60%; 
+    height: auto;
+    margin: 0 auto;
+    display: block; 
+}
+.SAQ-QR {
+    position: fixed;
+    left: 85%;
+    top: 80%;
+    width: 300px;
+    height: auto;
+    overflow: hidden;
+
+}
 /**Chat with blaze sections*/
 /* Style for the chat input container */
 .chat-input-container {
@@ -237,7 +253,7 @@ body {
 }
 
 .character {
-    position: fixed;
+    position: absolute;
     left: 50px;
     top: 78%;
     width: 720px;
@@ -254,7 +270,7 @@ body {
 }
 
 .blaze-logo {
-    position: fixed;
+    position: absolute;
     left: 85%;
     top: 90%;
     width: 300px;

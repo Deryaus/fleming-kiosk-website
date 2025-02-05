@@ -233,3 +233,27 @@ function handleShift() {
     });
     keyboardElement.classList.add('keyboard-visible');
 } 
+
+document.addEventListener('DOMContentLoaded', () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    
+    /**
+     * Updates the source of the calendar image element with the current date.
+     * The image source is set to a path in the format `/static/calendar_<year>-<month>-<day>.jpg`.
+     */
+    const updateCalendarImage = () => {
+        const calendarImg = document.getElementById('calendar-img');
+        if (calendarImg) {
+            calendarImg.src = `/static/calendar_${year}-${month}-${day}.jpg`;
+        }
+    };
+
+    // Update calendar image when schedule section is shown
+    const scheduleButton = document.querySelector('button[onclick="showSection(\'schedule-section\')"]');
+    if (scheduleButton) {
+        scheduleButton.addEventListener('click', updateCalendarImage);
+    }
+});
