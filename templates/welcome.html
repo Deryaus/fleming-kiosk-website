@@ -8,6 +8,7 @@
     <script src="{{ url_for('static', filename='noise.min.js') }}"></script>
     <script src="{{ url_for('static', filename='util.js') }}"></script>
     <script src="{{ url_for('static', filename='pipeline.js') }}"></script>
+    <script src="{{ url_for('static', filename='home_scripts.js') }}"></script>
 </head>
 <body class="demo-5">
     <main>
@@ -18,7 +19,7 @@
         <div class="content-container">
             <h1>Welcome To Fleming College</h1>
             <nav>
-                <a href="{{ url_for('home') }}" class="btn">Click Here To Get Started</a>
+                <button class="btn" onclick="welcomeTTSGreeting()">Click Here To Get Started</button>
             </nav>
         </div>
 

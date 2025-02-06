@@ -122,6 +122,14 @@ function startRecording() {
     });
 }
 
+function welcomeTTSGreeting() {
+    window.location.href = "home";
+    // TODO: Call tts for greeting/fact 
+}
+
+// TODO: Functions for FAQ
+
+
 /**
  * Simulates a typing effect by incrementally adding characters from a given text to an element's value.
  *
