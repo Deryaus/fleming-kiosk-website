@@ -66,8 +66,7 @@ def download_calendar(soup, image_folder):
             print(f"Image tag found: {image_url}")
 
             # Construct the filename with the current date
-            today = datetime.now().strftime("%Y-%m-%d")
-            image_name = f"calendar_{today}.jpg"
+            image_name = f"calendar.jpg"
 
             # Download and save the image
             

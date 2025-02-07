@@ -13,7 +13,7 @@ body {
     display: flex; /* Use flexbox layout */
     flex-direction: column; /* Arrange children in a column */
     align-items: center; /* Center children horizontally */
-    margin: 0; /* Remove default margin */
+    margin: 0; /* Remove default margin */  
     font-family: Arial, sans-serif; /* Set font family */
     background-color: #f0f0f0; /* Set background color */
     overflow: hidden; /* Hide overflow */
@@ -269,6 +269,13 @@ body {
     image-rendering: crisp-edges;
 }
 
+.faq-section{
+    display: flex;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
 .blaze-logo {
     position: absolute;
     left: 85%;
@@ -277,6 +284,63 @@ body {
     height: auto;
     overflow: hidden;
 
+}
+
+.column-faq {
+    padding: 20px;
+}
+.left-faq {
+    width: 20%;
+    background: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.middle-faq {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+}
+.right-faq {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #e0e0e0;
+}
+.text-box-faq {
+    --r: 1em;  /* the radius */
+    --t: 1.5em; /* the size of the tail */
+    width: 60%;
+    min-height: 100px;
+    border-inline: var(--t) solid #0000;
+    border-radius: calc(var(--r) + var(--t))/var(--r);
+    mask: 
+      radial-gradient(100% 100% at var(--_p) 0,#0000 99%,#000 102%) 
+        var(--_p) 100%/var(--t) var(--t) no-repeat,
+      linear-gradient(#000 0 0) padding-box;
+    background: linear-gradient(to right, #FF512F 0%, #F09819 51%, #FF512F 100%) border-box;
+    color: #fff;
+    padding: 1em;
+    position: relative;
+}
+.box-right{
+    --_p: 100%;
+    border-bottom-right-radius: 0 0;
+    place-self: end;
+}
+.box-left{
+    --_p: 0;
+    border-bottom-left-radius: 0 0;
+    place-self: start;
+}
+.sprite-faq {
+    width: 200px; /* Adjust as needed */
+    height: 300px; /* Adjust as needed */
+    background-size: cover;
 }
 
 /** This will be used to animate sprite sheet if we get one later*/

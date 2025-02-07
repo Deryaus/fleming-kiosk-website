@@ -12,6 +12,8 @@ Parameters:
 from flask import Flask, render_template, jsonify, request
 from geminiQuery import gemini_query_response_tts, query_gemini_model
 from events import get_all_events
+import asyncio
+from text_to_speech import play_edge_tts
 from apscheduler.schedulers.background import BackgroundScheduler
 
 
@@ -47,6 +49,12 @@ async def record_audio():
         'output': output
         })
 
+
+
+@app.route('/tts', methods=['POST'])
+async def tts():
+    await play_edge_tts('This is a test') # Run the TTS function asynchronously
+    return jsonify({"message": "TTS started"}), 200
 
 if __name__ == '__main__':
     app.run(debug=True) 
