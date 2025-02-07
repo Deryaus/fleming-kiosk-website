@@ -49,7 +49,9 @@ async def record_audio():
         'output': output
         })
 
-
+#TODO: Add different colour speech bubbles to the HTML
+#TODO: Create questions for FAQ 
+#TODO: Use question text to return a response using TTS
 
 @app.route('/tts', methods=['POST'])
 async def tts():

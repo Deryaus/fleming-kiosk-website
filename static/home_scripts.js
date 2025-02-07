@@ -136,6 +136,11 @@ function welcomeTTSGreeting() {
 
 // TODO: Functions for FAQ
 
+function questionMove(button){
+    console.log(button.textContent);
+    document.getElementById("response-box").textContent = button.textContent;
+}
+
 
 /**
  * Simulates a typing effect by incrementally adding characters from a given text to an element's value.
