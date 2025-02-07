@@ -151,6 +151,60 @@ function typeEffect(text, element, callback) {
  * Creates a keyboard instance and displays it when the chat input is focused
  * Hides the keyboard when the mouse is clicked outside of the chat input 
  */
+
+let keyboard;
+let keyboardElement;
+function initializeKeyboard(inputSelector, keyboardSelector = '.simple-keyboard') {
+    const input = document.querySelector(inputSelector);
+    const keyboardElement = document.querySelector(keyboardSelector);
+    
+    keyboard = new SimpleKeyboard.default({
+        onChange: input => handleKeyboardInput(input),
+        onKeyPress: button => handleKeyPress(button),
+        layout: {
+            default: [
+                '1 2 3 4 5 6 7 8 9 0 - {bksp}',
+                'q w e r t y u i o p',
+                'a s d f g h j k l',
+                '{shift} z x c v b n m . ?',
+                '@ .com {space} {enter}'
+            ],
+            shift: [
+                '! @ # $ % ^ & * ( ) {bksp}',
+                'Q W E R T Y U I O P',
+                'A S D F G H J K L',
+                '{shift} Z X C V B N M . ?',
+                '@ .com {space} {enter}'
+            ]
+        },
+        display: {
+            '{enter}': 'Enter',
+            '{bksp}': 'Backspace',
+            '{space}': ' ',
+            '{shift}': 'Shift'
+        }
+    });
+
+    // Show keyboard when input is focused
+    input.addEventListener('focus', () => {
+        keyboardElement.classList.add('keyboard-visible');
+    });
+
+    // Hide keyboard when clicking outside
+    document.addEventListener('click', (event) => {
+        if (!event.target.closest(keyboardSelector) && event.target !== input) {
+            keyboardElement.classList.remove('keyboard-visible');
+        }
+    });
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    initializeKeyboard('#chat-input');
+});
+
+//TODO Uncomment this if you fuck it up
+/**
 document.addEventListener('DOMContentLoaded', () => {
     const input = document.querySelector('#chat-input');
     keyboardElement = document.querySelector('.simple-keyboard');
@@ -191,6 +245,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+*/
 /**
  * Handles the virtual keyboard input by updating the chat input field with the input value.
  *
@@ -207,9 +263,17 @@ function handleKeyboardInput(input) {
  * @param {string} button 
  */
 function handleKeyPress(button) {
+    const currentInput = document.activeElement;
+    const isEmailInput = currentInput.id === 'email-input';
     if (button === '{enter}') {
+        if (isEmailInput) {
+            const event = new KeyboardEvent('keypress', {'key': 'Enter'});
+            handleEmailSubmit(event);
+        }
+        else {    
         const event = new KeyboardEvent('keypress', {'key': 'Enter'}); // Create a new 'Enter' key press event
         handleEnterKey(event);
+        }
     }
     else if (button === '{shift}') {
         handleShift();
@@ -233,6 +297,10 @@ function handleShift() {
     });
     keyboardElement.classList.add('keyboard-visible');
 } 
+function handleEmail() {
+    //TODO function to handle email submit
+
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     const today = new Date();
@@ -257,3 +325,140 @@ document.addEventListener('DOMContentLoaded', () => {
         scheduleButton.addEventListener('click', updateCalendarImage);
     }
 });
+
+const quizQuestions = [
+    {
+        question: "Who is Fleming College's mascot?",
+        answers: [
+            "Blaze the Phoenix",
+            "Fred the Falcon",
+            "Sam the Snake",
+            "Pete the Penguin"
+        ],
+        correct: 0
+    },
+    {
+        question: "What is the name of the student portal at Fleming College?",
+        answers: [
+            "MyCampus",
+            "Student Central",
+            "Fleming Connect",
+            "Fleming Hub"
+        ],
+        correct: 0
+    },
+    {
+        question: "What is the name of the student association at Fleming College?",
+        answers: [
+            "Fleming Student Union",
+            "Fleming Student Administrative Council",
+            "Fleming Student Association",
+            "Fleming Student Government"
+        ],
+        correct: 1
+    },
+    {
+        question: "What is the name of the campus your are located in?",
+        answers: [
+            "Frost Campus",
+            "Sutherland Campus",
+            "Haliburton Campus",
+            "Cobourg Campus"
+        ],
+        correct: 1
+    }
+]
+
+let currentQuestion = 0;
+
+function startQuiz() {
+    currentQuestion = 0;
+    const quizSection = document.getElementById('quiz-section');
+    quizSection.style.display = 'block'; // display the quiz section
+    document.getElementById('start-btn').style.display ='none';  // remove start quiz button 
+    showQuestion();
+    // TODO text to speech here to play question
+
+}
+
+function showQuestion() {
+    const question = quizQuestions[currentQuestion];
+    document.getElementById('question').textContent = question.question;
+    const answerBtns = document.querySelectorAll('.answer-btn');
+    answerBtns.forEach((btn, index) => { // loop through buttons and add answers to each button
+        btn.textContent = question.answers[index];
+        btn.className = 'answer-btn';
+        btn.disabled = false;
+    });
+    document.getElementById('feedback-section').style.display = 'none'; // hide feedback section
+    document.getElementById('next-btn').style.display = 'none'; // hide next button untill answer is displayed
+}  
+
+
+function checkAnswer(answerIndex) {
+    const question = quizQuestions[currentQuestion];
+    const feedbackSection = document.getElementById('feedback-section');
+    const answerBtns = document.querySelectorAll('.answer-btn');
+    
+    // Disable all answer buttons until next question
+    answerBtns.forEach(btn => {
+        btn.disabled = true;
+    });
+
+    if (answerIndex === question.correct) {
+
+        feedbackSection.textContent = 'Correct! Well done!';
+        feedbackSection.style.backgroundColor = '#5ac774';
+        feedbackSection.style.color = '#155724';
+        answerBtns[answerIndex].classList.add('correct'); // hightlight the correct answer in green. 
+    } else {
+        feedbackSection.textContent = `Incorrect. The correct answer is: ${question.answers[question.correct]}`;
+        feedbackSection.style.backgroundColor = '#f8d7da';
+        feedbackSection.style.color = '#721c24';
+        answerBtns[answerIndex].classList.add('incorrect'); // highlight the incorrect answer in red
+        answerBtns[question.correct].classList.add('correct'); // hightlight the correct answer in green
+    }
+    feedbackSection.style.display = 'block';
+    document.getElementById('next-btn').style.display = 'block';
+}
+
+function nextQuestion() {
+    currentQuestion++;
+    if (currentQuestion < quizQuestions.length) {
+        showQuestion();
+        feedbackSection.style.display = 'none';
+        //TODO text to speech here to play question
+
+    
+
+    }
+    else {
+        // Hide quiz elements
+        document.getElementById('question-container').style.display = 'none';
+        document.getElementById('answer-section').style.display = 'none';
+        document.getElementById('feedback-section').style.display = 'none';
+        document.getElementById('next-btn').style.display = 'none';
+
+        // Show completion message
+        const quizSection = document.getElementById('quiz-section');
+        const completionDiv = document.createElement('div');
+        completionDiv.innerHTML = 
+            `<h1>Quiz Complete!</h1>
+            <button class="btn" id="start-btn" onclick="playAgain()">Play Again?</button>
+            <p>Enter your email address below for a chance to win some Fleming Swag!</p>
+            <p>one entry per person</p>`;
+        quizSection.appendChild(completionDiv);
+
+    }
+}
+
+function playAgain() {
+    // Remove completion message
+    const quizSection = document.getElementById('quiz-section');
+    quizSection.removeChild(quizSection.lastChild);
+    // Show quiz elements
+    document.getElementById('question-container').style.display = 'block';
+    document.getElementById('answer-section').style.display = 'grid';
+    // Start new quiz
+    startQuiz();
+}
