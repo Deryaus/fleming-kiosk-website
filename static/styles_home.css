@@ -298,6 +298,7 @@ body {
     height: auto;
     margin: 0 auto;
     padding: 50px;
+    padding-top: 10px;
 }
 
 #question-container {

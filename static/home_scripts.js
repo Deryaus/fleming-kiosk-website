@@ -1,5 +1,7 @@
 let inactivityTimeout;
-let timeoutLenght;
+let timeoutLength;
+let currentQuestion;
+let quizQuestions;
 /**
  * Resets the inactivity timeout timer. When the timer expires, redirects to the welcome page.
  * Clears any existing timeout before setting a new one.
@@ -8,10 +10,10 @@ let timeoutLenght;
  */
 function resetInactivityTimeout() {
     let timeoutLength = 300000; // 5 minutes //TODO change this for deployment
-    clearTimeout(inactivityTimeout);
-    inactivityTimeout = setTimeout(() => {
-        window.location.href = document.body.getAttribute('data-welcome-url');
-    }, timeoutLength);
+        clearTimeout(inactivityTimeout);
+        inactivityTimeout = setTimeout(() => {
+            window.location.href = document.body.getAttribute('data-welcome-url');
+        }, timeoutLength);
 }
 
 /**
@@ -33,12 +35,25 @@ function showSection(sectionId) {
 /**
  * Event Listener for the 'DOMContentLoaded' event.
  * Attaches event listeners for mousemove and keypress events to reset the inactivity timeout.
-
+ * Initializes the virtual keyboard on the chat input field.
+ * Updates the calendar image source to the current date.
+ * 
  */
 document.addEventListener('DOMContentLoaded', () => {
-    resetInactivityTimeout();
-    document.addEventListener('mousemove', resetInactivityTimeout);
-    document.addEventListener('keypress', resetInactivityTimeout);
+    fetch('/static/quiz_questions.json')
+        .then(response => response.json())
+        .then(data => {
+            quizQuestions = data;   
+        });
+
+
+
+    if (!window.location.pathname.includes('welcome')) {
+        document.addEventListener('mousemove', resetInactivityTimeout);
+        document.addEventListener('keypress', resetInactivityTimeout);
+    }
+    initializeKeyboard('#chat-input');
+    updateCalendarImage();
 });
 
 
@@ -84,7 +99,7 @@ function handleEnterKey(event) {
 }
 
 function startRecording() {
-    let timeoutLength = 2000; // 2 seconds
+    let timeout = 2000; // 2 seconds
     const micButton = document.querySelector('.mic-btn');
     const chatOutput = document.getElementById('chat-output');
     // Change to red while recording and disable button
@@ -109,7 +124,7 @@ function startRecording() {
             // Show the conversation
             chatOutput.value += `Question: ${data.userInput}\n\n`;
             typeEffect(data.output + '\n\n', chatOutput);
-        }, timeoutLength);*/
+        }, timeout);*/
         chatOutput.value = chatOutput.value.replace('Listening...\n', '');
         micButton.disabled = false;
         micButton.style.backgroundColor = '#007bff';
@@ -131,7 +146,6 @@ function startRecording() {
 function typeEffect(text, element, callback) {
     let i = 0;
     const typeSpeed = 25; // milliseconds per character
-    
     function type() {
         if (i < text.length) {
             element.value += text.charAt(i);
@@ -152,8 +166,7 @@ function typeEffect(text, element, callback) {
  * Hides the keyboard when the mouse is clicked outside of the chat input 
  */
 
-let keyboard;
-let keyboardElement;
+
 function initializeKeyboard(inputSelector, keyboardSelector = '.simple-keyboard') {
     const input = document.querySelector(inputSelector);
     const keyboardElement = document.querySelector(keyboardSelector);
@@ -198,55 +211,6 @@ function initializeKeyboard(inputSelector, keyboardSelector = '.simple-keyboard'
     });
 }
 
-
-document.addEventListener('DOMContentLoaded', () => {
-    initializeKeyboard('#chat-input');
-});
-
-//TODO Uncomment this if you fuck it up
-/**
-document.addEventListener('DOMContentLoaded', () => {
-    const input = document.querySelector('#chat-input');
-    keyboardElement = document.querySelector('.simple-keyboard');
-    keyboard = new SimpleKeyboard.default({
-        onChange: input => handleKeyboardInput(input),
-        onKeyPress: button => handleKeyPress(button),
-      layout: {
-            default: [
-                '1 2 3 4 5 6 7 8 9 0 - {bksp}',
-                'q w e r t y u i o p',
-                'a s d f g h j k l',
-                '{shift} z x c v b n m . ?',
-                '@ .com {space} {enter}'
-            ],
-            shift: [
-                '! @ # $ % ^ & * ( ) _ {bksp}',
-                'Q W E R T Y U I O P',
-                'A S D F G H J K L',
-                '{shift} Z X C V B N M . ?',
-                '@ .com {space} {enter}'
-            ]
-        },
-        display: {
-            '{enter}': 'Enter',
-            '{bksp}': 'Backspace',
-            '{space}': ' ',
-            '{shift}': 'Shift'
-        } 
-    });
-    // Show keyboard when chat input is focused
-    input.addEventListener('focus', () => {
-        keyboardElement.classList.add('keyboard-visible');
-    });
-    // Hide keyboard when mouse click outside of chat input
-    document.addEventListener('click', (event) => {
-        if (!event.target.closest('.simple-keyboard') && event.target !== input) {
-            keyboardElement.classList.remove('keyboard-visible');
-        }
-    });
-});
-
-*/
 /**
  * Handles the virtual keyboard input by updating the chat input field with the input value.
  *
@@ -268,7 +232,7 @@ function handleKeyPress(button) {
     if (button === '{enter}') {
         if (isEmailInput) {
             const event = new KeyboardEvent('keypress', {'key': 'Enter'});
-            handleEmailSubmit(event);
+            handleEmail(event);
         }
         else {    
         const event = new KeyboardEvent('keypress', {'key': 'Enter'}); // Create a new 'Enter' key press event
@@ -297,79 +261,24 @@ function handleShift() {
     });
     keyboardElement.classList.add('keyboard-visible');
 } 
+
 function handleEmail() {
     //TODO function to handle email submit
 
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+function updateCalendarImage() {
     const today = new Date();
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, '0');
     const day = String(today.getDate()).padStart(2, '0');
-    
-    /**
-     * Updates the source of the calendar image element with the current date.
-     * The image source is set to a path in the format `/static/calendar_<year>-<month>-<day>.jpg`.
-     */
-    const updateCalendarImage = () => {
-        const calendarImg = document.getElementById('calendar-img');
-        if (calendarImg) {
-            calendarImg.src = `/static/calendar_${year}-${month}-${day}.jpg`;
-        }
-    };
-
-    // Update calendar image when schedule section is shown
-    const scheduleButton = document.querySelector('button[onclick="showSection(\'schedule-section\')"]');
-    if (scheduleButton) {
-        scheduleButton.addEventListener('click', updateCalendarImage);
+    const calendarImg = document.getElementById('calendar-img');
+    if (calendarImg) {
+        calendarImg.src = `/static/calendar_${year}-${month}-${day}.jpg`;
     }
-});
+}
 
-const quizQuestions = [
-    {
-        question: "Who is Fleming College's mascot?",
-        answers: [
-            "Blaze the Phoenix",
-            "Fred the Falcon",
-            "Sam the Snake",
-            "Pete the Penguin"
-        ],
-        correct: 0
-    },
-    {
-        question: "What is the name of the student portal at Fleming College?",
-        answers: [
-            "MyCampus",
-            "Student Central",
-            "Fleming Connect",
-            "Fleming Hub"
-        ],
-        correct: 0
-    },
-    {
-        question: "What is the name of the student association at Fleming College?",
-        answers: [
-            "Fleming Student Union",
-            "Fleming Student Administrative Council",
-            "Fleming Student Association",
-            "Fleming Student Government"
-        ],
-        correct: 1
-    },
-    {
-        question: "What is the name of the campus your are located in?",
-        answers: [
-            "Frost Campus",
-            "Sutherland Campus",
-            "Haliburton Campus",
-            "Cobourg Campus"
-        ],
-        correct: 1
-    }
-]
 
-let currentQuestion = 0;
 
 function startQuiz() {
     currentQuestion = 0;
@@ -382,7 +291,7 @@ function startQuiz() {
 }
 
 function showQuestion() {
-    const question = quizQuestions[currentQuestion];
+    const question = quizQuestions.questions[currentQuestion];
     document.getElementById('question').textContent = question.question;
     const answerBtns = document.querySelectorAll('.answer-btn');
     answerBtns.forEach((btn, index) => { // loop through buttons and add answers to each button
@@ -396,10 +305,9 @@ function showQuestion() {
 
 
 function checkAnswer(answerIndex) {
-    const question = quizQuestions[currentQuestion];
+    const question = quizQuestions.questions[currentQuestion];
     const feedbackSection = document.getElementById('feedback-section');
     const answerBtns = document.querySelectorAll('.answer-btn');
-    
     // Disable all answer buttons until next question
     answerBtns.forEach(btn => {
         btn.disabled = true;
@@ -424,9 +332,8 @@ function checkAnswer(answerIndex) {
 
 function nextQuestion() {
     currentQuestion++;
-    if (currentQuestion < quizQuestions.length) {
+    if (currentQuestion < quizQuestions.questions.length) {
         showQuestion();
-        feedbackSection.style.display = 'none';
         //TODO text to speech here to play question
 
     
