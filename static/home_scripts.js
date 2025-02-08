@@ -1,5 +1,7 @@
 let inactivityTimeout;
-let timeoutLenght;
+let timeoutLength;
+let currentQuestion;
+let quizQuestions;
 /**
  * Resets the inactivity timeout timer. When the timer expires, redirects to the welcome page.
  * Clears any existing timeout before setting a new one.
@@ -8,10 +10,10 @@ let timeoutLenght;
  */
 function resetInactivityTimeout() {
     let timeoutLength = 300000; // 5 minutes //TODO change this for deployment
-    clearTimeout(inactivityTimeout);
-    inactivityTimeout = setTimeout(() => {
-        window.location.href = document.body.getAttribute('data-welcome-url');
-    }, timeoutLength);
+        clearTimeout(inactivityTimeout);
+        inactivityTimeout = setTimeout(() => {
+            window.location.href = document.body.getAttribute('data-welcome-url');
+        }, timeoutLength);
 }
 
 /**
@@ -33,12 +35,25 @@ function showSection(sectionId) {
 /**
  * Event Listener for the 'DOMContentLoaded' event.
  * Attaches event listeners for mousemove and keypress events to reset the inactivity timeout.
-
+ * Initializes the virtual keyboard on the chat input field.
+ * Updates the calendar image source to the current date.
+ * 
  */
 document.addEventListener('DOMContentLoaded', () => {
-    resetInactivityTimeout();
-    document.addEventListener('mousemove', resetInactivityTimeout);
-    document.addEventListener('keypress', resetInactivityTimeout);
+    fetch('/static/quiz_questions.json')
+        .then(response => response.json())
+        .then(data => {
+            quizQuestions = data;   
+        });
+
+
+
+    if (!window.location.pathname.includes('welcome')) {
+        document.addEventListener('mousemove', resetInactivityTimeout);
+        document.addEventListener('keypress', resetInactivityTimeout);
+    }
+    initializeKeyboard('#chat-input');
+    updateCalendarImage();
 });
 
 
@@ -84,7 +99,7 @@ function handleEnterKey(event) {
 }
 
 function startRecording() {
-    let timeoutLength = 2000; // 2 seconds
+    let timeout = 2000; // 2 seconds
     const micButton = document.querySelector('.mic-btn');
     const chatOutput = document.getElementById('chat-output');
     // Change to red while recording and disable button
@@ -109,7 +124,7 @@ function startRecording() {
             // Show the conversation
             chatOutput.value += `Question: ${data.userInput}\n\n`;
             typeEffect(data.output + '\n\n', chatOutput);
-        }, timeoutLength);*/
+        }, timeout);*/
         chatOutput.value = chatOutput.value.replace('Listening...\n', '');
         micButton.disabled = false;
         micButton.style.backgroundColor = '#007bff';
@@ -151,7 +166,6 @@ function questionMove(button){
 function typeEffect(text, element, callback) {
     let i = 0;
     const typeSpeed = 25; // milliseconds per character
-    
     function type() {
         if (i < text.length) {
             element.value += text.charAt(i);
@@ -171,13 +185,16 @@ function typeEffect(text, element, callback) {
  * Creates a keyboard instance and displays it when the chat input is focused
  * Hides the keyboard when the mouse is clicked outside of the chat input 
  */
-document.addEventListener('DOMContentLoaded', () => {
-    const input = document.querySelector('#chat-input');
-    keyboardElement = document.querySelector('.simple-keyboard');
+
+
+function initializeKeyboard(inputSelector, keyboardSelector = '.simple-keyboard') {
+    const input = document.querySelector(inputSelector);
+    const keyboardElement = document.querySelector(keyboardSelector);
+    
     keyboard = new SimpleKeyboard.default({
         onChange: input => handleKeyboardInput(input),
         onKeyPress: button => handleKeyPress(button),
-      layout: {
+        layout: {
             default: [
                 '1 2 3 4 5 6 7 8 9 0 - {bksp}',
                 'q w e r t y u i o p',
@@ -186,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 '@ .com {space} {enter}'
             ],
             shift: [
-                '! @ # $ % ^ & * ( ) _ {bksp}',
+                '! @ # $ % ^ & * ( ) {bksp}',
                 'Q W E R T Y U I O P',
                 'A S D F G H J K L',
                 '{shift} Z X C V B N M . ?',
@@ -198,19 +215,22 @@ document.addEventListener('DOMContentLoaded', () => {
             '{bksp}': 'Backspace',
             '{space}': ' ',
             '{shift}': 'Shift'
-        } 
+        }
     });
-    // Show keyboard when chat input is focused
+
+    // Show keyboard when input is focused
     input.addEventListener('focus', () => {
         keyboardElement.classList.add('keyboard-visible');
     });
-    // Hide keyboard when mouse click outside of chat input
+
+    // Hide keyboard when clicking outside
     document.addEventListener('click', (event) => {
-        if (!event.target.closest('.simple-keyboard') && event.target !== input) {
+        if (!event.target.closest(keyboardSelector) && event.target !== input) {
             keyboardElement.classList.remove('keyboard-visible');
         }
     });
-});
+}
+
 /**
  * Handles the virtual keyboard input by updating the chat input field with the input value.
  *
@@ -227,9 +247,17 @@ function handleKeyboardInput(input) {
  * @param {string} button 
  */
 function handleKeyPress(button) {
+    const currentInput = document.activeElement;
+    const isEmailInput = currentInput.id === 'email-input';
     if (button === '{enter}') {
+        if (isEmailInput) {
+            const event = new KeyboardEvent('keypress', {'key': 'Enter'});
+            handleEmail(event);
+        }
+        else {    
         const event = new KeyboardEvent('keypress', {'key': 'Enter'}); // Create a new 'Enter' key press event
         handleEnterKey(event);
+        }
     }
     else if (button === '{shift}') {
         handleShift();
@@ -254,26 +282,110 @@ function handleShift() {
     keyboardElement.classList.add('keyboard-visible');
 } 
 
-document.addEventListener('DOMContentLoaded', () => {
+function handleEmail() {
+    //TODO function to handle email submit
+
+}
+
+function updateCalendarImage() {
     const today = new Date();
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, '0');
     const day = String(today.getDate()).padStart(2, '0');
-    
-    /**
-     * Updates the source of the calendar image element with the current date.
-     * The image source is set to a path in the format `/static/calendar_<year>-<month>-<day>.jpg`.
-     */
-    const updateCalendarImage = () => {
-        const calendarImg = document.getElementById('calendar-img');
-        if (calendarImg) {
-            calendarImg.src = `/static/calendar_${year}-${month}-${day}.jpg`;
-        }
-    };
-
-    // Update calendar image when schedule section is shown
-    const scheduleButton = document.querySelector('button[onclick="showSection(\'schedule-section\')"]');
-    if (scheduleButton) {
-        scheduleButton.addEventListener('click', updateCalendarImage);
+    const calendarImg = document.getElementById('calendar-img');
+    if (calendarImg) {
+        calendarImg.src = `/static/calendar_${year}-${month}-${day}.jpg`;
     }
-});
+}
+
+
+
+function startQuiz() {
+    currentQuestion = 0;
+    const quizSection = document.getElementById('quiz-section');
+    quizSection.style.display = 'block'; // display the quiz section
+    document.getElementById('start-btn').style.display ='none';  // remove start quiz button 
+    showQuestion();
+    // TODO text to speech here to play question
+
+}
+
+function showQuestion() {
+    const question = quizQuestions.questions[currentQuestion];
+    document.getElementById('question').textContent = question.question;
+    const answerBtns = document.querySelectorAll('.answer-btn');
+    answerBtns.forEach((btn, index) => { // loop through buttons and add answers to each button
+        btn.textContent = question.answers[index];
+        btn.className = 'answer-btn';
+        btn.disabled = false;
+    });
+    document.getElementById('feedback-section').style.display = 'none'; // hide feedback section
+    document.getElementById('next-btn').style.display = 'none'; // hide next button untill answer is displayed
+}  
+
+
+function checkAnswer(answerIndex) {
+    const question = quizQuestions.questions[currentQuestion];
+    const feedbackSection = document.getElementById('feedback-section');
+    const answerBtns = document.querySelectorAll('.answer-btn');
+    // Disable all answer buttons until next question
+    answerBtns.forEach(btn => {
+        btn.disabled = true;
+    });
+
+    if (answerIndex === question.correct) {
+
+        feedbackSection.textContent = 'Correct! Well done!';
+        feedbackSection.style.backgroundColor = '#5ac774';
+        feedbackSection.style.color = '#155724';
+        answerBtns[answerIndex].classList.add('correct'); // hightlight the correct answer in green. 
+    } else {
+        feedbackSection.textContent = `Incorrect. The correct answer is: ${question.answers[question.correct]}`;
+        feedbackSection.style.backgroundColor = '#f8d7da';
+        feedbackSection.style.color = '#721c24';
+        answerBtns[answerIndex].classList.add('incorrect'); // highlight the incorrect answer in red
+        answerBtns[question.correct].classList.add('correct'); // hightlight the correct answer in green
+    }
+    feedbackSection.style.display = 'block';
+    document.getElementById('next-btn').style.display = 'block';
+}
+
+function nextQuestion() {
+    currentQuestion++;
+    if (currentQuestion < quizQuestions.questions.length) {
+        showQuestion();
+        //TODO text to speech here to play question
+
+    
+
+    }
+    else {
+        // Hide quiz elements
+        document.getElementById('question-container').style.display = 'none';
+        document.getElementById('answer-section').style.display = 'none';
+        document.getElementById('feedback-section').style.display = 'none';
+        document.getElementById('next-btn').style.display = 'none';
+
+        // Show completion message
+        const quizSection = document.getElementById('quiz-section');
+        const completionDiv = document.createElement('div');
+        completionDiv.innerHTML = 
+            `<h1>Quiz Complete!</h1>
+            <button class="btn" id="start-btn" onclick="playAgain()">Play Again?</button>
+            <p>Enter your email address below for a chance to win some Fleming Swag!</p>
+            <p>one entry per person</p>`;
+        quizSection.appendChild(completionDiv);
+
+    }
+}
+
+function playAgain() {
+    // Remove completion message
+    const quizSection = document.getElementById('quiz-section');
+    quizSection.removeChild(quizSection.lastChild);
+    // Show quiz elements
+    document.getElementById('question-container').style.display = 'block';
+    document.getElementById('answer-section').style.display = 'grid';
+    // Start new quiz
+    startQuiz();
+}

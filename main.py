@@ -19,7 +19,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 
 app = Flask(__name__)
 
-#Scheduling grabbing the SAC calender image from the website once per da
+#Scheduling grabbing the SAC calender image from the website once per day
 scheduler = BackgroundScheduler()
 scheduler.add_job(get_all_events, 'interval', days=1)
 scheduler.start()

@@ -27,13 +27,13 @@
     <div id="map-section" class="content-section">
         <img src="{{ url_for('static', filename='campusmap-all-levels.png') }}" alt="Campus Map">
     </div>
-        <div id="schedule-section" class="content-section">
-            <h2>Fleming SAC Upcoming Events</h2>
-            <img id="calendar-img" alt="SAC Events">
-            <div class="SAQ-QR">
-                <img src="{{ url_for('static', filename='SAC Events Page.png') }}" alt="SAC Events">
-            </div>
+    <div id="schedule-section" class="content-section">
+        <h2>Fleming SAC Upcoming Events</h2>
+        <img id="calendar-img" alt="SAC Events">
+        <div class="SAQ-QR">
+            <img src="{{ url_for('static', filename='SAC Events Page.png') }}" alt="SAC Events">
         </div>
+    </div>
   
     <div id="faqs-section" class="content-section">
         <h2>FAQs</h2>
@@ -76,10 +76,24 @@
 
     </div>
     <div id ="game-section" class="content-section">
-        <h2>Win Swag</h2>
         <p>Play a game for a chance to win some cool swag!</p>
-        <button class="btn" onclick="">Start Game</button>
-    </div>      
-
+        <button class="btn" id="start-btn" onclick="startQuiz()">Start Game</button>
+        <div id="quiz-section" style="display: none">
+            <div id="question-container">
+              <h2 id="question"></h2>
+            </div>
+            <div id="answer-section">
+                <button class="answer-btn" onclick="checkAnswer(0)"></button>
+                <button class="answer-btn" onclick="checkAnswer(1)"></button>
+                <button class="answer-btn" onclick="checkAnswer(2)"></button>
+                <button class="answer-btn" onclick="checkAnswer(3)"></button>
+            </div>
+            <div id="feedback-section"></div>
+            <button class="btn" id="next-btn" style='display: none' onclick="nextQuestion()">Next Question</button>
+            </div>
+    </div>
+    
+    
+    
 </body>
 </html>
