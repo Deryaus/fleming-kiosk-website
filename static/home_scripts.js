@@ -180,13 +180,14 @@ function typeEffect(text, element, callback) {
     }
     type();
 }
+
+
 /**
- * Attaches event listeners for the chat input field
- * Creates a keyboard instance and displays it when the chat input is focused
- * Hides the keyboard when the mouse is clicked outside of the chat input 
+ * Initializes a virtual keyboard for a specified input element.
+ *
+ * @param {string} inputSelector - The CSS selector for the input element to attach the keyboard to.
+ * @param {string} [keyboardSelector='.simple-keyboard'] - The CSS selector for the keyboard element. Defaults to '.simple-keyboard'.
  */
-
-
 function initializeKeyboard(inputSelector, keyboardSelector = '.simple-keyboard') {
     const input = document.querySelector(inputSelector);
     const keyboardElement = document.querySelector(keyboardSelector);
@@ -288,13 +289,9 @@ function handleEmail() {
 }
 
 function updateCalendarImage() {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0');
-    const day = String(today.getDate()).padStart(2, '0');
     const calendarImg = document.getElementById('calendar-img');
     if (calendarImg) {
-        calendarImg.src = `/static/calendar_${year}-${month}-${day}.jpg`;
+        calendarImg.src = `/static/calendar.jpg`;
     }
 }
 
