@@ -6,3 +6,5 @@ flask[async]
 playsound
 edge-tts
 apscheduler
+hypercorn
+beautifulsoup4

@@ -12,7 +12,6 @@ Parameters:
 from flask import Flask, render_template, jsonify, request
 from geminiQuery import gemini_query_response_tts, query_gemini_model
 from events import get_all_events
-import asyncio
 from text_to_speech import play_edge_tts
 from apscheduler.schedulers.background import BackgroundScheduler
 
@@ -35,19 +34,27 @@ def home():
     return render_template('home.html') 
 
 @app.route('/chat', methods=['POST'])
-async def chat():
-    user_input = request.json.get('message', '') # Default value is empty string
-    #speech, response = await gemini_query_response_tts(user_input)
-    response = query_gemini_model(11, user_input)
-    return jsonify({'response': response.text})
-
+def chat():
+    try:
+        user_input = request.json.get('message', '') # Default value is empty string
+        #speech, response = await gemini_query_response_tts(user_input)
+        response = query_gemini_model(11, user_input)
+        return jsonify({'response': response.text})
+    except Exception as e:
+        print(e)
+        return jsonify({'error': 'Sorry there was a problem with your request'}), 500
+    
 @app.route('/record-audio', methods=['POST'])
-async def record_audio():
-    user_input, output = await gemini_query_response_tts()
-    return jsonify({ 
-        'user_input': user_input,
-        'output': output
-        })
+def record_audio():
+    try:
+        user_input, output = gemini_query_response_tts()
+        return jsonify({ 
+            'user_input': user_input,
+            'output': output
+            })
+    except Exception as e:
+        print(e)
+        return jsonify({'error': 'Sorry there was a problem with your request'}), 500
 
 #TODO: Add different colour speech bubbles to the HTML
 #TODO: Create questions for FAQ 

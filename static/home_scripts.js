@@ -45,13 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             quizQuestions = data;   
         });
-
-
-
-    if (!window.location.pathname.includes('welcome')) {
-        document.addEventListener('mousemove', resetInactivityTimeout);
-        document.addEventListener('keypress', resetInactivityTimeout);
-    }
+    document.addEventListener('mousemove', resetInactivityTimeout);
+    document.addEventListener('keypress', resetInactivityTimeout);
     initializeKeyboard('#chat-input');
     updateCalendarImage();
 });
@@ -72,7 +67,8 @@ function handleEnterKey(event) {
         // Add the user input to the chat output
         chatOutput.value += `Question: ${userInput}\n\n`;
         // Make call to python script
-        fetch('/chat', {
+        fetch('/chat',
+         {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -82,15 +78,14 @@ function handleEnterKey(event) {
         // use a promise to get the response
         .then(response => response.json())
         .then(data => {
-            // Add the response to the chat output
-           // chatOutput.value += `${data.response}\n\n`;
-            // scroll to the bottom of the chat output
-            //chatOutput.scrollTop = chatOutput.scrollHeight;
             chatOutput.value += 'Blaze: \n';  
             typeEffect(data.response + '\n\n', chatOutput, function() { 
                 chatOutput.value += '──────────────────────────────────────────────────────────────────────────────────\n\n';
             });
-
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            chatOutput.value += 'Blaze \n Sorry, There was an error, Please try again \n\n';
         });
         // Clear the input field
         document.getElementById('chat-input').value = '';
@@ -99,13 +94,13 @@ function handleEnterKey(event) {
 }
 
 function startRecording() {
-    let timeout = 2000; // 2 seconds
     const micButton = document.querySelector('.mic-btn');
     const chatOutput = document.getElementById('chat-output');
     // Change to red while recording and disable button
     micButton.style.backgroundColor = '#dc3545';
     micButton.disabled = true;
     chatOutput.value += 'Listening...\n';
+
     // make a call to the python script
     fetch('/record-audio', {
         method: 'POST',
@@ -116,38 +111,24 @@ function startRecording() {
     // use a promise to get the response
     .then(response => response.json())
     .then(data => {
-        // Wait for recording time before showing results
-       /** setTimeout(() => {
-            // Reset button color and re-enable button
-            micButton.disabled = false;
-            micButton.style.backgroundColor = '#007bff';
-            // Show the conversation
-            chatOutput.value += `Question: ${data.userInput}\n\n`;
-            typeEffect(data.output + '\n\n', chatOutput);
-        }, timeout);*/
         chatOutput.value = chatOutput.value.replace('Listening...\n', '');
         micButton.disabled = false;
         micButton.style.backgroundColor = '#007bff';
         //show the output
         chatOutput.value += `Question: ${data.user_input}\n\n`;
-        chatOutput.value += `Blaze: ${data.output}\n\n`;
-        chatOutput.value += '──────────────────────────────────────────────────────────────────────────────────\n\n';
-        // Scroll to the bottom of the chat output
-        chatOutput.scrollTop = chatOutput.scrollHeight;
+        chatOutput.value += `Blaze:\n\n`;
+        typeEffect(data.output + '\n\n', chatOutput, function() { 
+            chatOutput.value += '──────────────────────────────────────────────────────────────────────────────────\n\n';
+        });
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        chatOutput.value.replace('Listening...\n', '');
+        chatOutput.value += 'Blaze: \n\n Sorry, There was an error with the microphone. Please try typing your question instead.';
+        micButton.disabled = false;
+        micButton.style.backgroundColor = '#004bff';
     });
 }
-
-function welcomeTTSGreeting() {
-    window.location.href = "home";
-    // TODO: Call tts for greeting/fact 
-    fetch('/greeting', {
-        method: "POST",
-    })
-    .then(response => response.json())
-    .then(data => console.log(data.message))  // Logs "TTS started"
-    .catch(error => console.error("Error:", error));
-}
-
 
 // TODO: Functions for FAQ
 
@@ -286,13 +267,6 @@ function handleShift() {
 function handleEmail() {
     //TODO function to handle email submit
 
-}
-
-function updateCalendarImage() {
-    const calendarImg = document.getElementById('calendar-img');
-    if (calendarImg) {
-        calendarImg.src = `/static/calendar.jpg`;
-    }
 }
 
 

@@ -32,7 +32,7 @@ def query_gemini_model(version=11, transcription=None):
     output_log_text(result.text)
     return result
 
-async def gemini_query_response_tts(text=None):
+def gemini_query_response_tts(text=None):
     """
     Asynchronously processes text using the Gemini model and plays the resulting text-to-speech.
     Args:
@@ -49,22 +49,24 @@ async def gemini_query_response_tts(text=None):
         - If the first candidate's finish reason is 3, it prints "Harmful content detected".
         - Otherwise, it prints the result text and attempts to play the text using Edge TTS.
     """
+    try:
+        speech = text or speech_to_text_translation()
+        result = query_gemini_model(version=8, transcription=speech)
 
-    #TODO: rework the function needs to return text before the audio plays
-    speech = text or speech_to_text_translation()
-    result = query_gemini_model(version=8, transcription=speech)
-
-    if result.candidates[0].finish_reason == 3: 
-        print("Harmful content detected")
-    else:
-        try:
-            print(result.text)
-            #sys_text_to_speech(result.text) #uncomment to use system text to speech
-            await play_edge_tts(result.text) #uncomment to use edge text     
-            return speech, result.text       
-        except Exception as e:
-            print(f"Error: {e}")
-            return e
+        if result.candidates[0].finish_reason == 3:
+            print("Harmful content detected")
+            return speech, "I'm sorry, I cannot provide an answer to that question."
+        else:
+            try:
+                print(result.text)
+                play_edge_tts(result.text)
+                return speech, result.text
+            except Exception as e:
+                print(f"Audio Error: {e}")
+                return speech, result.text
+    except Exception as e:
+        print(f"Query error: {e}")     
+        return text or "error", f"I'm sorry, there was an error processing your request:"
 
 
 if __name__ == "__main__":
@@ -73,7 +75,6 @@ if __name__ == "__main__":
     asyncio.run(gemini_query_response_tts("Is fleming college public?"))
     """
     print(query_gemini_model(i,"Is fleming college public?").text)    
-
     print(query_gemini_model(i,"Who is the college's mascot?").text)
 
     print(query_gemini_model(i,"How do I access the bookstore?").text)
