@@ -27,13 +27,13 @@
     <div id="map-section" class="content-section">
         <img src="{{ url_for('static', filename='campusmap-all-levels.png') }}" alt="Campus Map">
     </div>
-    <div id="schedule-section" class="content-section">
-        <h2>Fleming SAC Upcoming Events</h2>
-        <img id="calendar-img" alt="SAC Events">
-        <div class="SAQ-QR">
-            <img src="{{ url_for('static', filename='SAC Events Page.png') }}" alt="SAC Events">
+        <div id="schedule-section" class="content-section">
+            <h2>Fleming SAC Upcoming Events</h2>
+            <img id="calendar-img" alt="SAC Events">
+            <div class="SAQ-QR">
+                <img src="{{ url_for('static', filename='SAC Events Page.png') }}" alt="SAC Events">
+            </div>
         </div>
-    </div>
   
     <div id="faqs-section" class="content-section">
         <h2>FAQs</h2>
@@ -45,8 +45,8 @@
                 <button onclick="questionMove(this)" class="btn">Question 3</button>
             </div>
             <div class="column-faq middle-faq">
-                <div id="response-box" class="text-box-faq box-left"></div>
-                <div class="text-box-faq box-right">Response 2</div>
+                <div id="response-box" class="text-box-faq box-left">Ask a Question!</div>
+                <div id="answer-box" class="text-box-faq box-right"></div>
             </div>
             <div class="column-faq right-faq">
                 <div class="sprite-faq"></div>
@@ -91,8 +91,8 @@
             <div id="feedback-section"></div>
             <button class="btn" id="next-btn" style='display: none' onclick="nextQuestion()">Next Question</button>
             </div>
-    </div>
-    
+    </div>      
+
     
     
 </body>

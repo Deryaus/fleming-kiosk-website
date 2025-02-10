@@ -152,8 +152,14 @@ function welcomeTTSGreeting() {
 // TODO: Functions for FAQ
 
 function questionMove(button){
-    console.log(button.textContent);
+    const responses = {
+        "Question 1": "Answer to Question 1",
+        "Question 2": "Answer to Question 2",
+        "Question 3": "Answer to Question 3"
+    };
+    
     document.getElementById("response-box").textContent = button.textContent;
+    document.getElementById("answer-box").textContent = responses[button.textContent] || "No answer available";
 }
 
 

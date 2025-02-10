@@ -327,6 +327,10 @@ body {
     color: #fff;
     padding: 1em;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 .box-right{
     --_p: 100%;
@@ -336,6 +340,7 @@ body {
 .box-left{
     --_p: 0;
     border-bottom-left-radius: 0 0;
+    background: linear-gradient(45deg, var(--color-text), var(--color-link));
     place-self: start;
 }
 .sprite-faq {
