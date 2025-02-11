@@ -151,15 +151,37 @@ function welcomeTTSGreeting() {
 
 // TODO: Functions for FAQ
 
-function questionMove(button){
+document.addEventListener("DOMContentLoaded", function() {
     const responses = {
-        "Question 1": "Answer to Question 1",
+        "Where is the help desk located?": "The help desk is located in the C-Wing by the main entrance.",
         "Question 2": "Answer to Question 2",
         "Question 3": "Answer to Question 3"
     };
     
+    const buttonContainer = document.querySelector(".left-faq");
+    Object.keys(responses).forEach(question => {
+        const button = document.createElement("button");
+        button.textContent = question;
+        button.classList.add("btn");
+        button.onclick = function() { moveTextToResponse(this, responses); };
+        buttonContainer.appendChild(button);
+    });
+});
+
+function moveTextToResponse(button, responses) {
     document.getElementById("response-box").textContent = button.textContent;
     document.getElementById("answer-box").textContent = responses[button.textContent] || "No answer available";
+    
+    const buttons = document.querySelectorAll(".left-faq button");
+    buttons.forEach(btn => {
+        btn.disabled = true;
+    });
+    
+    setTimeout(() => {
+        buttons.forEach(btn => {
+            btn.disabled = false;
+        });
+    }, 2000);
 }
 
 
