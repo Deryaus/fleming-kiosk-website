@@ -3,6 +3,7 @@ import edge_tts
 import asyncio
 import tempfile
 import playsound
+import threading
 
 #Rate
 
@@ -18,6 +19,7 @@ async def get_voices():
     """
     voices = await edge_tts.list_voices()
     return {f"{v['ShortName']} - {v['Locale']} ({v['Gender']})": v['ShortName'] for v in voices}
+
 
 async def text_to_speech(text, voice, rate, pitch):
     """
@@ -41,24 +43,49 @@ async def text_to_speech(text, voice, rate, pitch):
     await communicate.save(tmp_path)    
     return tmp_path, None
 
-async def play_edge_tts(text):
+def play_audio(audio_path):
+    try:
+        playsound.playsound(audio_path)
+    except Exception as e:
+        print(f"Error: {e}")
+
+def play_edge_tts(text):
     """
-    Asynchronously converts text to speech using the specified voice and plays the audio.
+    Converts text to speech using Microsoft Edge TTS and plays the generated audio.
+
+    This function uses the Edge TTS engine to synthesize speech from the given text, saves the 
+    audio to a temporary file, and then plays it in a separate thread to avoid blocking execution.
 
     Args:
-        text (str): The text to be converted to speech.
+        text (str): The text to be converted into speech.
 
     Returns:
         None
 
+    Behavior:
+    - Runs the TTS save operation in an asyncio event loop to handle the async `Communicate.save()` method.
+    - Saves the generated speech as an `.mp3` file in a temporary location.
+    - Plays the generated audio in a separate thread to prevent blocking the main execution.
+    - Catches and logs any exceptions that occur during the process.
+    - Closes the event loop after execution to free up resources.
+
     Raises:
-        Exception: If there is an error during the text-to-speech conversion or audio playback.
+        Exception: If any error occurs during TTS synthesis or file saving, it is caught and printed.
     """
-    inter, warning = await text_to_speech(text, voice="en-CA-ClaraNeural", rate=125, pitch=20)
+
+    communicate = edge_tts.Communicate(text, voice="en-CA-ClaraNeural", rate="+50%", pitch="+0Hz")
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    tmp_path = tempfile.mktemp(suffix=".mp3")
+
     try:
-        playsound.playsound(inter)
+        loop.run_until_complete(communicate.save(tmp_path))
+        thread = threading.Thread(target=play_audio, args=(tmp_path,))       
+        thread.start()
     except Exception as e:
-        print(f"Error: {e}")
+        print(f"TTS Error: {e}")
+    finally:
+        loop.close()
 
 
 #Initializing TTS engine

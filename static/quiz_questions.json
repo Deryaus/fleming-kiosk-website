@@ -39,6 +39,16 @@
                 "Cobourg Campus"
             ],
             "correct": 1
+        },
+        {
+            "question": "What is the name of the fleming sports team??",
+            "answers": [
+                "Fleming Knights",
+                "Fleming Bulldogs",
+                "Fleming Phoenix",
+                "Fleming Falcons"
+            ],
+            "correct": 2
         }
     ]
 }

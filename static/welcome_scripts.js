@@ -1,10 +1,18 @@
 function welcomeTTSGreeting() {
-    window.location.href = "home";
-    // TODO: Call tts for greeting/fact 
-    fetch('/greeting', {
+    // Make TTS request
+    fetch('/tts', {
         method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        }
     })
-    .then(response => response.json())
-    .then(data => console.log(data.message))  // Logs "TTS started"
-    .catch(error => console.error("Error:", error));
+    .catch(error => {
+        console.error('Error:', error);
+    })
+    .finally(() => {
+        // Always redirect after 1 second, regardless of TTS success/failure
+        setTimeout(() => {
+            window.location.href = "home";
+        }, 1000);
+    });
 }
