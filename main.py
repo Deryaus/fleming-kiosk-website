@@ -61,9 +61,14 @@ def record_audio():
 #TODO: Use question text to return a response using TTS
 
 @app.route('/tts', methods=['POST'])
-async def tts():
-    await play_edge_tts('This is a test') # Run the TTS function asynchronously
-    return jsonify({"message": "TTS started"}), 200
+def tts():
+    try:
+        welcome_message = "Say Welcome to Fleming College, Then tell me a random fact about Sir Sandford Fleming The Person"
+        gemini_query_response_tts(welcome_message)
+        return jsonify({"message": "TTS started", 'status': 'success'}), 200
+    except Exception as e:
+        print(f"Greeting Error: {e}")
+        return jsonify({'error': str(e), 'status': 'error'}), 500
 
 if __name__ == '__main__':
     app.run(debug=True) 

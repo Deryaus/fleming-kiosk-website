@@ -66,7 +66,7 @@ def gemini_query_response_tts(text=None):
                 return speech, result.text
     except Exception as e:
         print(f"Query error: {e}")     
-        return text or "error", f"I'm sorry, there was an error processing your request:"
+        return text or "error", f"I'm sorry, there was an error processing your request."
 
 
 if __name__ == "__main__":

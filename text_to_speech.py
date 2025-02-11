@@ -21,13 +21,6 @@ async def get_voices():
     return {f"{v['ShortName']} - {v['Locale']} ({v['Gender']})": v['ShortName'] for v in voices}
 
 
-def play_audio(audio_path):
-    try:
-        playsound.playsound(audio_path)
-    except Exception as e:
-        print(f"Error: {e}")
-        raise
-
 async def text_to_speech(text, voice, rate, pitch):
     """
     Convert the given text to speech using the specified voice, rate, and pitch.
@@ -45,48 +38,52 @@ async def text_to_speech(text, voice, rate, pitch):
     rate_str = f"{rate:+d}%"
     pitch_str = f"{pitch:+d}Hz"
     communicate = edge_tts.Communicate(text, voice, rate=rate_str, pitch=pitch_str)
-    loop = asyncio.get_event_loop()
-    asyncio.set_event_loop(loop)
+
     tmp_path = tempfile.mktemp(suffix=".mp3")
-    await communicate.save(tmp_path)
-    #asyncio.create_task(play_audio(tmp_path))
+    await communicate.save(tmp_path)    
+    return tmp_path, None
+
+def play_audio(audio_path):
     try:
-        loop.run_until_complete(communicate.save(tmp_path))
-        thread = threading.Thread(target=play_audio, args=(tmp_path,))
-        thread.start()
+        playsound.playsound(audio_path)
     except Exception as e:
         print(f"Error: {e}")
-    finally:
-        loop.close()    
-    return tmp_path, None
 
 def play_edge_tts(text):
     """
-    Asynchronously converts text to speech using the specified voice and plays the audio.
+    Converts text to speech using Microsoft Edge TTS and plays the generated audio.
+
+    This function uses the Edge TTS engine to synthesize speech from the given text, saves the 
+    audio to a temporary file, and then plays it in a separate thread to avoid blocking execution.
 
     Args:
-        text (str): The text to be converted to speech.
+        text (str): The text to be converted into speech.
 
     Returns:
         None
 
+    Behavior:
+    - Runs the TTS save operation in an asyncio event loop to handle the async `Communicate.save()` method.
+    - Saves the generated speech as an `.mp3` file in a temporary location.
+    - Plays the generated audio in a separate thread to prevent blocking the main execution.
+    - Catches and logs any exceptions that occur during the process.
+    - Closes the event loop after execution to free up resources.
+
     Raises:
-        Exception: If there is an error during the text-to-speech conversion or audio playback.
+        Exception: If any error occurs during TTS synthesis or file saving, it is caught and printed.
     """
 
-    communicate = edge_tts.Communicate(text, voice="en-CA-ClaraNeural", rate="+50%", pitch="+20Hz")
+    communicate = edge_tts.Communicate(text, voice="en-CA-ClaraNeural", rate="+50%", pitch="+0Hz")
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     tmp_path = tempfile.mktemp(suffix=".mp3")
 
     try:
         loop.run_until_complete(communicate.save(tmp_path))
-        thread = threading.Thread(target=play_audio, args=(tmp_path,))
+        thread = threading.Thread(target=play_audio, args=(tmp_path,))       
         thread.start()
-        return True
     except Exception as e:
         print(f"TTS Error: {e}")
-        return False
     finally:
         loop.close()
 
