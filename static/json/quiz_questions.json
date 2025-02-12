@@ -1,0 +1,215 @@
+{
+        "questions": [
+        {
+            "question": "Who is Fleming College's mascot?",
+            "answers": [
+                "Blaze the Phoenix",
+                "Fred the Falcon",
+                "Sam the Snake",
+                "Pete the Penguin"
+            ],
+            "correct": 0
+        },
+        {
+            "question": "What is the name of the student portal at Fleming College?",
+            "answers": [
+                "MyCampus",
+                "Student Central",
+                "Fleming Connect",
+                "Fleming Hub"
+            ],
+            "correct": 0
+        },
+        {
+            "question": "What is the name of the student association at Fleming College?",
+            "answers": [
+                "Fleming Student Union",
+                "Fleming Student Administrative Council",
+                "Fleming Student Association",
+                "Fleming Student Government"
+            ],
+            "correct": 1
+        },
+        {
+            "question": "What is the name of the Peterborough campus?",
+            "answers": [
+                "Frost Campus",
+                "Sutherland Campus",
+                "Haliburton Campus",
+                "Cobourg Campus"
+            ],
+            "correct": 1
+        },
+        {
+            "question": "What is the name of the fleming sports team?",
+            "answers": [
+                "Fleming Knights",
+                "Fleming Bulldogs",
+                "Fleming Phoenix",
+                "Fleming Falcons"
+            ],
+            "correct": 2
+        },
+        {
+            "question": "What is one way new students can get involved at Fleming College?",
+            "answers": [
+                "Skip classes for the first week",
+                "Study alone in the library",
+                "Attend Orientation week events",
+                "Avoid extracurricular activites"
+            ],
+            "correct": 2
+        },
+        {
+            "question": "What is the best way for students to keep track of assignment deadlines?",
+            "answers": [
+                "Write them down in a planner or use D2L",
+                "Ask their classmates right before the due date",
+                "Assume proffesors will remind them",
+                "Wait until the last minute and hope for the best"
+            ],
+            "correct": 0
+        },
+        {
+            "question": "Which Fitness facility is available for students at the Sutherland Campus?",
+            "answers": [
+                "The YMCA",
+                "Planet Fitness",
+                "Healthy Planet",
+                "Sport & Wellness Centre"
+            ],
+            "correct": 3
+        },
+        {
+            "question": "What is the motto of Fleming College?",
+            "answers": [
+                "Success Starts Here",
+                "To learn is to change",
+                "Apply yourself here",
+                "Now I know in part"
+            ],
+            "correct": 2
+        },
+        {
+            "question": "When was Fleming College founded?",
+            "answers": [
+                "1967",
+                "1963",
+                "1912",
+                "1944"
+            ],
+            "correct": 0
+        },
+        {
+            "question": "Which Fleming College campus specializes in arts and design programs?",
+            "answers": [
+                "Sutherland Campus",
+                "Haliburton Campus",
+                "Frost Campus",
+                "Cobourg Campus"
+            ],
+            "correct": 1
+        },
+        {
+            "question": "Which Fleming College campus is know for its environmental and natural resources program?",
+            "answers": [
+                "Sutherland Campus",
+                "Haliburton Campus",
+                "Frost Campus",
+                "Cobourg Campus"
+            ],
+            "correct": 2
+        },
+        {
+            "question": "Sir Sandford Fleming is best known for helping create which modern system?",
+            "answers": [
+                "The metric system",
+                "International time zones",
+                "The imperial system",
+                "The Cubit system"
+            ],
+            "correct": 1
+        },
+        {
+            "question": "What service does the Fleming Student Administrative Council provide?",
+            "answers": [
+                "Organizing student events",
+                "Advocating for student rights",
+                "Running student clubs",
+                "All of the above"
+            ],
+            "correct": 3
+        },
+        {
+            "question": "What online tool do students use to access course materials?",
+            "answers": [
+                "Desire 2 Learn",
+                "Student Portal",
+                "MyFleming",
+                "Moodle"
+            ],
+            "correct": 0
+        },
+        {
+            "question": "What is the best time to apply for student housing?",
+            "answers": [
+                "The week before classes start",
+                "On Orientation day",
+                "As early as possible",
+                "Housing? I live with my parents"
+            ],
+            "correct": 2
+        },
+        {
+            "question": "What is a great way to meet new friends at Fleming College?",
+            "answers": [
+                "Introduce yourself to everyone in the cafateria like a celebrity",
+                "Sit silently in class and hope for the best!",
+                "Only talk to the vending machine",
+                "Join clubs, sports, and student events"
+            ],
+            "correct": 3
+        },
+        {
+            "question": "What should you NOT do during your first week at Fleming College?",
+            "answers": [
+                "Attend Orientation Day",
+                "Find out where your classes are",
+                "Check out student services",
+                "Befriend a racoon and declare it your dorm pet"
+            ],
+            "correct": 3
+        },
+        {
+            "question": "How can you stay active on campus?",
+            "answers": [
+                "Participate in sports or use the Wellness Centre",
+                "Take the stairs, but only on Mondays",
+                "Race Squirrels in the parking lot",
+                "Walk to class backwards"
+            ],
+            "correct": 0
+        },
+        {
+            "question": "What is the best way to impress your professor?",
+            "answers": [
+                "Memorize their entire life story and favourite colour",
+                "Write your essay in Shakespearean English",
+                "Bribe them with chocolate",
+                "Hand in assignments on time"
+            ],
+            "correct": 3
+        },
+        {
+            "question": "What is the number one survival tip for Canadian winters at Fleming?",
+            "answers": [
+                "Make snow angels!",
+                "Wear layers and proper winter attire",
+                "Hibernate in your dorm until spring",
+                "Make an igloo"
+            ],
+            "correct": 1
+        }
+
+    ]
+}

@@ -40,7 +40,7 @@ function showSection(sectionId) {
  * 
  */
 document.addEventListener('DOMContentLoaded', () => {
-    fetch('/static/quiz_questions.json')
+    fetch('/static/json/quiz_questions.json')
         .then(response => response.json())
         .then(data => {
             quizQuestions = data;   
@@ -48,7 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('mousemove', resetInactivityTimeout);
     document.addEventListener('keypress', resetInactivityTimeout);
     initializeKeyboard('#chat-input');
-    updateCalendarImage();
 });
 
 
@@ -259,6 +258,7 @@ function handleKeyboardInput(input) {
 function handleKeyPress(button) {
     const currentInput = document.activeElement;
     const isEmailInput = currentInput.id === 'email-input';
+    const keyboardElement = document.querySelector('.simple-keyboard')
     if (button === '{enter}') {
         if (isEmailInput) {
             const event = new KeyboardEvent('keypress', {'key': 'Enter'});
@@ -284,6 +284,7 @@ function handleKeyPress(button) {
  * and ensures the keyboard remains visible
  */
 function handleShift() {
+    const keyboardElement = document.querySelector('.simple-keyboard')
     let currentLayout = keyboard.options.layoutName;
     let shiftToggle = currentLayout === 'default' ? 'shift' : 'default';
     keyboard.setOptions({
@@ -304,6 +305,7 @@ function startQuiz() {
     const quizSection = document.getElementById('quiz-section');
     quizSection.style.display = 'block'; // display the quiz section
     document.getElementById('start-btn').style.display ='none';  // remove start quiz button 
+    shuffleQuestions();
     showQuestion();
     // TODO text to speech here to play question
 
@@ -351,7 +353,7 @@ function checkAnswer(answerIndex) {
 
 function nextQuestion() {
     currentQuestion++;
-    if (currentQuestion < quizQuestions.questions.length) {
+    if (currentQuestion < 6) {
         showQuestion();
         //TODO text to speech here to play question
 
@@ -387,4 +389,12 @@ function playAgain() {
     document.getElementById('answer-section').style.display = 'grid';
     // Start new quiz
     startQuiz();
+}
+
+function shuffleQuestions() {
+    for (let i = quizQuestions.questions.length - 1; i > 0; i--) {
+        const random = Math.floor(Math.random() * (i + 1));
+        [quizQuestions.questions[i], quizQuestions.questions[random]] = 
+        [quizQuestions.questions[random], quizQuestions.questions[i]];
+    }
 }

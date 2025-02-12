@@ -4,17 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles_home.css') }}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/css/index.css">
-    <script src="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/index.js"></script>
-    <script src="{{ url_for('static', filename='home_scripts.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/simple-keyboard.css') }}">
+    <script src="{{ url_for('static', filename='js/simple-keyboard.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/home_scripts.js') }}"></script>
+    
 </head>
 <body data-welcome-url="{{ url_for('welcome') }}">
     <div class="logo-container">
-        <img src="{{ url_for('static', filename='fleminglogowhite.png') }}" alt="Fleming College Logo" class="logo">
+        <img src="{{ url_for('static', filename='images/fleminglogowhite.png') }}" alt="Fleming College Logo" class="logo">
     </div>
     <div class="header-container">
-        <img src="{{ url_for('static', filename='Black_background.jpg') }}" alt="Fleming College Logo">
+        <img src="{{ url_for('static', filename='images/Black_background.jpg') }}" alt="Fleming College Logo">
         <h1>Welcome to Fleming College</h1>
     </div>
     <div class="button-container">
@@ -25,13 +26,13 @@
         <button class="btn" onclick="showSection('game-section')">Win Swag</button>
     </div>
     <div id="map-section" class="content-section">
-        <img src="{{ url_for('static', filename='campusmap-all-levels.png') }}" alt="Campus Map">
+        <img src="{{ url_for('static', filename='images/campusmap-all-levels.png') }}" alt="Campus Map">
     </div>
     <div id="schedule-section" class="content-section">
         <h2>Fleming SAC Upcoming Events</h2>
-        <img src="{{ url_for('static', filename='calendar.jpg') }}" id="calendar-img" alt="SAC Events">
+        <img src="{{ url_for('static', filename='images/calendar.jpg') }}" id="calendar-img" alt="SAC Events">
         <div class="SAQ-QR">
-            <img src="{{ url_for('static', filename='SAC Events Page.png') }}" alt="SAC Events">
+            <img src="{{ url_for('static', filename='images/SAC Events Page.png') }}" alt="SAC Events">
         </div>
     </div>
   
@@ -46,7 +47,7 @@
             </div>
             <div class="column-faq right-faq">
                 <div class="sprite-faq"></div>
-                <img src="{{ url_for('static', filename='blazelogo.png') }}" alt="Blaze Logo">
+                <img src="{{ url_for('static', filename='images/blazelogo.png') }}" alt="Blaze Logo">
             </div>
         </div>
     </div>
@@ -54,15 +55,15 @@
         <h2>Chat With Blaze</h2>
         <p>Blaze is here to help you with any questions you may have!</p>
         <div class="character">
-            <img src="{{ url_for('static', filename='blaze.png') }}" alt="Blaze Mascot">
+            <img src="{{ url_for('static', filename='images/blaze.png') }}" alt="Blaze Mascot">
         </div> 
         <div class="blaze-logo">    
-            <img src="{{ url_for('static', filename='blazelogo.png') }}" alt="Blaze Logo">
+            <img src="{{ url_for('static', filename='images/blazelogo.png') }}" alt="Blaze Logo">
         </div>
         <div class="chat-input-container">
             <input type="text" id="chat-input" placeholder="Type here to ask a question..." onkeypress="handleEnterKey(event)">
             <button class="mic-btn" onclick="startRecording()">
-                <img src="{{ url_for('static', filename='mic-icon.png') }}" alt="Microphone">
+                <img src="{{ url_for('static', filename='images/mic-icon.png') }}" alt="Microphone">
             </button>
         </div>
         <div class="chat-output-container">
@@ -72,6 +73,7 @@
 
     </div>
     <div id ="game-section" class="content-section">
+        <h2>Test Your Knowledge!</h2>
         <p>Play a game for a chance to win some cool swag!</p>
         <button class="btn" id="start-btn" onclick="startQuiz()">Start Game</button>
         <div id="quiz-section" style="display: none">
