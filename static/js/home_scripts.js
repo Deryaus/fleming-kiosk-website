@@ -2,6 +2,7 @@ let inactivityTimeout;
 let timeoutLength;
 let currentQuestion;
 let quizQuestions;
+
 /**
  * Resets the inactivity timeout timer. When the timer expires, redirects to the welcome page.
  * Clears any existing timeout before setting a new one.
@@ -45,11 +46,22 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             quizQuestions = data;   
         });
+        
     document.addEventListener('mousemove', resetInactivityTimeout);
     document.addEventListener('keypress', resetInactivityTimeout);
     initializeKeyboard('#chat-input');
 });
 
+
+function changeMap(map) {
+    const mapImage = document.getElementById("map-image");
+
+    if (map === "suther") {
+        mapImage.src = mapImage.getAttribute("data-map-suther");
+    } else if (map === "frost") {
+        mapImage.src = mapImage.getAttribute("data-map-frost");
+    }
+}
 
 /**
  * Handles the 'Enter' key press event on the chat input field.
@@ -130,22 +142,21 @@ function startRecording() {
 }
 
 // TODO: Functions for FAQ
-
 document.addEventListener("DOMContentLoaded", function() {
-    const responses = {
-        "Where is the help desk located?": "The help desk is located in the C-Wing by the main entrance.",
-        "Question 2": "Answer to Question 2",
-        "Question 3": "Answer to Question 3"
-    };
-    
-    const buttonContainer = document.querySelector(".left-faq");
-    Object.keys(responses).forEach(question => {
-        const button = document.createElement("button");
-        button.textContent = question;
-        button.classList.add("btn");
-        button.onclick = function() { moveTextToResponse(this, responses); };
-        buttonContainer.appendChild(button);
-    });
+    fetch("/static/json/FAQ_questions.json")
+        .then(response => response.json())
+        .then(responses => {
+            const buttonContainer = document.querySelector(".left-faq");
+            
+            Object.keys(responses).forEach(question => {
+                const button = document.createElement("button");
+                button.textContent = question;
+                button.classList.add("btn"); // Apply styling
+                button.onclick = function() { moveTextToResponse(this, responses); };
+                buttonContainer.appendChild(button);
+            });
+        })
+        .catch(error => console.error("Error loading questions:", error));
 });
 
 function moveTextToResponse(button, responses) {

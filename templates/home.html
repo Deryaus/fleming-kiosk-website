@@ -26,7 +26,13 @@
         <button class="btn" onclick="showSection('game-section')">Win Swag</button>
     </div>
     <div id="map-section" class="content-section">
-        <img src="{{ url_for('static', filename='images/campusmap-all-levels.png') }}" alt="Campus Map">
+        <img id="map-image" src="{{ url_for('static', filename='images/campusmap-all-levels.png') }}" 
+            alt="Campus Map"
+            data-map-suther="{{ url_for('static', filename='images/campusmap-all-levels.png') }}"
+            data-map-frost="{{ url_for('static', filename='images/campusmap-frost.png') }}">       
+        <br>
+        <button class="btn-maps" onclick="changeMap('suther')">Sutherland Campus</button>
+        <button class="btn-maps" onclick="changeMap('frost')">Frost Campus</button>
     </div>
     <div id="schedule-section" class="content-section">
         <h2>Fleming SAC Upcoming Events</h2>

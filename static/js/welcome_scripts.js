@@ -1,5 +1,9 @@
 function welcomeTTSGreeting() {
-    // Make TTS request
+    //disable button after click
+    const btn = document.querySelector('.btn');
+    btn.disabled = true;
+
+    // Make TTS request    
     fetch('/tts', {
         method: "POST",
         headers: {

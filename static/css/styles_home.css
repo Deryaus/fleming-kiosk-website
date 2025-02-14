@@ -125,6 +125,26 @@ body {
     opacity: 0.6;
 }
 
+.btn-maps {
+    display: inline-block;
+    padding: 10px 10px; /* Adjusted vertical padding */
+    font-size: 1.2em;
+    color: #fff;
+    background: linear-gradient(45deg, var(--color-text), var(--color-link));
+    box-shadow: 0 0 20px #eee;
+    border-radius: 10px;
+    text-decoration: none;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: all 0.3s ease;
+    
+    /* Ensure the button fits the text perfectly */
+    width: fit-content;
+    min-width: 180px; /* Ensures button is at least wide enough */
+    white-space: nowrap; /* Prevents text from wrapping */
+    text-align: center; /* Centers text */
+}
+
 /* Style for content sections */
 .content-section {
     display: none; /* Hidden by default */
