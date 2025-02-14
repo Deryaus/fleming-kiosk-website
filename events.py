@@ -11,12 +11,13 @@ def init_parser():
         str: The URL of the Fleming SAC events page.
     """    
     url = "https://www.flemingsac.ca/events"
-    image_folder = "./static"
+    image_folder = "./static/images"
+    templates_folder = "./templates"
 
     response = requests.get(url)
     soup = BeautifulSoup(response.content, "html.parser")
 
-    return soup, image_folder
+    return soup, image_folder, templates_folder
 
 def save_file(filetype, name, content, image_folder):
     """
@@ -78,14 +79,14 @@ def download_calendar(soup, image_folder):
     else:
         print("Div containing the image not found.")
 
-def download_event_div(soup, image_folder):
+def download_event_div(soup, templates_folder):
     super_div = soup.find("section", {"id": "blog__filter"})
     if super_div:
 
         target_div = super_div.find("div", {"class": "columns is-gapless is-multiline is-mobile"})
         if target_div:
             div_name = "event_div.html"
-            div_path = save_file("div", div_name, str(target_div), image_folder)
+            div_path = save_file("div", div_name, str(target_div), templates_folder)
             print(f"Event div saved to {div_path}")
         else:
             print("Event div not found inside the super div.")
@@ -94,9 +95,9 @@ def download_event_div(soup, image_folder):
     return
 
 def get_SAC_events():
-    soup, image_folder = init_parser()
+    soup, image_folder, templates_folder = init_parser()
     download_calendar(soup, image_folder)
-    download_event_div(soup, image_folder)
+    download_event_div(soup, templates_folder)
     return
 
 def get_all_events():

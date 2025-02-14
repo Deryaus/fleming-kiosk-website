@@ -73,7 +73,7 @@ def play_edge_tts(text):
         Exception: If any error occurs during TTS synthesis or file saving, it is caught and printed.
     """
 
-    communicate = edge_tts.Communicate(text, voice="en-CA-ClaraNeural", rate="+50%", pitch="+0Hz")
+    communicate = edge_tts.Communicate(text, voice="en-CA-ClaraNeural", rate="+15%", pitch="+0Hz")
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     tmp_path = tempfile.mktemp(suffix=".mp3")

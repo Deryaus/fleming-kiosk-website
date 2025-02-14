@@ -43,7 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch('/static/json/quiz_questions.json')
         .then(response => response.json())
         .then(data => {
-            quizQuestions = data;   
+            originalQuestions = structuredClone(data.questions);
+            quizQuestions = {questions: structuredClone(data.questions)};   
         });
     document.addEventListener('mousemove', resetInactivityTimeout);
     document.addEventListener('keypress', resetInactivityTimeout);
@@ -256,27 +257,17 @@ function handleKeyboardInput(input) {
  * @param {string} button 
  */
 function handleKeyPress(button) {
-    const currentInput = document.activeElement;
-    const isEmailInput = currentInput.id === 'email-input';
-    const keyboardElement = document.querySelector('.simple-keyboard')
+    const keyboardElement = document.querySelector('.simple-keyboard');
     if (button === '{enter}') {
-        if (isEmailInput) {
-            const event = new KeyboardEvent('keypress', {'key': 'Enter'});
-            handleEmail(event);
-        }
-        else {    
         const event = new KeyboardEvent('keypress', {'key': 'Enter'}); // Create a new 'Enter' key press event
         handleEnterKey(event);
-        }
-    }
-    else if (button === '{shift}') {
+    } else if (button === '{shift}') {
         handleShift();
-    }
-    else if (keyboard.options.layoutName === 'shift' && button !== '{bksp}' && button !== '{space}') {
+    } else if (keyboard.options.layoutName === 'shift' && button !== '{bksp}' && button !== '{space}') {
         keyboard.setOptions({
             layoutName: 'default'
-       });
-       keyboardElement.classList.add('keyboard-visible');
+        });
+        keyboardElement.classList.add('keyboard-visible');
     }
 }
 /**
@@ -293,13 +284,14 @@ function handleShift() {
     keyboardElement.classList.add('keyboard-visible');
 } 
 
-function handleEmail() {
-    //TODO function to handle email submit
-
-}
 
 
 
+/**
+ * Initializes and starts the quiz by setting the current question to 0,
+ * displaying the quiz section, hiding the start button, shuffling the questions,
+ * and showing the first question.
+ */
 function startQuiz() {
     currentQuestion = 0;
     const quizSection = document.getElementById('quiz-section');
@@ -307,10 +299,19 @@ function startQuiz() {
     document.getElementById('start-btn').style.display ='none';  // remove start quiz button 
     shuffleQuestions();
     showQuestion();
-    // TODO text to speech here to play question
 
 }
 
+/**
+ * Displays the current quiz question and its possible answers on the webpage.
+ * 
+ * This function retrieves the current question from the `quizQuestions` object
+ * and updates the DOM to show the question and its corresponding answer buttons.
+ * It also hides the feedback section and the next button until an answer is selected.
+ * Additionally, it sends a request to the server to generate text-to-speech (TTS) for the question.
+ * 
+ * @throws Will log an error to the console if the TTS request fails.
+ */
 function showQuestion() {
     const question = quizQuestions.questions[currentQuestion];
     document.getElementById('question').textContent = question.question;
@@ -322,9 +323,30 @@ function showQuestion() {
     });
     document.getElementById('feedback-section').style.display = 'none'; // hide feedback section
     document.getElementById('next-btn').style.display = 'none'; // hide next button untill answer is displayed
+    
+    // Add TTS for question
+    fetch('/quiz-tts', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            question: question.question
+        })
+    })
+    .catch(error => console.error('TTS Error:', error));
 }  
 
 
+/**
+ * Checks the selected answer and provides feedback.
+ * 
+ * @param {number} answerIndex - The index of the selected answer.
+ * 
+ * This function compares the selected answer with the correct answer for the current question.
+ * It disables all answer buttons, displays feedback indicating whether the selected answer is correct or incorrect,
+ * and highlights the correct and incorrect answers accordingly. It also displays the next button to proceed to the next question.
+ */
 function checkAnswer(answerIndex) {
     const question = quizQuestions.questions[currentQuestion];
     const feedbackSection = document.getElementById('feedback-section');
@@ -333,9 +355,7 @@ function checkAnswer(answerIndex) {
     answerBtns.forEach(btn => {
         btn.disabled = true;
     });
-
     if (answerIndex === question.correct) {
-
         feedbackSection.textContent = 'Correct! Well done!';
         feedbackSection.style.backgroundColor = '#5ac774';
         feedbackSection.style.color = '#155724';
@@ -351,14 +371,16 @@ function checkAnswer(answerIndex) {
     document.getElementById('next-btn').style.display = 'block';
 }
 
+/**
+ * Advances to the next question in the quiz. If there are more questions,
+ * it displays the next question. If all questions have been answered,
+ * it hides the quiz elements and displays a completion message with an option
+ * to play again
+ */
 function nextQuestion() {
     currentQuestion++;
-    if (currentQuestion < 6) {
+    if (currentQuestion < 5) {
         showQuestion();
-        //TODO text to speech here to play question
-
-    
-
     }
     else {
         // Hide quiz elements
@@ -372,25 +394,42 @@ function nextQuestion() {
         const completionDiv = document.createElement('div');
         completionDiv.innerHTML = 
             `<h1>Quiz Complete!</h1>
-            <button class="btn" id="start-btn" onclick="playAgain()">Play Again?</button>
-            <p>Enter your email address below for a chance to win some Fleming Swag!</p>
-            <p>one entry per person</p>`;
+            <button class="btn" id="start-btn" onclick="playAgain()">Play Again?</button>`;
         quizSection.appendChild(completionDiv);
 
     }
 }
 
+/**
+ * Resets the quiz to its initial state and starts a new quiz.
+ * 
+ * This function performs the following actions:
+ * 1. Removes the completion message from the quiz section.
+ * 2. Resets the quiz questions to their original state.
+ * 3. Makes the quiz elements visible again.
+ * 4. Resets the current question index to 0.
+ * 5. Starts a new quiz.
+ */
 function playAgain() {
     // Remove completion message
     const quizSection = document.getElementById('quiz-section');
     quizSection.removeChild(quizSection.lastChild);
+    // Reset quiz questions to original
+    quizQuestions.questions = structuredClone(originalQuestions)
     // Show quiz elements
     document.getElementById('question-container').style.display = 'block';
     document.getElementById('answer-section').style.display = 'grid';
     // Start new quiz
+    currentQuestion = 0;
     startQuiz();
 }
 
+/**
+ * Shuffles the order of questions in the quizQuestions object using the Fisher-Yates algorithm.
+ * This function modifies the quizQuestions.questions array in place.
+ *
+ * @function shuffleQuestions
+ */
 function shuffleQuestions() {
     for (let i = quizQuestions.questions.length - 1; i > 0; i--) {
         const random = Math.floor(Math.random() * (i + 1));

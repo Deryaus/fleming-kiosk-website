@@ -70,5 +70,15 @@ def tts():
         print(f"Greeting Error: {e}")
         return jsonify({'error': str(e), 'status': 'error'}), 500
 
+@app.route('/quiz-tts', methods=['POST'])
+def quiz_tts():
+    try:
+        question = request.json.get('question')
+        play_edge_tts(str(question))
+        return jsonify({"message": "TTS started", 'status': 'success'}), 200
+    except Exception as e:
+        print(f"Quiz TTS Error: {e}")
+        return jsonify({'error': str(e), 'status': 'error'}), 500
+
 if __name__ == '__main__':
     app.run(debug=True) 
