@@ -21,7 +21,7 @@
             "correct": 0
         },
         {
-            "question": "What is the name of the student association at Fleming College?",
+            "question": "What is the name of the student association at Sutherland campus?",
             "answers": [
                 "Fleming Student Union",
                 "Fleming Student Administrative Council",
@@ -55,7 +55,7 @@
             "answers": [
                 "Skip classes for the first week",
                 "Study alone in the library",
-                "Attend Orientation week events",
+                "Attend Orientation day events",
                 "Avoid extracurricular activites"
             ],
             "correct": 2
@@ -124,7 +124,7 @@
             "question": "Sir Sandford Fleming is best known for helping create which modern system?",
             "answers": [
                 "The metric system",
-                "International time zones",
+                "Standard time zones",
                 "The imperial system",
                 "The Cubit system"
             ],
@@ -209,6 +209,106 @@
                 "Make an igloo"
             ],
             "correct": 1
+        },
+        {
+            "question": "What is the name of the Lindsay campus?",
+            "answers": [
+                "Frost Campus",
+                "Sutherland Campus",
+                "Haliburton Campus",
+                "Cobourg Campus"
+            ],
+            "correct": 0
+        },
+        {
+            "question": "Where was Sir Sandford Fleming born?",
+            "answers": [
+                "Canada",
+                "Scotland",
+                "England",
+                "Ireland"
+            ],
+            "correct": 1
+        },
+        {
+            "question": "At what age did Sir Sandford Fleming Immigrate to Canada?",
+            "answers": [
+                "18",
+                "12",
+                "30",
+                "25"
+            ],
+            "correct": 0
+        },
+        {
+            "question": "What proffesion did Sir Sandford Fleming apprentice in?",
+            "answers": [
+                "Engineer",
+                "Architect",
+                "Surveyor",
+                "Cartographer"
+            ],
+            "correct": 2
+        },
+        {
+            "question": "Which Canadian city did Sir Sandford Fleming settle in when he arrived?",
+            "answers": [
+                "Ottawa",
+                "Toronto",
+                "Vancouver",
+                "Peterborough"
+            ],
+            "correct": 3
+        },
+        {
+            "question": "What event inspired Sir Sandford Fleming to propose standard time?",
+            "answers": [
+                "A debate over daylight saving time",
+                "A railway accident due to scheduling",
+                "Missing a train in Ireland",
+                "A scientific conference about time zones"
+            ],
+            "correct": 2
+        },
+        {
+            "question": "What is the name of the Lindsay campus?",
+            "answers": [
+                "Frost Campus",
+                "Sutherland Campus",
+                "Haliburton Campus",
+                "Cobourg Campus"
+            ],
+            "correct": 0
+        },
+        {
+            "question": "What was Canada's first postage stamp, designed by Sir sandford Fleming called?",
+            "answers": [
+                "The Maple Penny",
+                "The Threepenny Beaver",
+                "The Royal Seal",
+                "The canadian Express"
+            ],
+            "correct": 1
+        },
+        {
+            "question": "What honor did Sir Sandford Fleming recieve in 1897?",
+            "answers": [
+                "He was knighted by Queen Victoria",
+                "He became Prime Minister",
+                "He was awarded a Nobel Prize",
+                "He was elected to the Canadian Senate"
+            ],
+            "correct": 0
+        },
+        {
+            "question": "What is the name of the Lindsay campus?",
+            "answers": [
+                "Frost Campus",
+                "Sutherland Campus",
+                "Haliburton Campus",
+                "Cobourg Campus"
+            ],
+            "correct": 0
         }
 
     ]
