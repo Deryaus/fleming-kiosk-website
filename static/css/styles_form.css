@@ -1,0 +1,71 @@
+:root {
+    /* pipeline color scheme */
+    --color-text: #5c5ee7;
+    --color-link: #0ab5e4;
+    --color-link-hover: #fff;
+    --color-title: #0ab5e4;
+}
+
+body {
+    display: flex; /* Use flexbox layout */
+    flex-direction: column; /* Arrange children in a column */
+    align-items: center; /* Center children horizontally */ 
+    font-family: Arial, sans-serif; /* Set font family */
+}
+
+form {
+    max-width: 1280px; /* Increase width */
+    margin: 50px auto;
+    padding: 60px 100px; /* Increase padding for a bigger feel */
+    font-size: 1.6em; /* Make text inside the form larger */
+    background: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
+}
+
+/* Make input fields and labels bigger */
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.2em; /* Increase text size */
+    margin-top: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+/* Make submit button bigger */
+/* Style for buttons */
+button {
+    display: inline-block; /* Inline-block display */
+    padding: 10px 20px; 
+    font-size: 1.2em;
+    color: #fff;
+    background: linear-gradient(45deg, var(--color-text), var(--color-link));
+    box-shadow: 0 0 20px #eee;
+    border-radius: 10px;
+    text-decoration: none; /* No text decoration */
+    cursor: pointer; /* Pointer cursor on hover */
+    margin: 0 10px; /* Margin on left and right */
+    transition: all 0.3s ease;
+}
+
+
+/* Style for button hover state */
+button:hover {
+    background: linear-gradient(45deg, var(--color-link), var(--color-link-hover));
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(10, 181, 228, 0.3);
+    text-decoration: none;
+}
+
+
+/* Increase spacing between form elements */
+.form-group {
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 6em;
+    margin-bottom: 20px;
+}

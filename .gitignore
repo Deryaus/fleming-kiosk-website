@@ -160,12 +160,5 @@ cython_debug/
 #.idea/
 
 speechlog.txt
-__pycache__/geminiQuery.cpython-312.pyc
-__pycache__/geminiQuery.cpython-312.pyc
-__pycache__/text_to_speech.cpython-312.pyc
-speechlog.txt
-__pycache__/geminiQuery.cpython-312.pyc
-__pycache__/text_to_speech.cpython-312.pyc
-/__pycache__
-tempCodeRunnerFile.py
-__pycache__/events.cpython-312.pyc
+__pycache__/*
+event_*
