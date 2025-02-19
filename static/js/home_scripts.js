@@ -92,7 +92,7 @@ function handleEnterKey(event) {
         .then(data => {
             chatOutput.value += 'Blaze: \n';  
             typeEffect(data.response + '\n\n', chatOutput, function() { 
-                chatOutput.value += '──────────────────────────────────────────────────────────────────────────────────\n\n';
+                chatOutput.value += '─────────────────────────────────────────────────────────────────────────────────────────────────────────\n\n';
             });
         })
         .catch(error => {

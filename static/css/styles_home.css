@@ -15,7 +15,8 @@ body {
     align-items: center; /* Center children horizontally */
     margin: 0; /* Remove default margin */  
     font-family: Arial, sans-serif; /* Set font family */
-    background-color: #f0f0f0; /* Set background color */
+    background: rgb(255,255,255);
+    background: radial-gradient(circle, rgba(255,255,255,1) 45%, rgba(158,238,255,1) 100%);
     overflow: hidden; /* Hide overflow */
 }
 
@@ -189,6 +190,27 @@ body {
 }
 /**Chat with blaze sections*/
 /* Style for the chat input container */
+.chat-container {
+    display: flex;
+    height: 100vh;
+    margin: 0;
+    padding-right: 50px;
+    font-family: Arial, sans-serif;
+}
+
+.chat-column {
+    padding: 20px;
+}
+
+.chat-boxes-container {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+}
+
 .chat-input-container {
     display: flex; 
     justify-content: flex-end;
@@ -252,7 +274,7 @@ body {
 
 /* Style for the chat output */
 #chat-output {
-    width: 80%; 
+    width: 100%; 
     height: 350px; 
     padding: 15px; 
     font-size: 1.2em; 
@@ -280,18 +302,17 @@ body {
 }
 
 .character {
-    position: absolute;
-    left: 50px;
-    top: 78%;
-    width: 720px;
-    height: 800px; 
-    transform: translate(-50px, -50%);
+    width: 30%;
+    display: flex;
+    flex-direction: column;
     overflow: hidden; 
+    object-fit: contain;
 }
 
 .character img {
     width: 500px;
     height: 500px;
+    flex: right;
     /**animation: moveSpritesheet 1s steps(3) infinite;*/
     image-rendering: crisp-edges;
 }
@@ -304,21 +325,20 @@ body {
 }
 
 .blaze-logo {
-    position: absolute;
-    left: 85%;
-    top: 90%;
-    width: 300px;
-    height: auto;
-    overflow: hidden;
-
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .column-faq {
     padding: 20px;
 }
 .left-faq {
+    border-radius: 25px;
+    border: 2px solid #000;
     width: 20%;
-    background: #f0f0f0;
+    background:rgba(255, 255, 255, 0.95);
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -332,12 +352,25 @@ body {
     position: relative;
 }
 .right-faq {
+    border-radius: 25px;
+    border: 2px solid #000;
     width: 30%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #e0e0e0;
+    mask: 
+      radial-gradient(100% 100% at var(--_p) 0,#0000 99%,#000 102%) 
+        var(--_p) 100%/var(--t) var(--t) no-repeat,
+      linear-gradient(#000 0 0) padding-box;
+    background: linear-gradient(to right, #FF512F 0%, #F09819 51%, #FF512F 100%) border-box;
 }
+.right-faq img {
+    width: 100%; /* Make the image fill the container horizontally */
+    height: 100%; /* Make the image fill the container vertically */
+    object-fit: contain; /* Ensures the image covers the entire area */
+    padding-bottom: 50%;
+}
+
 .text-box-faq {
     --r: 1em;  /* the radius */
     --t: 1.5em; /* the size of the tail */

@@ -161,4 +161,4 @@ cython_debug/
 
 speechlog.txt
 __pycache__/*
-event_*
+templates/event_div.html

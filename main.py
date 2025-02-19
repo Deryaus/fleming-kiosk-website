@@ -53,7 +53,10 @@ def chat():
         user_input = request.json.get('message', '') # Default value is empty string
         #speech, response = await gemini_query_response_tts(user_input)
         response = query_gemini_model(11, user_input)
-        return jsonify({'response': response.text})
+        try:
+            return jsonify({'response': response.text})
+        except AttributeError:
+            return jsonify({'response': 'Sorry, I cannot provide an answer to that question.'})
     except Exception as e:
         print(e)
         return jsonify({'error': 'Sorry there was a problem with your request'}), 500

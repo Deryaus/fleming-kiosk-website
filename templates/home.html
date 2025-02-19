@@ -53,30 +53,33 @@
             </div>
             <div class="column-faq right-faq">
                 <div class="sprite-faq"></div>
-                <img src="{{ url_for('static', filename='images/blazelogo.png') }}" alt="Blaze Logo">
+                <img src="{{ url_for('static', filename='images/blaze.png') }}" alt="Blaze Logo">
             </div>
         </div>
     </div>
     <div id="Chat-with-blaze" class="content-section">
         <h2>Chat With Blaze</h2>
         <p>Blaze is here to help you with any questions you may have!</p>
-        <div class="character">
-            <img src="{{ url_for('static', filename='images/blaze.png') }}" alt="Blaze Mascot">
-        </div> 
-        <div class="blaze-logo">    
-            <img src="{{ url_for('static', filename='images/blazelogo.png') }}" alt="Blaze Logo">
+        <div class="chat-container">
+            <div class="chat-column character">
+                <img src="{{ url_for('static', filename='images/blaze.png') }}" alt="Blaze Mascot">
+            </div>
+            <div class="chat-column chat-boxes-container">
+                <div class="chat-input-container">
+                    <input type="text" id="chat-input" placeholder="Type here to ask a question..." onkeypress="handleEnterKey(event)">
+                    <button class="mic-btn" onclick="startRecording()">
+                        <img src="{{ url_for('static', filename='images/mic-icon.png') }}" alt="Microphone">
+                    </button>
+                </div>
+                <div class="chat-output-container">
+                    <textarea id="chat-output" readonly></textarea>
+                </div>
+            </div>
+            <div class="chat-column blaze-logo">    
+                <img src="{{ url_for('static', filename='images/blazelogo.png') }}" alt="Blaze Logo">
+            </div>
+            <div class="simple-keyboard"></div>
         </div>
-        <div class="chat-input-container">
-            <input type="text" id="chat-input" placeholder="Type here to ask a question..." onkeypress="handleEnterKey(event)">
-            <button class="mic-btn" onclick="startRecording()">
-                <img src="{{ url_for('static', filename='images/mic-icon.png') }}" alt="Microphone">
-            </button>
-        </div>
-        <div class="chat-output-container">
-            <textarea id="chat-output" readonly></textarea>
-        </div>
-        <div class="simple-keyboard"></div>
-
     </div>
     <div id ="game-section" class="content-section">
         <h2>Test Your Knowledge!</h2>
