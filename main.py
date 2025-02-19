@@ -112,6 +112,18 @@ def tts():
 
 @app.route('/quiz-tts', methods=['POST'])
 def quiz_tts():
+    """
+    Endpoint to handle Text-to-Speech (TTS) for quiz questions.
+
+    This function receives a POST request with a JSON payload containing a 'question'.
+    It then uses the play_edge_tts function to convert the question text to speech.
+
+    Returns:
+        JSON response indicating the status of the TTS operation.
+        - On success: {"message": "TTS started", 'status': 'success'}, HTTP status code 200.
+        - On failure: {'error': str(e), 'status': 'error'}, HTTP status code 500.
+
+    """
     try:
         question = request.json.get('question')
         play_edge_tts(str(question))
