@@ -164,19 +164,54 @@ body {
 }
 
 
-/* Style for images inside the map section */
-#map-section img {
-    width: 100%; 
-    height: auto;
-    margin: 0 auto;
-    display: block; 
-}
-
 #schedule-section img {
     width: 60%; 
     height: auto;
     margin: 0 auto;
     display: block; 
+}
+
+.map-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%;
+}
+
+.map-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.campus-buttons {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+#map-image {
+    width: 80%;
+    height: auto;
+}
+
+.level-controls {
+    display: none;
+    position: absolute;
+    right: 200px;
+    top: 50%;
+    transform: translateY(-50%);
+    flex-direction: column;
+    gap: 30px;
+}
+
+.level-btn {
+    width: 200px;
+    padding: 15px;
+    display: block;
+    margin: 10px 0;
 }
 .SAQ-QR {
     position: fixed;

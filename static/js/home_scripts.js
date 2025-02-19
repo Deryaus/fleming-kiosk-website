@@ -56,12 +56,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function changeMap(map) {
     const mapImage = document.getElementById("map-image");
+    const frostLevels = document.getElementById("frost-levels");
 
     if (map === "suther") {
         mapImage.src = mapImage.getAttribute("data-map-suther");
+        frostLevels.style.display = "none";
     } else if (map === "frost") {
-        mapImage.src = mapImage.getAttribute("data-map-frost");
+        mapImage.src = mapImage.getAttribute("data-map-frost-upper");
+        frostLevels.style.display = "block"
     }
+}
+
+function changeFrostLevel(level) {
+    const mapImage = document.getElementById("map-image");
+    mapImage.src = mapImage.getAttribute(`data-map-frost-${level}`);
 }
 
 /**
@@ -112,7 +120,6 @@ function startRecording() {
     micButton.style.backgroundColor = '#dc3545';
     micButton.disabled = true;
     chatOutput.value += 'Listening...\n';
-
     // make a call to the python script
     fetch('/record-audio', {
         method: 'POST',
@@ -399,7 +406,6 @@ function nextQuestion() {
         document.getElementById('answer-section').style.display = 'none';
         document.getElementById('feedback-section').style.display = 'none';
         document.getElementById('next-btn').style.display = 'none';
-
         // Show completion message
         const quizSection = document.getElementById('quiz-section');
         const completionDiv = document.createElement('div');

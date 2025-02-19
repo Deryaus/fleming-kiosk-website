@@ -17,6 +17,7 @@ function welcomeTTSGreeting() {
         // Always redirect after 1 second, regardless of TTS success/failure
         setTimeout(() => {
             window.location.href = "home";
+            btn.disabled = false;   
         }, 1000);
     });
 }
