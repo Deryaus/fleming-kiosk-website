@@ -2,6 +2,9 @@ let inactivityTimeout;
 let timeoutLength;
 let currentQuestion;
 let quizQuestions;
+let isTalking = false;
+let audioTimeout;
+let audioEndTime = 0;
 
 /**
  * Resets the inactivity timeout timer. When the timer expires, redirects to the welcome page.
@@ -331,6 +334,7 @@ function startQuiz() {
  * @throws Will log an error to the console if the TTS request fails.
  */
 function showQuestion() {
+    const avgQuestionTime = 5000; // 5 seconds
     const question = quizQuestions.questions[currentQuestion];
     document.getElementById('question').textContent = question.question;
     const answerBtns = document.querySelectorAll('.answer-btn');
@@ -341,18 +345,24 @@ function showQuestion() {
     });
     document.getElementById('feedback-section').style.display = 'none'; // hide feedback section
     document.getElementById('next-btn').style.display = 'none'; // hide next button untill answer is displayed
-    
-    // Add TTS for question
-    fetch('/quiz-tts', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            question: question.question
+    if (!isTalking) {
+        // Add TTS for question
+        isTalking = true;
+        audioEndTime = Date.now() + avgQuestionTime;
+        fetch('/quiz-tts', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                question: question.question
+            })
         })
-    })
-    .catch(error => console.error('TTS Error:', error));
+        .catch(error => {
+            console.error('TTS Error:', error);
+            isTalking = false;
+        });
+    }
 }  
 
 
@@ -397,6 +407,10 @@ function checkAnswer(answerIndex) {
  */
 function nextQuestion() {
     currentQuestion++;
+    if (Date.now() >= audioEndTime) {
+        isTalking = false;
+        audioEndTime = 0;
+    }
     if (currentQuestion < 5) {
         showQuestion();
     }
