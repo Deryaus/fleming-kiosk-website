@@ -64,11 +64,12 @@ def output_log_text(text):
     Returns:
         None
     """
-    if not os.path.exists("speechlog.txt"):
-        with open("speechlog.txt", "a") as f:
+    path = "Logs/speechlog.txt"
+    if not os.path.exists(path):
+        with open(path, "a") as f:
             f.write("Speech Log:\n\n")
     else:
-        f = open("speechlog.txt", "a")
+        f = open(path, "a")
     f.write(datetime.now().strftime("%Y-%m-%d %H:%M:%S") + " " + text + "\n")
     f.close()
     return
@@ -95,4 +96,5 @@ def speech_to_text_translation():
         return text
 
 if __name__ == "__main__":
-    speech_to_text_translation()
+    #speech_to_text_translation()
+    output_log_text("THIS IS A TEST")
