@@ -23,12 +23,15 @@ app = Flask(__name__)
 scheduler = BackgroundScheduler()
 scheduler.add_job(get_all_events, 'interval', days=1)
 scheduler.start()
-get_all_events()
+try:
+    get_all_events()
+except Exception as e:
+    print(f"Error getting events: {e}")
 
 # Routes
 @app.route('/')
 def welcome():
-    return render_template('welcome.html')
+    return render_template('Info_collection.html')
 
 @app.route('/home')
 def home():
@@ -141,7 +144,7 @@ def submit():
     program = request.form['program']
 
     # Save to CSV file
-    with open('user_data.csv', 'a', newline='') as file:
+    with open('Logs/user_data.csv', 'a', newline='') as file:
         writer = csv.writer(file)
         writer.writerow([name, email, program])
  
