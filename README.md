@@ -21,7 +21,7 @@ to interact with it to answer questions.
   *  **Hypercorn & Nginx** - Deployment on a linux OS for high-performance hosting.
 
 ## Screenshots
-
+![Screenshot](/static/images/welcome_screen.png)
 
 ## Table of Contents
 - [Installation](#installation)
