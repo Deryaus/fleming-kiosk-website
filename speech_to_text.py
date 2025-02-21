@@ -64,7 +64,7 @@ def output_log_text(text):
     Returns:
         None
     """
-    path = "Logs/speechlog.txt"
+    path = "speechlog.txt"
     if not os.path.exists(path):
         with open(path, "a") as f:
             f.write("Speech Log:\n\n")
