@@ -31,7 +31,7 @@ except Exception as e:
 # Routes
 @app.route('/')
 def welcome():
-    return render_template('Info_collection.html')
+    return render_template('welcome.html')
 
 @app.route('/home')
 def home():
