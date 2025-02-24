@@ -26,6 +26,12 @@ function resetInactivityTimeout() {
  * 
  * @param {string} sectionId - The ID of the section element to display
  */
+/**
+ * Displays the specified section by its ID and hides all other sections.
+ * If a welcome video is currently playing, it stops the video and removes the video section.
+ *
+ * @param {string} sectionId - The ID of the section to be displayed.
+ */
 function showSection(sectionId) {
     const videoSection = document.getElementById('welcome-video-section');
     const welcomeVideo = document.getElementById('welcome-video');
@@ -244,7 +250,14 @@ function typeEffect(text, element, callback) {
 function initializeKeyboard(inputSelector, keyboardSelector = '.simple-keyboard') {
     const input = document.querySelector(inputSelector);
     const keyboardElement = document.querySelector(keyboardSelector);
-    
+    let isDragging = false;
+    let currentX;
+    let currentY;
+    let initialX;
+    let initialY;
+    let xOffset = 0;
+    let yOffset = 0;
+
     keyboard = new SimpleKeyboard.default({
         onChange: input => handleKeyboardInput(input),
         onKeyPress: button => handleKeyPress(button),
@@ -283,6 +296,34 @@ function initializeKeyboard(inputSelector, keyboardSelector = '.simple-keyboard'
             keyboardElement.classList.remove('keyboard-visible');
         }
     });
+    //TODO Need to make sure this can work on touch screen. If not get rid of it.
+    keyboardElement.addEventListener('pointerdown', dragStart);
+    document.addEventListener('pointermove', drag);
+    document.addEventListener('pointerup', dragEnd);
+
+    function dragStart(e) {
+        initialX = e.clientX - xOffset;
+        initialY = e.clientY - yOffset;
+        if (e.target === keyboardElement) {
+            isDragging = true;
+        }
+    }
+
+    function drag(e) {
+        if (isDragging) {
+            e.preventDefault();
+            currentX = e.clientX - initialX;
+            currentY = e.clientY - initialY;
+            xOffset = currentX;
+            yOffset = currentY;
+            keyboardElement.style.transform = `translate(${currentX}px, ${currentY}px)`;
+        }
+    }
+    function dragEnd() {
+        initialX = currentX;
+        initialY = currentY;
+        isDragging = false;
+    }
 }
 
 /**
@@ -341,6 +382,7 @@ function startQuiz() {
     const quizSection = document.getElementById('quiz-section');
     quizSection.style.display = 'block'; // display the quiz section
     document.getElementById('start-btn').style.display ='none';  // remove start quiz button 
+    document.getElementById('motto').style.display ='none';  // remove start quiz button 
     shuffleQuestions();
     showQuestion();
 

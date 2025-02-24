@@ -333,10 +333,14 @@ body {
     max-width: 850px;
     margin: 20px auto;
     display: none;   /* Hidden by default */
-    z-index: 9999;   /* Very high z-index to stay on top */
+    z-index: 9999;   
     background-color: rgba(255, 255, 255, 0.95);  /* Semi-transparent background */
     border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);  
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    cursor: move;
+    user-select: none;
+    padding: 100px;
+    border: 5px;
 }
 .keyboard-visible {
     display: block;
@@ -354,6 +358,7 @@ body {
     width: 500px;
     height: 500px;
     flex: right;
+    margin-left: 50px;
 }
 
 .faq-section{
@@ -452,12 +457,21 @@ body {
 }
 
  /** Styles for Quiz Section */
+#motto {
+    width: 80%;
+    height: auto;
+    margin: 20px auto;
+}
+
+#start-btn {
+    margin: auto;
+}
 #quiz-section {
-    width: 800px;
+    width: 1200px;
     height: auto;
     margin: 0 auto;
     padding: 50px;
-    padding-top: 10px;
+    padding-top: 75px;
 }
 
 #question-container {
