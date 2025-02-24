@@ -27,30 +27,53 @@ function resetInactivityTimeout() {
  * @param {string} sectionId - The ID of the section element to display
  */
 function showSection(sectionId) {
+    const videoSection = document.getElementById('welcome-video-section');
+    const welcomeVideo = document.getElementById('welcome-video');
+    const targetSection = document.getElementById(sectionId);
+
+    if (welcomeVideo) {
+        // Stop video playback if video exists
+        welcomeVideo.remove();
+        // Remove video section immediately if user clicked a different section
+        if (!welcomeVideo.ended) {
+            videoSection.remove();
+        }
+        else if (welcomeVideo.ended) {
+            videoSection.remove();
+        }
+    }
+    if (targetSection.style.display === 'block') {
+        return
+    }
     // Hide all sections
     document.querySelectorAll('.content-section').forEach(section => {
         section.style.display = 'none';
+        section.style.opacity = 0;
     });
-    // Show the selected section
-    document.getElementById(sectionId).style.display = 'block';
-    resetInactivityTimeout();
+    // Show target section
+    targetSection.style.display = 'block';
+    setTimeout(() => {
+        targetSection.style.opacity = 1;
+    }, 100);
 }
 
 /**
  * Event Listener for the 'DOMContentLoaded' event.
  * Attaches event listeners for mousemove and keypress events to reset the inactivity timeout.
  * Initializes the virtual keyboard on the chat input field.
- * Updates the calendar image source to the current date.
  * 
  */
 document.addEventListener('DOMContentLoaded', () => {
+    const welcomeVideo = document.getElementById('welcome-video');
+
+    welcomeVideo.volume = 0.3;
     fetch('/static/json/quiz_questions.json')
         .then(response => response.json())
         .then(data => {
             originalQuestions = structuredClone(data.questions);
             quizQuestions = {questions: structuredClone(data.questions)};   
-        });
-        
+        })
+    .catch (error => console.error('Error loading quiz questions:', error));
     document.addEventListener('mousemove', resetInactivityTimeout);
     document.addEventListener('keypress', resetInactivityTimeout);
     initializeKeyboard('#chat-input');

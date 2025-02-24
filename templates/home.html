@@ -25,6 +25,15 @@
         <button class="btn-blz" onclick="showSection('Chat-with-blaze')">Chat With Blaze</button>
         <button class="btn" onclick="showSection('game-section')">Play A Game</button>
     </div>
+    <div id="welcome-video-section" class="content-section" style="display: block;">
+        <div class="video-container">
+            <video id="welcome-video" autoplay onended="showSection('map-section')"
+                controlsList="nodownload noplaybackrate nofullscreen noremoteplayback"
+                disablePictureInPicture>
+                <source src="{{ url_for('static', filename='videos/welcome_video.mp4') }}" type="video/mp4">
+            </video>
+        </div>
+    </div>
     <div id="map-section" class="content-section">
         <div class="map-container">
             <div class="map-content">

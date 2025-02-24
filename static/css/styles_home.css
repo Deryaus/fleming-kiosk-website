@@ -151,6 +151,7 @@ body {
     display: none; /* Hidden by default */
     margin-top: 20px; /* Margin at the top */
     text-align: center; 
+    transition: opacity 0.3s ease;
 }
 
 /* Style for images inside content sections */
@@ -158,12 +159,6 @@ body {
     width: 50%; /* 50% width of the container */
     height: auto; /* Maintain aspect ratio */
 }
-
-/* Style for the map section */
-#map-section {
-    display: block; 
-}
-
 
 #schedule-section img {
     width: 60%; 
@@ -516,5 +511,25 @@ body {
 
 #next-btn {
 margin: auto;
+}
+
+.video-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+#welcome-video {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+#welcome-video-section {
+    position: relative;
+    padding: 20px;
+    opacity: 1;
 }
 
