@@ -25,6 +25,15 @@
         <button class="btn-blz" onclick="showSection('Chat-with-blaze')">Chat With Blaze</button>
         <button class="btn" onclick="showSection('game-section')">Play A Game</button>
     </div>
+    <div id="welcome-video-section" class="content-section" style="display: block;">
+        <div class="video-container">
+            <video id="welcome-video" autoplay onended="showSection('map-section')"
+                controlsList="nodownload noplaybackrate nofullscreen noremoteplayback"
+                disablePictureInPicture>
+                <source src="{{ url_for('static', filename='videos/welcome_video.mp4') }}" type="video/mp4">
+            </video>
+        </div>
+    </div>
     <div id="map-section" class="content-section">
         <div class="map-container">
             <div class="map-content">
@@ -91,9 +100,12 @@
             <div class="simple-keyboard"></div>
         </div>
     </div>
-    <div id ="game-section" class="content-section">
+    <div id="game-section" class="content-section">
         <h2>Test Your Knowledge!</h2>
-        <button class="btn" id="start-btn" onclick="startQuiz()">Start Game</button>
+        <img id="motto" src="{{ url_for('static', filename='images/apply_yourself_here1.png') }}" alt="Motto">
+        <div class="start-btn">
+            <button class="btn" id="start-btn" onclick="startQuiz()">Start Game</button>
+        </div>
         <div id="quiz-section" style="display: none">
             <div id="question-container">
               <h2 id="question"></h2>

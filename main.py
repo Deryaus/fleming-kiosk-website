@@ -54,7 +54,6 @@ def chat():
     """
     try:
         user_input = request.json.get('message', '') # Default value is empty string
-        #speech, response = await gemini_query_response_tts(user_input)
         response = query_gemini_model(11, user_input)
         try:
             return jsonify({'response': response.text})
@@ -106,8 +105,7 @@ def tts():
             - On error: ({"error": str(e), 'status': 'error'}, 500)
     """
     try:
-        welcome_message = "Say Welcome to Fleming College"
-        gemini_query_response_tts(welcome_message)
+        play_edge_tts("Welcome To Fleming College")
         return jsonify({"message": "TTS started", 'status': 'success'}), 200
     except Exception as e:
         print(f"Greeting Error: {e}")

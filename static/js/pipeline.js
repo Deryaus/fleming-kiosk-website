@@ -28,7 +28,7 @@ function setup() {
   resize();
   initPipes();
 	draw();
-  /**setInterval(resetPipelines, 300000) */
+  setInterval(resetPipelines, 600000);
 }
 
 function initPipes() {
