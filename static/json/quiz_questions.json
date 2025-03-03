@@ -271,16 +271,6 @@
             "correct": 2
         },
         {
-            "question": "What is the name of the Lindsay campus?",
-            "answers": [
-                "Frost Campus",
-                "Sutherland Campus",
-                "Haliburton Campus",
-                "Cobourg Campus"
-            ],
-            "correct": 0
-        },
-        {
             "question": "What was Canada's first postage stamp, designed by Sir sandford Fleming called?",
             "answers": [
                 "The Maple Penny",
@@ -299,17 +289,6 @@
                 "He was elected to the Canadian Senate"
             ],
             "correct": 0
-        },
-        {
-            "question": "What is the name of the Lindsay campus?",
-            "answers": [
-                "Frost Campus",
-                "Sutherland Campus",
-                "Haliburton Campus",
-                "Cobourg Campus"
-            ],
-            "correct": 0
         }
-
     ]
 }

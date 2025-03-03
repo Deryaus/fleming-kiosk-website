@@ -416,7 +416,7 @@ body {
     height: 100%; /* Make the image fill the container vertically */
     object-fit: contain; /* Ensures the image covers the entire area */
     padding-bottom: 15%;
-    padding-top: 35%
+    padding-top: 45%
 }
 
 .text-box-faq {
@@ -451,9 +451,9 @@ body {
     place-self: start;
 }
 .sprite-faq {
-    width: 200px; /* Adjust as needed */
-    height: 300px; /* Adjust as needed */
-    background-size: cover;
+    width: auto; /* Adjust as needed */
+    height: 900px; /* Adjust as needed */
+    background-size: contain;
 }
 
  /** Styles for Quiz Section */
