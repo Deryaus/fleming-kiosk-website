@@ -482,3 +482,60 @@ body {
 margin: auto;
 }
 
+<<<<<<< Updated upstream
+=======
+.video-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+#welcome-video {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+#welcome-video-section {
+    position: relative;
+    padding: 20px;
+    opacity: 1;
+}
+
+
+.form-container {
+    display: flex; /* Use flexbox layout */
+    flex-direction: column; /* Arrange children in a column */
+    align-items: center; /* Center children horizontally */ 
+    font-family: Arial, sans-serif; /* Set font family */
+}
+
+form {
+    max-width: 1280px; /* Increase width */
+    margin: 50px auto;
+    padding: 60px 100px; /* Increase padding for a bigger feel */
+    font-size: 1.6em; /* Make text inside the form larger */
+    background: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
+    text-align: left;
+}
+
+/* Make input fields and labels bigger */
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.2em; /* Increase text size */
+    margin-top: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+>>>>>>> Stashed changes

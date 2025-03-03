@@ -305,6 +305,8 @@ function handleShift() {
  */
 function startQuiz() {
     currentQuestion = 0;
+    const formSection = document.getElementById('form-section');
+    formSection.style.display = 'none'; // hide the form section
     const quizSection = document.getElementById('quiz-section');
     quizSection.style.display = 'block'; // display the quiz section
     document.getElementById('start-btn').style.display ='none';  // remove start quiz button 
@@ -347,6 +349,20 @@ function showQuestion() {
     })
     .catch(error => console.error('TTS Error:', error));
 }  
+
+document.getElementById("form").addEventListener("submit", function(event) {
+    event.preventDefault();  // Prevent the page from reloading
+
+    fetch('/submit', {
+        method: 'POST',
+        body: new FormData(this)
+    })
+    .then(response => response.json())  // Expecting JSON response
+    .then(data => {
+        document.getElementById("response").innerText = data.message; // Show message on the same page
+    })
+    .catch(error => console.error('Error:', error));
+});
 
 
 /**

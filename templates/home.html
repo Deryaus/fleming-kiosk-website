@@ -83,6 +83,7 @@
     </div>
     <div id ="game-section" class="content-section">
         <h2>Test Your Knowledge!</h2>
+<<<<<<< Updated upstream
         <p>Play a game for a chance to win some cool swag!</p>
         <button class="btn" id="start-btn" onclick="startQuiz()">Start Game</button>
         <div id="quiz-section" style="display: none">
@@ -102,5 +103,43 @@
 
     
     
+=======
+        <img id="motto" src="{{ url_for('static', filename='images/apply_yourself_here1.png') }}" alt="Motto">
+        <div class="start-btn">
+            <button class="btn" id="start-btn" onclick="showSection('form-section')">Start Game</button>
+        </div>
+    </div>        
+    <div id="form-section" class="content-section">
+        <h2>Enter Your Information to Play!</h2>
+        <div class="form-container">
+            <form id="form">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required><br><br>
+        
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required><br><br>
+        
+                <label for="program">Program of Interest:</label>
+                <input type="text" id="program" name="program" required><br><br>
+        
+                <button class='btn' type="submit" onclick="startQuiz()">Submit</button>
+                <button class='btn' type="button" onclick="window.location.href='home'">Cancel</button>
+            </form>
+        </div>
+    </div>    
+    <div id="quiz-section" style="display: none">
+        <div id="question-container">
+          <h2 id="question"></h2>
+        </div>
+        <div id="answer-section">
+            <button class="answer-btn" onclick="checkAnswer(0)"></button>
+            <button class="answer-btn" onclick="checkAnswer(1)"></button>
+            <button class="answer-btn" onclick="checkAnswer(2)"></button>
+            <button class="answer-btn" onclick="checkAnswer(3)"></button>
+        </div>
+        <div id="feedback-section"></div>
+        <button class="btn" id="next-btn" style='display: none' onclick="nextQuestion()">Next Question</button>
+    </div>
+>>>>>>> Stashed changes
 </body>
 </html>
