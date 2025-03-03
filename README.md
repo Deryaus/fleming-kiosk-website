@@ -74,11 +74,11 @@ to interact with it to answer questions.
 ## Installation 
 
 ### For Installation instructions on Ubuntu
-Please see: [Ubuntu Configuration](docs/ubuntu_configuration.md)
+Please see: [Ubuntu Configuration](docs/Ubuntu_configuration.md)
 
 
 
 ## Configuration
 ### How to Add or Remove Questions from the Quiz JSON File
-Please see: [Add or Remove Quiz questions](docs/How_to_add_or_remove_questions.md)
+Please see: [Add or Remove Quiz questions](docs/How_to_add_or_remove_quiz_questions.md)
 
