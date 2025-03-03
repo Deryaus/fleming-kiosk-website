@@ -2,6 +2,9 @@ let inactivityTimeout;
 let timeoutLength;
 let currentQuestion;
 let quizQuestions;
+let isTalking = false;
+let audioTimeout;
+let audioEndTime = 0;
 
 /**
  * Resets the inactivity timeout timer. When the timer expires, redirects to the welcome page.
@@ -23,31 +26,60 @@ function resetInactivityTimeout() {
  * 
  * @param {string} sectionId - The ID of the section element to display
  */
+/**
+ * Displays the specified section by its ID and hides all other sections.
+ * If a welcome video is currently playing, it stops the video and removes the video section.
+ *
+ * @param {string} sectionId - The ID of the section to be displayed.
+ */
 function showSection(sectionId) {
+    const videoSection = document.getElementById('welcome-video-section');
+    const welcomeVideo = document.getElementById('welcome-video');
+    const targetSection = document.getElementById(sectionId);
+
+    if (welcomeVideo) {
+        // Stop video playback if video exists
+        welcomeVideo.remove();
+        // Remove video section immediately if user clicked a different section
+        if (!welcomeVideo.ended) {
+            videoSection.remove();
+        }
+        else if (welcomeVideo.ended) {
+            videoSection.remove();
+        }
+    }
+    if (targetSection.style.display === 'block') {
+        return
+    }
     // Hide all sections
     document.querySelectorAll('.content-section').forEach(section => {
         section.style.display = 'none';
+        section.style.opacity = 0;
     });
-    // Show the selected section
-    document.getElementById(sectionId).style.display = 'block';
-    resetInactivityTimeout();
+    // Show target section
+    targetSection.style.display = 'block';
+    setTimeout(() => {
+        targetSection.style.opacity = 1;
+    }, 100);
 }
 
 /**
  * Event Listener for the 'DOMContentLoaded' event.
  * Attaches event listeners for mousemove and keypress events to reset the inactivity timeout.
  * Initializes the virtual keyboard on the chat input field.
- * Updates the calendar image source to the current date.
  * 
  */
 document.addEventListener('DOMContentLoaded', () => {
+    const welcomeVideo = document.getElementById('welcome-video');
+
+    welcomeVideo.volume = 0.3;
     fetch('/static/json/quiz_questions.json')
         .then(response => response.json())
         .then(data => {
             originalQuestions = structuredClone(data.questions);
             quizQuestions = {questions: structuredClone(data.questions)};   
-        });
-        
+        })
+    .catch (error => console.error('Error loading quiz questions:', error));
     document.addEventListener('mousemove', resetInactivityTimeout);
     document.addEventListener('keypress', resetInactivityTimeout);
     initializeKeyboard('#chat-input');
@@ -56,12 +88,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function changeMap(map) {
     const mapImage = document.getElementById("map-image");
+    const frostLevels = document.getElementById("frost-levels");
 
     if (map === "suther") {
         mapImage.src = mapImage.getAttribute("data-map-suther");
+        frostLevels.style.display = "none";
     } else if (map === "frost") {
-        mapImage.src = mapImage.getAttribute("data-map-frost");
+        mapImage.src = mapImage.getAttribute("data-map-frost-upper");
+        frostLevels.style.display = "block"
     }
+}
+
+function changeFrostLevel(level) {
+    const mapImage = document.getElementById("map-image");
+    mapImage.src = mapImage.getAttribute(`data-map-frost-${level}`);
 }
 
 /**
@@ -112,7 +152,6 @@ function startRecording() {
     micButton.style.backgroundColor = '#dc3545';
     micButton.disabled = true;
     chatOutput.value += 'Listening...\n';
-
     // make a call to the python script
     fetch('/record-audio', {
         method: 'POST',
@@ -211,7 +250,14 @@ function typeEffect(text, element, callback) {
 function initializeKeyboard(inputSelector, keyboardSelector = '.simple-keyboard') {
     const input = document.querySelector(inputSelector);
     const keyboardElement = document.querySelector(keyboardSelector);
-    
+    let isDragging = false;
+    let currentX;
+    let currentY;
+    let initialX;
+    let initialY;
+    let xOffset = 0;
+    let yOffset = 0;
+
     keyboard = new SimpleKeyboard.default({
         onChange: input => handleKeyboardInput(input),
         onKeyPress: button => handleKeyPress(button),
@@ -250,6 +296,34 @@ function initializeKeyboard(inputSelector, keyboardSelector = '.simple-keyboard'
             keyboardElement.classList.remove('keyboard-visible');
         }
     });
+    //TODO Need to make sure this can work on touch screen. If not get rid of it.
+    keyboardElement.addEventListener('pointerdown', dragStart);
+    document.addEventListener('pointermove', drag);
+    document.addEventListener('pointerup', dragEnd);
+
+    function dragStart(e) {
+        initialX = e.clientX - xOffset;
+        initialY = e.clientY - yOffset;
+        if (e.target === keyboardElement) {
+            isDragging = true;
+        }
+    }
+
+    function drag(e) {
+        if (isDragging) {
+            e.preventDefault();
+            currentX = e.clientX - initialX;
+            currentY = e.clientY - initialY;
+            xOffset = currentX;
+            yOffset = currentY;
+            keyboardElement.style.transform = `translate(${currentX}px, ${currentY}px)`;
+        }
+    }
+    function dragEnd() {
+        initialX = currentX;
+        initialY = currentY;
+        isDragging = false;
+    }
 }
 
 /**
@@ -310,6 +384,7 @@ function startQuiz() {
     const quizSection = document.getElementById('quiz-section');
     quizSection.style.display = 'block'; // display the quiz section
     document.getElementById('start-btn').style.display ='none';  // remove start quiz button 
+    document.getElementById('motto').style.display ='none';  // remove start quiz button 
     shuffleQuestions();
     showQuestion();
 
@@ -326,6 +401,7 @@ function startQuiz() {
  * @throws Will log an error to the console if the TTS request fails.
  */
 function showQuestion() {
+    const avgQuestionTime = 5000; // 5 seconds
     const question = quizQuestions.questions[currentQuestion];
     document.getElementById('question').textContent = question.question;
     const answerBtns = document.querySelectorAll('.answer-btn');
@@ -336,18 +412,24 @@ function showQuestion() {
     });
     document.getElementById('feedback-section').style.display = 'none'; // hide feedback section
     document.getElementById('next-btn').style.display = 'none'; // hide next button untill answer is displayed
-    
-    // Add TTS for question
-    fetch('/quiz-tts', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            question: question.question
+    if (!isTalking) {
+        // Add TTS for question
+        isTalking = true;
+        audioEndTime = Date.now() + avgQuestionTime;
+        fetch('/quiz-tts', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                question: question.question
+            })
         })
-    })
-    .catch(error => console.error('TTS Error:', error));
+        .catch(error => {
+            console.error('TTS Error:', error);
+            isTalking = false;
+        });
+    }
 }  
 
 document.getElementById("form").addEventListener("submit", function(event) {
@@ -406,6 +488,10 @@ function checkAnswer(answerIndex) {
  */
 function nextQuestion() {
     currentQuestion++;
+    if (Date.now() >= audioEndTime) {
+        isTalking = false;
+        audioEndTime = 0;
+    }
     if (currentQuestion < 5) {
         showQuestion();
     }
@@ -415,7 +501,6 @@ function nextQuestion() {
         document.getElementById('answer-section').style.display = 'none';
         document.getElementById('feedback-section').style.display = 'none';
         document.getElementById('next-btn').style.display = 'none';
-
         // Show completion message
         const quizSection = document.getElementById('quiz-section');
         const completionDiv = document.createElement('div');

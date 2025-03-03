@@ -15,7 +15,7 @@
         <img src="{{ url_for('static', filename='images/fleminglogowhite.png') }}" alt="Fleming College Logo" class="logo">
     </div>
     <div class="header-container">
-        <img src="{{ url_for('static', filename='images/Black_background.jpg') }}" alt="Fleming College Logo">
+        <img src="{{ url_for('static', filename='images/Black_background.jpg') }}" alt="Background">
         <h1>Welcome to Fleming College</h1>
     </div>
     <div class="button-container">
@@ -23,16 +23,35 @@
         <button class="btn" onclick="showSection('schedule-section')">Event Schedule</button>
         <button class="btn" onclick="showSection('faqs-section')">FAQs</button>
         <button class="btn-blz" onclick="showSection('Chat-with-blaze')">Chat With Blaze</button>
-        <button class="btn" onclick="showSection('game-section')">Win Swag</button>
+        <button class="btn" onclick="showSection('game-section')">Play A Game</button>
+    </div>
+    <div id="welcome-video-section" class="content-section" style="display: block;">
+        <div class="video-container">
+            <video id="welcome-video" autoplay onended="showSection('map-section')"
+                controlsList="nodownload noplaybackrate nofullscreen noremoteplayback"
+                disablePictureInPicture>
+                <source src="{{ url_for('static', filename='videos/welcome_video.mp4') }}" type="video/mp4">
+            </video>
+        </div>
     </div>
     <div id="map-section" class="content-section">
-        <img id="map-image" src="{{ url_for('static', filename='images/campusmap-all-levels.png') }}" 
-            alt="Campus Map"
-            data-map-suther="{{ url_for('static', filename='images/campusmap-all-levels.png') }}"
-            data-map-frost="{{ url_for('static', filename='images/campusmap-frost.png') }}">       
-        <br>
-        <button class="btn-maps" onclick="changeMap('suther')">Sutherland Campus</button>
-        <button class="btn-maps" onclick="changeMap('frost')">Frost Campus</button>
+        <div class="map-container">
+            <div class="map-content">
+                <img id="map-image" src="{{ url_for('static', filename='images/campusmap-all-levels.png') }}" 
+                    alt="Campus Map"
+                    data-map-suther="{{ url_for('static', filename='images/campusmap-all-levels.png') }}"
+                    data-map-frost-upper="{{ url_for('static', filename='images/frost_upper_level.png') }}"
+                    data-map-frost-lower="{{ url_for('static', filename='images/frost_lower_level.png') }}">       
+                <div class="campus-buttons">
+                    <button class="btn-maps" onclick="changeMap('suther')">Sutherland Campus</button>
+                    <button class="btn-maps" onclick="changeMap('frost')">Frost Campus</button>
+                </div>
+            </div>
+            <div id="frost-levels" class="level-controls">
+                <button class="btn-maps level-btn" onclick="changeFrostLevel('upper')">Upper Level</button>
+                <button class="btn-maps level-btn" onclick="changeFrostLevel('lower')">Lower Level</button>
+            </div>
+        </div>
     </div>
     <div id="schedule-section" class="content-section">
         <h2>Fleming SAC Upcoming Events</h2>
@@ -81,11 +100,15 @@
             <div class="simple-keyboard"></div>
         </div>
     </div>
-    <div id ="game-section" class="content-section">
+    <div id="game-section" class="content-section">
         <h2>Test Your Knowledge!</h2>
 <<<<<<< Updated upstream
         <p>Play a game for a chance to win some cool swag!</p>
         <button class="btn" id="start-btn" onclick="startQuiz()">Start Game</button>
+        <img id="motto" src="{{ url_for('static', filename='images/apply_yourself_here1.png') }}" alt="Motto">
+        <div class="start-btn">
+            <button class="btn" id="start-btn" onclick="startQuiz()">Start Game</button>
+        </div>
         <div id="quiz-section" style="display: none">
             <div id="question-container">
               <h2 id="question"></h2>

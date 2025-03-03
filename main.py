@@ -31,7 +31,7 @@ except Exception as e:
 # Routes
 @app.route('/')
 def welcome():
-    return render_template('Info_collection.html')
+    return render_template('welcome.html')
 
 @app.route('/home')
 def home():
@@ -54,7 +54,6 @@ def chat():
     """
     try:
         user_input = request.json.get('message', '') # Default value is empty string
-        #speech, response = await gemini_query_response_tts(user_input)
         response = query_gemini_model(11, user_input)
         try:
             return jsonify({'response': response.text})
@@ -106,8 +105,7 @@ def tts():
             - On error: ({"error": str(e), 'status': 'error'}, 500)
     """
     try:
-        welcome_message = "Say Welcome to Fleming College"
-        gemini_query_response_tts(welcome_message)
+        play_edge_tts("Welcome To Fleming College")
         return jsonify({"message": "TTS started", 'status': 'success'}), 200
     except Exception as e:
         print(f"Greeting Error: {e}")
@@ -115,6 +113,18 @@ def tts():
 
 @app.route('/quiz-tts', methods=['POST'])
 def quiz_tts():
+    """
+    Endpoint to handle Text-to-Speech (TTS) for quiz questions.
+
+    This function receives a POST request with a JSON payload containing a 'question'.
+    It then uses the play_edge_tts function to convert the question text to speech.
+
+    Returns:
+        JSON response indicating the status of the TTS operation.
+        - On success: {"message": "TTS started", 'status': 'success'}, HTTP status code 200.
+        - On failure: {'error': str(e), 'status': 'error'}, HTTP status code 500.
+
+    """
     try:
         question = request.json.get('question')
         play_edge_tts(str(question))
