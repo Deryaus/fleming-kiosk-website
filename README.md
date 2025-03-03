@@ -24,9 +24,51 @@ to interact with it to answer questions.
 ![Screenshot](/static/images/welcome_screen.png)
 
 ## Table of Contents
-- [Installation](#installation)
 - [Usage](#usage)
+- [Installation](#installation)
 - [Configuration](#configuration)
+
+
+## Usage
+
+### Welcome Video
+- Upon launching the kiosk, a welcome video plays automatically
+- Video transitions to Campus Map section when finished
+- Can be skipped by clicking any navigation button
+
+### Navigation
+- Use the top navigation buttons to access different sections:
+  - Campus Map
+  - Event Schedule
+  - FAQs
+  - Chat With Blaze
+  - Play A Game
+
+### Campus Map
+- View maps of Fleming campuses
+- Toggle between Sutherland and Frost campuses
+- Access upper/lower level views for Frost campus
+
+### Event Schedule
+- Browse upcoming Fleming SAC events
+- View event details and images
+- Scan QR code for more information
+
+### FAQs
+- Browse common questions about Fleming College
+- Get instant answers from Blaze the Fleming College Mascot
+
+### Chat with Blaze
+- Interactive chat with Blaze Flemings AI assistant
+- Support for both text and voice input
+
+### Interactive Quiz
+- Test your knowledge about Fleming College
+- Multiple-choice questions covering:
+  - College history
+  - Campus information
+  - Student services
+  - Sir Sandford Fleming facts
 
 
 ## Installation 
@@ -286,46 +328,6 @@ sudo systemctl start start_kiosk
 
 Firefox will now automatically launch on boot into the `flemingkiosk` website hosted locally.
 
-## Usage
-
-### Welcome Video
-- Upon launching the kiosk, a welcome video plays automatically
-- Video transitions to Campus Map section when finished
-- Can be skipped by clicking any navigation button
-
-### Navigation
-- Use the top navigation buttons to access different sections:
-  - Campus Map
-  - Event Schedule
-  - FAQs
-  - Chat With Blaze
-  - Play A Game
-
-### Campus Map
-- View maps of Fleming campuses
-- Toggle between Sutherland and Frost campuses
-- Access upper/lower level views for Frost campus
-
-### Event Schedule
-- Browse upcoming Fleming SAC events
-- View event details and images
-- Scan QR code for more information
-
-### FAQs
-- Browse common questions about Fleming College
-- Get instant answers from Blaze the Fleming College Mascot
-
-### Chat with Blaze
-- Interactive chat with Blaze Flemings AI assistant
-- Support for both text and voice input
-
-### Interactive Quiz
-- Test your knowledge about Fleming College
-- Multiple-choice questions covering:
-  - College history
-  - Campus information
-  - Student services
-  - Sir Sandford Fleming facts
 
 
 ## Configuration
