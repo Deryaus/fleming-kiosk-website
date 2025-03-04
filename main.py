@@ -9,7 +9,7 @@ Parameters:
  None
 """
 
-from flask import Flask, render_template, jsonify, request, redirect
+from flask import Flask, render_template, jsonify, request, redirect, url_for
 from geminiQuery import gemini_query_response_tts, query_gemini_model
 from events import get_all_events
 from text_to_speech import play_edge_tts
@@ -146,7 +146,7 @@ def submit():
         writer = csv.writer(file)
         writer.writerow([name, email, program])
  
-    return redirect('/thank-you') #rethink how to do this part
+    return "Form submitted!", 200 #rethink how to do this part
 
 if __name__ == '__main__':
     app.run(debug=True) 

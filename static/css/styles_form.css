@@ -6,7 +6,7 @@
     --color-title: #0ab5e4;
 }
 
-body {
+.form-container {
     display: flex; /* Use flexbox layout */
     flex-direction: column; /* Arrange children in a column */
     align-items: center; /* Center children horizontally */ 
