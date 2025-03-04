@@ -188,20 +188,28 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(responses => {
             const buttonContainer = document.querySelector(".left-faq");
             
-            Object.keys(responses).forEach(question => {
+            responses.forEach(item => {
                 const button = document.createElement("button");
-                button.textContent = question;
+                button.textContent = item.question;
                 button.classList.add("btn"); // Apply styling
-                button.onclick = function() { moveTextToResponse(this, responses); };
+                button.onclick = function() { moveTextToResponse(item); };
                 buttonContainer.appendChild(button);
             });
         })
         .catch(error => console.error("Error loading questions:", error));
 });
 
-function moveTextToResponse(button, responses) {
-    document.getElementById("response-box").textContent = button.textContent;
-    document.getElementById("answer-box").textContent = responses[button.textContent] || "No answer available";
+function moveTextToResponse(item) {
+    document.getElementById("response-box").textContent = item.question;
+    document.getElementById("answer-box").textContent = item.answer || "No answer available";
+    
+    const imgElement = document.getElementById("faq-image");
+    if (item.image) {
+        imgElement.src = item.image;
+        imgElement.style.display = "block";
+    } else {
+        imgElement.style.display = "none";
+    }
     
     const buttons = document.querySelectorAll(".left-faq button");
     buttons.forEach(btn => {

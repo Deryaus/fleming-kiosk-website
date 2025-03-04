@@ -85,6 +85,7 @@ body {
     cursor: pointer; /* Pointer cursor on hover */
     margin: 0 10px; /* Margin on left and right */
     transition: all 0.3s ease;
+    white-space: normal;
 }
 
 
@@ -366,6 +367,7 @@ body {
     height: 100vh;
     margin: 0;
     font-family: Arial, sans-serif;
+    justify-content: space-between;
 }
 
 .blaze-logo {
@@ -377,11 +379,15 @@ body {
 
 .column-faq {
     padding: 20px;
+    height: 55vh;
+    flex-grow: 0;
+
 }
 .left-faq {
     border-radius: 25px;
     border: 2px solid #000;
-    width: 50%;
+    width: 25%;
+    min-width: 25%;
     height: 55vh;
     background:rgba(255, 255, 255, 0.95);
     display: flex;
@@ -390,7 +396,9 @@ body {
 
 }
 .middle-faq {
-    width: 75%;
+    width: 50%;
+    max-width: 50%;
+    height: 55vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -400,7 +408,8 @@ body {
 .right-faq {
     border-radius: 25px;
     border: 2px solid #000;
-    width: 50%;
+    width: 25%;
+    min-width:25%;
     height: 55vh;
     display: flex;
     justify-content: center;
@@ -410,6 +419,8 @@ body {
         var(--_p) 100%/var(--t) var(--t) no-repeat,
       linear-gradient(#000 0 0) padding-box;
     background: linear-gradient(to right, #FF512F 0%, #F09819 51%, #FF512F 100%) border-box;
+    white-space: normal;
+    flex-grow: 0;
 }
 .right-faq img {
     width: 100%; /* Make the image fill the container horizontally */
@@ -422,8 +433,13 @@ body {
 .text-box-faq {
     --r: 1em;  /* the radius */
     --t: 1.5em; /* the size of the tail */
-    width: 60%;
-    min-height: 100px;
+    width: 400px;
+    height: 150px;
+    flex-shrink: 0;
+    flex-grow: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    min-height: 150px;
     border-inline: var(--t) solid #0000;
     border-radius: calc(var(--r) + var(--t))/var(--r);
     mask: 
@@ -438,11 +454,15 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
+    word-wrap: break-word;
 }
 .box-right{
     --_p: 100%;
     border-bottom-right-radius: 0 0;
     place-self: end;
+    overflow-wrap: break-word;
+    white-space: normal;
+    word-wrap: break-word;
 }
 .box-left{
     --_p: 0;
