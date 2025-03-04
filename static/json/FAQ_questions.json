@@ -6,8 +6,8 @@
 
     {
         "question":"How do I book tutoring?",
-        "answer":"Tutoring can be accessed through the Fleming Library website.",
-        "image":"static/images/blaze.png"
+        "answer":"Tutoring can be accessed through the Fleming Library website, or by scanning the code below!.",
+        "image":"static/images/QR Codes/turtoring.png"
     },
     {
         "question": "How do I get parking?",
@@ -22,5 +22,11 @@
         "question":"How do I get a locker?",
         "answer":"Locker rentals can be accessed through the Student life portal in myCampus, or by scanning below!",
         "image":"static/images/QR Codes/Locker and Parking portal.png"
+    },
+    {
+        "question":"How do I get help with my future Career?",
+        "answer":"Career services help you with finding a job, making your resume, and more! It can be access through the Student life portal in myCampus, or by scanning below!",
+        "image":"static/images/QR Codes/Career Services.png"
     }
+
 ]
