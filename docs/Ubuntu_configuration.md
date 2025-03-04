@@ -206,6 +206,32 @@ Add the following content:
     "Homepage": {
       "StartPage": "homepage",
       "URL": "http://flemingkiosk"
+    },
+    "Preferences": {
+      "media.autoplay.default": {
+        "Value": 0,
+        "Status": "locked"
+      },
+      "media.autoplay.blocking_policy": {
+        "Value": 0,
+        "Status": "locked"
+      },
+      "browser.cache.disk.enable": {
+        "Value": false,
+        "Status": "locked"
+      },
+      "browser.cache.memory.enable": {
+        "Value": false,
+        "Status": "locked"
+      },
+      "browser.cache.offline.enable": {
+        "Value": false,
+        "Status": "locked"
+      },
+      "browser.cache.check_doc_frequency": {
+        "Value": 1,
+        "Status": "locked"
+      }
     }
   }
 }

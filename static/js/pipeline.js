@@ -1,6 +1,6 @@
 'use strict';
 
-const pipeCount = 30;
+const pipeCount = 20;
 const pipePropCount = 8;
 const pipePropsLength = pipeCount * pipePropCount;
 const turnCount = 8;
@@ -9,12 +9,13 @@ const turnChanceRange = 58;
 const baseSpeed = 0.5;
 const rangeSpeed = 1;
 const baseTTL = 100;
-const rangeTTL = 300;
-const baseWidth = 2;
-const rangeWidth = 4;
+const rangeTTL = 200;
+const baseWidth = 1;
+const rangeWidth = 2;
 const baseHue = 180;
 const rangeHue = 60;
 const backgroundColor = 'hsla(150,80%,1%,1)';
+
 
 let container;
 let canvas;
@@ -133,6 +134,8 @@ function createCanvas() {
 		left: 0;
 		width: 100%;
 		height: 100%;
+    transform: translateZ(0);
+    backface-visibility: hidden;
 	`;
 	container.appendChild(canvas.b);
 	ctx = {
@@ -167,7 +170,7 @@ function render() {
   ctx.b.restore();
 
   ctx.b.save();
-  ctx.b.filter = 'blur(12px)'
+  ctx.b.filter = 'blur(8px)'
   ctx.b.drawImage(canvas.a, 0, 0);
   ctx.b.restore();
 
@@ -178,9 +181,7 @@ function render() {
 
 function draw() {
   updatePipes();
-
   render();
-
 	window.requestAnimationFrame(draw);
 }
 

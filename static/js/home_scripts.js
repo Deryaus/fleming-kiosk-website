@@ -132,7 +132,7 @@ function handleEnterKey(event) {
         .then(data => {
             chatOutput.value += 'Blaze: \n';  
             typeEffect(data.response + '\n\n', chatOutput, function() { 
-                chatOutput.value += '─────────────────────────────────────────────────────────────────────────────────────────────────────────\n\n';
+                chatOutput.value += '──────────────────────────────────────────────────────────────────────────────\n\n';
             });
         })
         .catch(error => {
@@ -169,7 +169,7 @@ function startRecording() {
         chatOutput.value += `Question: ${data.user_input}\n\n`;
         chatOutput.value += `Blaze:\n\n`;
         typeEffect(data.output + '\n\n', chatOutput, function() { 
-            chatOutput.value += '──────────────────────────────────────────────────────────────────────────────────\n\n';
+            chatOutput.value += '──────────────────────────────────────────────────────────────────────────────\n\n';
         });
     })
     .catch(error => {
