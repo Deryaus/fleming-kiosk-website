@@ -9,7 +9,7 @@ Parameters:
  None
 """
 
-from flask import Flask, render_template, jsonify, request, redirect
+from flask import Flask, render_template, jsonify, request, redirect, url_for
 from geminiQuery import gemini_query_response_tts, query_gemini_model
 from events import get_all_events
 from text_to_speech import play_edge_tts
@@ -84,13 +84,12 @@ def record_audio():
             'output': output
             })
     except Exception as e:
-        print(e)
+        print(f"Audio record Error: {e}")
         return jsonify({'error': 'Sorry there was a problem with your request'}), 500
 
-#TODO: Add different colour speech bubbles to the HTML
 #TODO: Create questions for FAQ 
 #TODO: Use question text to return a response using TTS
-#TODO: timeout welcome button for TTS
+
 
 @app.route('/tts', methods=['POST'])
 def tts():
@@ -126,17 +125,40 @@ def quiz_tts():
 
     """
     try:
-        question = request.json.get('question')
-        play_edge_tts(str(question))
+        if 'question' in request.json:
+            text = request.json.get('question')
+        elif 'answer' in request.json:
+            text = request.json.get('answer')
+    except Exception as e:
+        print(f"Quiz TTS Error: {e}")
+        return jsonify({'error': str(e), 'status': 'error'}), 500
+
+    try:
+        play_edge_tts(str(text))
         return jsonify({"message": "TTS started", 'status': 'success'}), 200
     except Exception as e:
         print(f"Quiz TTS Error: {e}")
         return jsonify({'error': str(e), 'status': 'error'}), 500
+    
+def faq_tts():
+    #TODO: Implement FAQ TTS
+    return
 
 # TODO: Reconsider implementation
 # Handle form submission
 @app.route('/submit', methods=['POST'])
 def submit():
+    """
+    Handles form submission by extracting user data from the request,
+    saving it to a CSV file, and returning a success message.
+    Extracts the following fields from the form:
+    - name: The name of the user
+    - email: The email address of the user
+    - program: The program the user is interested in
+    Saves the extracted data to 'Logs/user_data.csv'.
+    Returns:
+        tuple: A success message and HTTP status code 200.
+    """
     name = request.form['name']
     email = request.form['email']
     program = request.form['program']
@@ -146,7 +168,7 @@ def submit():
         writer = csv.writer(file)
         writer.writerow([name, email, program])
  
-    return redirect('/thank-you') #rethink how to do this part
+    return "Form submitted!", 200 #rethink how to do this part
 
 if __name__ == '__main__':
     app.run(debug=True) 

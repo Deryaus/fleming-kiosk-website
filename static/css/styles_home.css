@@ -16,7 +16,7 @@ body {
     margin: 0; /* Remove default margin */  
     font-family: Arial, sans-serif; /* Set font family */
     background: rgb(255,255,255);
-    background: radial-gradient(circle, rgba(255,255,255,1) 45%, rgba(158,238,255,1) 100%);
+    background: radial-gradient(circle, rgba(255,255,255,1) 45%, var(--color-link) 100%);
     overflow: hidden; /* Hide overflow */
 }
 
@@ -85,6 +85,7 @@ body {
     cursor: pointer; /* Pointer cursor on hover */
     margin: 0 10px; /* Margin on left and right */
     transition: all 0.3s ease;
+    white-space: normal;
 }
 
 
@@ -366,6 +367,7 @@ body {
     height: 100vh;
     margin: 0;
     font-family: Arial, sans-serif;
+    justify-content: space-between;
 }
 
 .blaze-logo {
@@ -377,11 +379,15 @@ body {
 
 .column-faq {
     padding: 20px;
+    height: 55vh;
+    flex-grow: 0;
+
 }
 .left-faq {
     border-radius: 25px;
     border: 2px solid #000;
-    width: 50%;
+    width: 25%;
+    min-width: 25%;
     height: 55vh;
     background:rgba(255, 255, 255, 0.95);
     display: flex;
@@ -390,7 +396,9 @@ body {
 
 }
 .middle-faq {
-    width: 75%;
+    width: 50%;
+    max-width: 50%;
+    height: 55vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -400,7 +408,8 @@ body {
 .right-faq {
     border-radius: 25px;
     border: 2px solid #000;
-    width: 50%;
+    width: 25%;
+    min-width:25%;
     height: 55vh;
     display: flex;
     justify-content: center;
@@ -410,6 +419,8 @@ body {
         var(--_p) 100%/var(--t) var(--t) no-repeat,
       linear-gradient(#000 0 0) padding-box;
     background: linear-gradient(to right, #FF512F 0%, #F09819 51%, #FF512F 100%) border-box;
+    white-space: normal;
+    flex-grow: 0;
 }
 .right-faq img {
     width: 100%; /* Make the image fill the container horizontally */
@@ -422,8 +433,13 @@ body {
 .text-box-faq {
     --r: 1em;  /* the radius */
     --t: 1.5em; /* the size of the tail */
-    width: 60%;
-    min-height: 100px;
+    width: 400px;
+    height: 150px;
+    flex-shrink: 0;
+    flex-grow: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    min-height: 150px;
     border-inline: var(--t) solid #0000;
     border-radius: calc(var(--r) + var(--t))/var(--r);
     mask: 
@@ -438,11 +454,15 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
+    word-wrap: break-word;
 }
 .box-right{
     --_p: 100%;
     border-bottom-right-radius: 0 0;
     place-self: end;
+    overflow-wrap: break-word;
+    white-space: normal;
+    word-wrap: break-word;
 }
 .box-left{
     --_p: 0;
@@ -539,6 +559,27 @@ margin: auto;
     height: auto;
     object-fit: contain;
     display: block;
+    border: 10px solid transparent;
+    border-image: linear-gradient(45deg, #FF512F, #F09819) 1;
+}
+
+#welcome-video-section {
+    position: relative;
+    padding: 20px;
+    opacity: 1;
+}
+.video-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+#welcome-video {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
 }
 
 #welcome-video-section {
@@ -547,3 +588,36 @@ margin: auto;
     opacity: 1;
 }
 
+
+.form-container {
+    display: flex; /* Use flexbox layout */
+    flex-direction: column; /* Arrange children in a column */
+    align-items: center; /* Center children horizontally */ 
+    font-family: Arial, sans-serif; /* Set font family */
+}
+
+form {
+    max-width: 1280px; /* Increase width */
+    margin: 50px auto;
+    padding: 60px 100px; /* Increase padding for a bigger feel */
+    font-size: 1.6em; /* Make text inside the form larger */
+    background: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
+    text-align: left;
+}
+
+/* Make input fields and labels bigger */
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.2em; /* Increase text size */
+    margin-top: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
