@@ -202,7 +202,8 @@ document.addEventListener("DOMContentLoaded", function() {
 function moveTextToResponse(item) {
     document.getElementById("response-box").textContent = item.question;
     document.getElementById("answer-box").textContent = item.answer || "No answer available";
-    
+    FAQ_tts(item.answer);
+
     const imgElement = document.getElementById("faq-image");
     if (item.image) {
         imgElement.src = item.image;
@@ -220,7 +221,26 @@ function moveTextToResponse(item) {
         buttons.forEach(btn => {
             btn.disabled = false;
         });
-    }, 2000);
+    }, 4000);
+}
+
+
+
+function FAQ_tts(ans) {
+//TODO: TTS for FAQ - see quiz for implementation
+    fetch('/quiz-tts', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            answer: ans
+        })
+    })
+    .catch(error => {
+        console.error('TTS Error:', error);
+        isTalking = false;
+    });
 }
 
 
