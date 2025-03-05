@@ -87,6 +87,10 @@ to interact with it to answer questions.
 
 Please see: [Ubuntu Configuration](docs/Ubuntu_configuration.md)
 
+### For restricting USB Access 
+
+Please see: [Restrict USB](docs/restrict_usb_devices.md)
+
 ## Configuration
 
 ### How to Add or Remove Questions from the Quiz JSON File
