@@ -59,6 +59,7 @@ Change it to:
 ```bash
 gsettings set org.gnome.mutter dynamic-workspaces false
 gsettings set org.gnome.desktop.wm.preferences num-workspaces 1
+
 ```
 Disable update notifications and allow updates to run automatically:
 ```bash
@@ -71,6 +72,7 @@ sudo apt install chrome-gnome-shell -y
 ```
 - Install GNOME Shell Integration in Firefox: [GNOME Shell Integration](https://addons.mozilla.org/en-CA/firefox/addon/gnome-shell-integration/).
 - Install Caribou Blocker: [Caribou Blocker](https://extensions.gnome.org/extension/3222/block-caribou-36/) and activate it.
+- Install No Overview: [No Overview](https://extensions.gnome.org/extension/4099/no-overview/)
 
 ### 7. Enable Auto Login
 **Objective:** Automatically log in the kiosk user.  
