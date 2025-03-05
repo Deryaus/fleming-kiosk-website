@@ -84,7 +84,7 @@ def record_audio():
             'output': output
             })
     except Exception as e:
-        print(e)
+        print(f"Audio record Error: {e}")
         return jsonify({'error': 'Sorry there was a problem with your request'}), 500
 
 #TODO: Add different colour speech bubbles to the HTML

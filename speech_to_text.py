@@ -64,14 +64,17 @@ def output_log_text(text):
     Returns:
         None
     """
-    path = "speechlog.txt"
-    if not os.path.exists(path):
-        with open(path, "a") as f:
-            f.write("Speech Log:\n\n")
-    else:
-        f = open(path, "a")
-    f.write(datetime.now().strftime("%Y-%m-%d %H:%M:%S") + " " + text + "\n")
-    f.close()
+    path = "Logs/AIChatLog.txt"
+    try:
+        if not os.path.exists(path):
+            with open(path, "a") as f:
+                f.write("AI Chat Log:\n\n")
+        else:
+            f = open(path, "a")
+        f.write(datetime.now().strftime("%Y-%m-%d %H:%M:%S") + " " + text + "\n")
+        f.close()
+    except Exception as e:
+        print(f"Error writing to log file: {e}")
     return
 
 #Translates speech to text and outputs the recorded text to terminal. 

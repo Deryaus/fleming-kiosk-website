@@ -16,7 +16,7 @@ body {
     margin: 0; /* Remove default margin */  
     font-family: Arial, sans-serif; /* Set font family */
     background: rgb(255,255,255);
-    background: radial-gradient(circle, rgba(255,255,255,1) 45%, rgba(158,238,255,1) 100%);
+    background: radial-gradient(circle, rgba(255,255,255,1) 45%, var(--color-link) 100%);
     overflow: hidden; /* Hide overflow */
 }
 
@@ -559,6 +559,8 @@ margin: auto;
     height: auto;
     object-fit: contain;
     display: block;
+    border: 10px solid transparent;
+    border-image: linear-gradient(45deg, #FF512F, #F09819) 1;
 }
 
 #welcome-video-section {
