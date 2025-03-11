@@ -458,19 +458,6 @@ function showQuestion() {
     }
 }  
 
-document.getElementById("form").addEventListener("submit", function(event) {
-    event.preventDefault();  // Prevent the page from reloading
-
-    fetch('/submit', {
-        method: 'POST',
-        body: new FormData(this)
-    })
-    .then(response => response.json())  // Expecting JSON response
-    .then(data => {
-        document.getElementById("response").innerText = data.message; // Show message on the same page
-    })
-    .catch(error => console.error('Error:', error));
-});
 
 
 /**
@@ -486,6 +473,7 @@ function checkAnswer(answerIndex) {
     const question = quizQuestions.questions[currentQuestion];
     const feedbackSection = document.getElementById('feedback-section');
     const answerBtns = document.querySelectorAll('.answer-btn');
+    const nextBtn = document.getElementById('next-btn');
     // Disable all answer buttons until next question
     answerBtns.forEach(btn => {
         btn.disabled = true;
@@ -504,6 +492,14 @@ function checkAnswer(answerIndex) {
     }
     feedbackSection.style.display = 'block';
     document.getElementById('next-btn').style.display = 'block';
+    nextBtn.disabled = true;
+    // Enable next button when audio finishes
+    const checkAudioEnd = setInterval(() => {
+        if (Date.now() >= audioEndTime) {
+            nextBtn.disabled = false;
+            clearInterval(checkAudioEnd);
+        }
+    }, 100); // check every 100ms
 }
 
 /**
@@ -575,3 +571,18 @@ function shuffleQuestions() {
         [quizQuestions.questions[random], quizQuestions.questions[i]];
     }
 }
+
+
+document.getElementById("form").addEventListener("submit", function(event) {
+    event.preventDefault();  // Prevent the page from reloading
+
+    fetch('/submit', {
+        method: 'POST',
+        body: new FormData(this)
+    })
+    .then(response => response.json())  // Expecting JSON response
+    .then(data => {
+        document.getElementById("response").innerText = data.message; // Show message on the same page
+    })
+    .catch(error => console.error('Error:', error));
+});
