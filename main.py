@@ -88,8 +88,6 @@ def record_audio():
         return jsonify({'error': 'Sorry there was a problem with your request'}), 500
 
 #TODO: Create questions for FAQ 
-#TODO: Use question text to return a response using TTS
-
 
 @app.route('/tts', methods=['POST'])
 def tts():
@@ -140,11 +138,7 @@ def quiz_tts():
         print(f"Quiz TTS Error: {e}")
         return jsonify({'error': str(e), 'status': 'error'}), 500
     
-def faq_tts():
-    #TODO: Implement FAQ TTS
-    return
 
-# TODO: Reconsider implementation
 # Handle form submission
 @app.route('/submit', methods=['POST'])
 def submit():

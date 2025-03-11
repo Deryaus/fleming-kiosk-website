@@ -181,7 +181,6 @@ function startRecording() {
     });
 }
 
-// TODO: Functions for FAQ
 document.addEventListener("DOMContentLoaded", function() {
     fetch("/static/json/FAQ_questions.json")
         .then(response => response.json())
@@ -200,6 +199,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function moveTextToResponse(item) {
+    const buttonTimeout = 7000;
     document.getElementById("response-box").textContent = item.question;
     document.getElementById("answer-box").textContent = item.answer || "No answer available";
     FAQ_tts(item.answer);
@@ -221,13 +221,11 @@ function moveTextToResponse(item) {
         buttons.forEach(btn => {
             btn.disabled = false;
         });
-    }, 4000);
+    }, buttonTimeout);
 }
 
-
-
 function FAQ_tts(ans) {
-//TODO: TTS for FAQ - see quiz for implementation
+
     fetch('/quiz-tts', {
         method: 'POST',
         headers: {

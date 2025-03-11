@@ -16,7 +16,7 @@
     },
     {
         "question":"I'm lost, where do I go?",
-        "answer":"The front desk located by the main entrance can help you find your way!"
+        "answer":"The front help desk located by the main entrance can help you find your way!"
     },
     {
         "question":"How do I get a locker?",
@@ -25,16 +25,16 @@
     },
     {
         "question":"How do I get help with my future Career?",
-        "answer":"Career services help you with finding a job, making your resume, and more! It can be access through the Student life portal in myCampus, or by scanning below!",
+        "answer":"Career services can help you with finding a job, making your resume, and more! It is accessible through the myCampus Student life portal, or by scanning below!",
         "image":"static/images/QR Codes/Career Services.png"
     },
     {
         "question":"How do I get help with my mental health or managing life at Fleming?",
-        "answer":"The Fleming College Counselling Services can help with both personal, and academic related problems. Counselling can be accessed through the Student life portal in myCampus, or by scanning below!",
+        "answer":"The Fleming Counselling Services can help with personal, and academic problems. Counselling can be accessed in the myCampus Student life portal, or by scanning below!",
         "image":"static/images/QR Codes/Counselling Services.png"
     },
     {
         "question":"How do I add or drop a course?",
-        "answer":"You cana dd a course through My Student Center, accessed through myCampus. You can drop a course through the Course drop form in the Registrar's portal in myCampus. See the Office of the Registrar for more information and assistance."    
+        "answer":"Add a course through your My Student Center. Drop a course through the Course drop form in the myCampus Registrar's portal. See the Office of the Registrar for more help."    
     }
 ]

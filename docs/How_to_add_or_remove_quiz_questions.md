@@ -1,4 +1,4 @@
-### How to Add or Remove Questions from the Quiz JSON File
+## How to Add or Remove Questions from the Quiz JSON File
 
 ### Adding a New Question
 

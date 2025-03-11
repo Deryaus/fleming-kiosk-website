@@ -31,7 +31,7 @@ to interact with it to answer questions.
 - [Usage](#usage)
 - [Installation](#installation)
 - [Configuration](#configuration)
-- [File Structure and Operation](#File-Structure-and-Functionality)
+- [File Structure and Operation](#File-Structure-and-Functionality) -[AI Functionality and Training]
 
 ## Usage
 
@@ -87,7 +87,7 @@ to interact with it to answer questions.
 
 Please see: [Ubuntu Configuration](docs/Ubuntu_configuration.md)
 
-### For restricting USB Access 
+### For restricting USB Access
 
 Please see: [Restrict USB](docs/restrict_usb_devices.md)
 
@@ -121,6 +121,10 @@ The **docs** folder contains information regarding the moodification and install
 
 The **templates** folder contains the HTML templates for the webpages to be rendered through Flask.
 
-### Operation
+### Functionality
 
-Please see: [Operational Guide](docs/Operational_guide.md) for an in depth breakdown of the program operation.
+Please see: [Functionality Guide](docs/Functionality_guide.md) for an in depth breakdown of the program operation.
+
+## AI Functionality and Training Guide
+
+Please see: [AI Functionality and Training Guide](docs/AI_Functionality_and_Training_Guide.md) for an in depth breakdown of the AI operation.
