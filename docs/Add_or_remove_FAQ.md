@@ -1,6 +1,6 @@
-### How to Add or Remove FAQ from the JSON File
+# How to Add or Remove FAQ from the JSON File
 
-### Adding a New Question
+## Adding a New Question
 
 To add a new question to the JSON file, follow these steps:
 
@@ -24,7 +24,7 @@ To add a new question to the JSON file, follow these steps:
 
 5. Save the file after making your changes.
 
-### Example:
+## Example:
 
 Adding the following question:
 
@@ -40,7 +40,7 @@ If adding it at the end of the array, ensure the previous question has a comma `
 
 ---
 
-### Removing a Question
+## Removing a Question
 
 To remove a question from the JSON file:
 
@@ -49,7 +49,7 @@ To remove a question from the JSON file:
 3. Ensure the remaining format is correct (i.e., no trailing commas on the last question in the array).
 4. Save the file.
 
-### Example:
+## Example:
 
 Removing this question:
 

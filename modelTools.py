@@ -6,7 +6,9 @@ import seaborn as sns
 import matplotlib
 import matplotlib.pyplot as plt
 
-genai.configure(api_key="AIzaSyD84E4GHYIZCHhrMscz3X_l14wSdakY-CM")
+API_KEY = "AIzaSyD84E4GHYIZCHhrMscz3X_l14wSdakY-CM"
+
+genai.configure(api_key=API_KEY)
 
 #Used to increment the version # of the model. 
 #Needs a model name in the format of tunedModels/name-vX where X is the version number
@@ -36,6 +38,15 @@ def increment_version(model_name):
 
 #Get a list of tunable models
 def list_tunable_models():
+    """
+    Lists all tunable models available in the genai library.
+
+    This function retrieves a list of models from the genai library and filters
+    them to include only those that support the "createTunedModel" generation method.
+
+    Returns:
+        list: A list of tunable models that support the "createTunedModel" generation method.
+    """
     tunable_models = [
         m for m in genai.list_models()
         if "createTunedModel" in m.supported_generation_methods]

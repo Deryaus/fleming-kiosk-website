@@ -10,9 +10,12 @@ from modelTools import increment_version,get_lastest_model
 os.environ["GRPC_VERBOSITY"] = "ERROR"
 os.environ["GLOG_minloglevel"] = "2"
  
+API_KEY = "AIzaSyD84E4GHYIZCHhrMscz3X_l14wSdakY-CM"
+BASE_MODEL = "gemini-1.5-flash"
+
 #Configure the API key and base model
-genai.configure(api_key="AIzaSyD84E4GHYIZCHhrMscz3X_l14wSdakY-CM")
-model = genai.GenerativeModel("gemini-1.5-flash")
+genai.configure(api_key=API_KEY)
+model = genai.GenerativeModel(BASE_MODEL)
 generation_config = genai.GenerationConfig(
         max_output_tokens=500,
         temperature=0.1,

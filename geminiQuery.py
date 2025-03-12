@@ -75,8 +75,8 @@ def gemini_query_response_tts(text=None):
 if __name__ == "__main__":
     
     i=8
-    #query_gemini_model(11,"Where is the college located?")
-    gemini_query_response_tts("Where is the college located?")
+    print(query_gemini_model(11,"Is fleming college public?"))
+    #gemini_query_response_tts("Where is the college located?")
     """
     print(query_gemini_model(i,"Is fleming college public?").text)    
     print(query_gemini_model(i,"Who is the college's mascot?").text)
