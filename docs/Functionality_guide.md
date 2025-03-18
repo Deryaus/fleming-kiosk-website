@@ -37,9 +37,9 @@ There are two main HTML template files that are used to render the web pages. Th
 
 ### home.html
 
-[home.html](../templates/home.html) contains the main functionality of the program. It allows users to navigate through the various content sections hosted on the page. The JavaSript used is linked to the `home_scripts.js` file. The Navigation bar at the top is used to switch between content sections. This is done through the `showContentSection()` function. This function works by displaying the associated 'content-section' div in the bottom section of the page.
+[home.html](../templates/home.html) contains the main functionality of the program. It allows users to navigate through the various content sections hosted on the page. The JavaSript used is linked to the `home_scripts.js` file. The Navigation bar at the top is used to switch between content sections. This is done through the `showContentSection()` function. This function works by displaying the associated `'content-section'` div in the bottom section of the page.
 
-Adding more content sections can be done through this nav bar and creating a content section div with a corresponding div id tag.
+Adding more content sections can be done through this nav bar and creating a content section html div with a corresponding div id tag.
 
 **Ex.**
 
@@ -101,8 +101,57 @@ Key functionalities include:
 
 ### Quiz Game
 
-Located within `home_scripts.js` is the Quiz Game functionality. There are a series of functions that outline the gameplay; `startQuiz()`, `showQuestion`, `checkAnswer()`, `nextQuestion`, `playAgain`, and `shuffleQuestion()`. Docstrings in the file indicate the use of the functions.
+The Quiz Game functionality in `home_scripts.js` provides an interactive and engaging way for users to test their knowledge. It is designed with a series of functions that manage the gameplay, ensuring a smooth and enjoyable user experience.
+
+Key functionalities include:
+
+1. **Starting the Quiz**: The `startQuiz()` function initializes the quiz, setting up the necessary variables and displaying the first question.
+2. **Displaying Questions**: The `showQuestion()` function presents the current question and its possible answers to the user.
+3. **Answer Validation**: The `checkAnswer()` function verifies if the user's selected answer is correct and provides immediate feedback.
+4. **Navigating Questions**: The `nextQuestion()` function moves the quiz to the next question, ensuring a seamless progression through the game.
+5. **Replay Option**: The `playAgain()` function allows users to restart the quiz after completing it, encouraging repeated engagement.
+6. **Randomized Questions**: The `shuffleQuestion()` function randomizes the order of questions to provide a fresh experience each time the quiz is played.
+
+These functions work together to create an interactive quiz experience, making it an entertaining and educational feature of the kiosk.
 
 ### FAQ
 
-In the `home_scripts.js` file are the FAQ functions.
+The FAQ functionality in `home_scripts.js` is designed to provide users with quick access to frequently asked questions and their answers. This feature enhances the user experience by offering immediate assistance and information.
+
+Key functionalities include:
+
+1. **Dynamic FAQ Display**: The FAQ section dynamically displays a list of questions and their corresponding answers. This ensures that the content is easy to navigate and user-friendly.
+2. **Expandable Questions**: Users can click on a question to expand it and view the answer. This is implemented using event listeners that toggle the visibility of the answer when a question is clicked.
+3. **Interactive UI**: The FAQ section is styled and scripted to provide a smooth and interactive experience, making it easy for users to find the information they need.
+4. **Customizable Content**: The questions and answers can be updated or modified in the JSON to reflect the most relevant and up-to-date information for users.
+
+Example of an expandable FAQ question:
+
+```javascript
+document.addEventListener("DOMContentLoaded", function () {
+  fetch("/static/json/FAQ_questions.json")
+    .then((response) => response.json())
+    .then((responses) => {
+      const buttonContainer = document.querySelector(".left-faq");
+
+      responses.forEach((item) => {
+        const button = document.createElement("button");
+        button.textContent = item.question;
+        button.classList.add("btn"); // Apply styling
+        button.onclick = function () {
+          moveTextToResponse(item);
+        };
+        buttonContainer.appendChild(button);
+      });
+    })
+    .catch((error) => console.error("Error loading questions:", error));
+});
+```
+
+This functionality ensures that users can quickly access helpful information without navigating away from the main interface.
+
+### Additional Functionality
+
+The `home_scripts.js` file also contains a host of additional helper functions that provide additional features, such as an onscreen keyboard, text-to-speech, playing videos, and more. The functions can be found in the file with appropriate docstrings describing their functionality and use.
+
+##

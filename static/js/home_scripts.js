@@ -86,6 +86,13 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+/**
+ * Updates the displayed map image and toggles the visibility of frost levels
+ * based on the selected map.
+ *
+ * @param {string} map - The selected map identifier. 
+ *                       Use "suther" for the Sutherland map or "frost" for the Frost map.
+ */
 function changeMap(map) {
     const mapImage = document.getElementById("map-image");
     const frostLevels = document.getElementById("frost-levels");
@@ -99,6 +106,13 @@ function changeMap(map) {
     }
 }
 
+/**
+ * Updates the source of the map image to reflect the specified frost level.
+ *
+ * @param {string} level - The frost level to display on the map. This value is used
+ *                         to retrieve the corresponding data attribute (`data-map-frost-{level}`)
+ *                         from the map image element.
+ */
 function changeFrostLevel(level) {
     const mapImage = document.getElementById("map-image");
     mapImage.src = mapImage.getAttribute(`data-map-frost-${level}`);
@@ -191,6 +205,11 @@ function startRecording() {
     });
 }
 
+/**
+ * Event Listener for the 'DOMContentLoaded' event.
+ * Dynamically updates the FAQ question buttons in a list format based on the questions in the JSON file.
+ * 
+ */
 document.addEventListener("DOMContentLoaded", function() {
     fetch("/static/json/FAQ_questions.json")
         .then(response => response.json())

@@ -406,8 +406,6 @@ body {
     position: relative;
 }
 .right-faq {
-    border-radius: 25px;
-    border: 2px solid #000;
     width: 25%;
     min-width:25%;
     height: 55vh;
@@ -418,7 +416,6 @@ body {
       radial-gradient(100% 100% at var(--_p) 0,#0000 99%,#000 102%) 
         var(--_p) 100%/var(--t) var(--t) no-repeat,
       linear-gradient(#000 0 0) padding-box;
-    background: linear-gradient(to right, #FF512F 0%, #F09819 51%, #FF512F 100%) border-box;
     white-space: normal;
     flex-grow: 0;
 }
