@@ -2,6 +2,8 @@ import google.generativeai as genai
 import asyncio
 from speech_to_text import speech_to_text_translation, output_log_text
 from text_to_speech import sys_text_to_speech, play_edge_tts
+from dotenv import load_dotenv
+import os
 
 systemInstruction = "You are a friendly kiosk at a college designed to help students navigate through their school life"
 
@@ -18,7 +20,8 @@ def query_gemini_model(version=11, transcription=None):
     Returns:
         str: The generated content from the Gemini model.
     """
-    genai.configure(api_key="AIzaSyD84E4GHYIZCHhrMscz3X_l14wSdakY-CM")
+    API_KEY = os.getenv('API_KEY')
+    genai.configure(api_key=API_KEY)
     model = genai.GenerativeModel(
         model_name=f"tunedModels/flemingkiosk-v{version}"      
         )
@@ -42,7 +45,7 @@ def query_gemini_model(version=11, transcription=None):
 
 def gemini_query_response_tts(text=None):
     """
-    Asynchronously processes text using the Gemini model and plays the resulting text-to-speech.
+    processes text using the Gemini model and plays the resulting text-to-speech.
     Args:
         text (str, optional): The input text to be processed. If not provided, the function will use speech-to-text translation.
     Returns:
@@ -59,7 +62,7 @@ def gemini_query_response_tts(text=None):
     """
 
     speech = text or speech_to_text_translation()
-    result = query_gemini_model(version=8, transcription=speech)
+    result = query_gemini_model(version=13, transcription=speech)
 
     try:
         print(result.text)

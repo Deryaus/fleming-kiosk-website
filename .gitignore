@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+.env
 
 # C extensions
 *.so
@@ -163,3 +164,4 @@ speechlog.txt
 __pycache__/*
 templates/event_div.html
 *.csv
+Logs/AIChatLog.txt

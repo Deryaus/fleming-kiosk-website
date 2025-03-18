@@ -54,7 +54,7 @@ def chat():
     """
     try:
         user_input = request.json.get('message', '') # Default value is empty string
-        response = query_gemini_model(11, user_input)
+        response = query_gemini_model(13, user_input)
         try:
             return jsonify({'response': response.text})
         except AttributeError:
