@@ -101,10 +101,6 @@ Please see: [Add or Remove Quiz questions](docs/How_to_add_or_remove_quiz_questi
 
 Please see: [Add or Remove FAQ qestions](docs/Add_or_remove_FAQ.md)
 
-### Training the AI
-
-TODO: Training the AI instructions
-
 ## File Structure and Functionality
 
 ### File Structure

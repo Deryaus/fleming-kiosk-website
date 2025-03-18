@@ -12,7 +12,7 @@ This kiosk's AI backend operates off a custom trained AI based on the gemini-1.5
 
 ### geminiTrain.py
 
-geminiTrain.py is a Python script file that contains Python functions used for training the AI. By providing the API key and information about your dataset and base model, you can train a custom fine-tuned AI to suit your needs. The base model and API key can be provided at the top of the file. The base model can be either a regular model, like models/gemini-1.5-flash-001-tuning, or a previously tuned model (ex. tunedModels/flemingkiosk-v3). The file automatically increments the version ID every time you train a new model.
+[geminiTrain.py](../geminiTrain.py) is a Python script file that contains Python functions used for training the AI. By providing the API key and information about your dataset and base model, you can train a custom fine-tuned AI to suit your needs. The base model and API key can be provided at the top of the file. The base model can be either a regular model, like models/gemini-1.5-flash-001-tuning, or a previously tuned model (ex. tunedModels/flemingkiosk-v3). The file automatically increments the version ID every time you train a new model.
 
 **When creating a tuned model**, you can configure the training through a list of options in the genai object.
 
@@ -49,7 +49,7 @@ print(result.text)
 
 ### modelTools.py
 
-modelTools.py is a Python script file that is used to help in training new models. It first requires a Google AI Studio API key.
+[modelTools.py](../modelTools.py) is a Python script file that is used to help in training new models. It first requires a Google AI Studio API key.
 
 **increment_version()** This function takes in the name of the version of the previous tuned model as a string in the format 'tunedModels/name-vX', where 'X' is the version number. It then increments that version number and returns it.
 

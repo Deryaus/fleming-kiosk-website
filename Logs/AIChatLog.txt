@@ -20,3 +20,5 @@ probability: MEDIUM
 ])
 2025-03-12 11:07:04 Is fleming college public?
 2025-03-12 11:07:04 Fleming College was established through an Act of Ontario Parliament, making it a public college.
+2025-03-14 10:51:29 How are you today?
+2025-03-14 10:51:29 I am doing well, thank you for asking! I am here to help with enrollment, registration, course section changes, parking permit issues, and more!

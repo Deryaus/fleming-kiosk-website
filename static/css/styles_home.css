@@ -14,7 +14,7 @@ body {
     flex-direction: column; /* Arrange children in a column */
     align-items: center; /* Center children horizontally */
     margin: 0; /* Remove default margin */  
-    font-family: Arial, sans-serif; /* Set font family */
+    font-family: Arial black, sans-serif; /* Set font family */
     background: rgb(255,255,255);
     background: radial-gradient(circle, rgba(255,255,255,1) 45%, var(--color-link) 100%);
     overflow: hidden; /* Hide overflow */
@@ -237,7 +237,7 @@ body {
     height: 100vh;
     margin: 0;
     padding-right: 50px;
-    font-family: Arial, sans-serif;
+    font-family: Arial black, sans-serif;
 }
 
 .chat-column {
@@ -366,7 +366,7 @@ body {
     display: flex;
     height: 100vh;
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: Arial black, sans-serif;
     justify-content: space-between;
 }
 

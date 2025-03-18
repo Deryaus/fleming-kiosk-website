@@ -145,6 +145,16 @@ function handleEnterKey(event) {
     }
 }
 
+/**
+ * Initiates the process of recording audio input from the user, sends the audio to the server for processing,
+ * and updates the chat output with the server's response.
+ *
+ * This function changes the microphone button's appearance to indicate recording, disables the button during
+ * the recording process, and handles the server's response or any errors that occur.
+ *
+ * @function
+ * @returns {void}
+ */
 function startRecording() {
     const micButton = document.querySelector('.mic-btn');
     const chatOutput = document.getElementById('chat-output');
@@ -198,6 +208,15 @@ document.addEventListener("DOMContentLoaded", function() {
         .catch(error => console.error("Error loading questions:", error));
 });
 
+/**
+ * Updates the response and answer boxes with the provided item's question and answer,
+ * displays an associated image if available, and temporarily disables FAQ buttons.
+ *
+ * @param {Object} item - The FAQ item containing the data to display.
+ * @param {string} item.question - The question text to display in the response box.
+ * @param {string} [item.answer] - The answer text to display in the answer box. Defaults to "No answer available" if not provided.
+ * @param {string} [item.image] - The URL of the image to display. If not provided, the image element will be hidden.
+ */
 function moveTextToResponse(item) {
     const buttonTimeout = 7000;
     document.getElementById("response-box").textContent = item.question;
@@ -224,6 +243,14 @@ function moveTextToResponse(item) {
     }, buttonTimeout);
 }
 
+/**
+ * Sends a text-to-speech (TTS) request to the server for the provided answer.
+ *
+ * This function makes a POST request to the '/quiz-tts' endpoint with the given
+ * answer as the payload. It is used to trigger TTS functionality for FAQs.
+ *
+ * @param {string} ans - The answer text to be converted to speech.
+ */
 function FAQ_tts(ans) {
 
     fetch('/quiz-tts', {
