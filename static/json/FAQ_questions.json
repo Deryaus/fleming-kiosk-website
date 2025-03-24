@@ -36,5 +36,20 @@
     {
         "question":"How do I add or drop a course?",
         "answer":"Add a course through your My Student Center. Drop a course through the Course drop form in the myCampus Registrar's portal. See the Office of the Registrar for more help."    
+    },
+    {
+        "question":"When is the deadline to drop or withdraw from a course or program?",
+        "answer":"Specific deadlines for dropping/withdrawing from a course or program can be found on the Academic Schedule on the Fleming website or by scanning below!",
+        "image":"static/images/QR Codes/Academic Schedule.png"
+    },
+    {
+        "question":"How do I get a transcript?",
+        "answer":"Transcripts can be ordered through filling out the request form. More information can be found on the Fleming website or by scanning below!",
+        "image":"static/images/QR Codes/Transcript Request.png"
+    },
+    {
+        "question":"How do I find out what is available for financial aid?",
+        "answer":"Financial aid is offered in a variety of different forms, from scholarships to bursaries. More information can be found on the Fleming website or by scanning below!",
+        "image":"static/images/QR Codes/Financial Aid.png"
     }
 ]

@@ -10,17 +10,19 @@ To add a new question to the JSON file, follow these steps:
 
 ```json
 {
-    "question": "Your new question here?",
-    "answer": "Your new answer here",
-    "image": "file path to any image you want displayed below the answer."
+  "question": "Your new question here?",
+  "answer": "Your new answer here",
+  "image": "file path to any image you want displayed below the answer."
 }
+```
 
 4. Ensure that:
+
    - The `"answer"` does not contain more than 455 characters.
    - The `"image"` is an optional inclusion. The file path must point to a valid image file, formated as gif, jpg, or png.
    - Each of the lines, excluding the final line has a comma appended.
-   -Every entry in the questions list
-```
+   - Every entry in the questions list
+   - The number of questions does not exceed the amount that cat fit on the screen (~10 questions)
 
 5. Save the file after making your changes.
 
