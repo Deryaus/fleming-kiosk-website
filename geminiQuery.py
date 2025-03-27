@@ -2,7 +2,7 @@ import google.generativeai as genai
 import asyncio
 from speech_to_text import speech_to_text_translation, output_log_text
 from text_to_speech import sys_text_to_speech, play_edge_tts
-#from dotenv import load_dotenv
+from dotenv import load_dotenv
 import os
 
 systemInstruction = "You are a friendly kiosk at a college designed to help students navigate through their school life"

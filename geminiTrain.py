@@ -6,13 +6,13 @@ import seaborn as sns
 import matplotlib
 import matplotlib.pyplot as plt
 from modelTools import increment_version,get_lastest_model
-#from dotenv import load_dotenv
+from dotenv import load_dotenv
 
 os.environ["GRPC_VERBOSITY"] = "ERROR"
 os.environ["GLOG_minloglevel"] = "2"
  
 #Load the environment variables
-#load_dotenv()
+load_dotenv()
 
 API_KEY = os.getenv('API_KEY')
 BASE_MODEL = "gemini-1.5-flash"

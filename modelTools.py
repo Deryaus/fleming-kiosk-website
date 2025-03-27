@@ -5,8 +5,12 @@ import pandas as pd
 import seaborn as sns
 import matplotlib
 import matplotlib.pyplot as plt
+import os
+from dotenv import load_dotenv
 
-API_KEY = "AIzaSyD84E4GHYIZCHhrMscz3X_l14wSdakY-CM"
+
+load_dotenv()
+API_KEY = os.getenv('API_KEY')
 
 genai.configure(api_key=API_KEY)
 
