@@ -8,3 +8,4 @@ edge-tts
 apscheduler
 hypercorn
 beautifulsoup4
+python-dotenv
