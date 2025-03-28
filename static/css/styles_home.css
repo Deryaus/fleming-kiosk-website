@@ -20,7 +20,6 @@ body {
     overflow: hidden; /* Hide overflow */
 }
 
-
 /* Style for the header container */
 .header-container {
     position: relative; /* Position relative for absolute positioning of children */
@@ -328,27 +327,35 @@ body {
 }
 .simple-keyboard {
     position: fixed;  
-    bottom: 0;       /* Stick to bottom */
-    left: 50%;       /* Center horizontally */
-    transform: translateX(-50%);  /* Center alignment correction */
+    bottom: 0;       
+    left: 50%;       
+    transform: translateX(-50%);  
     max-width: 850px;
     margin: 20px auto;
-    display: none;   /* Hidden by default */
+    display: none;   
     z-index: 9999;   
-    background-color: rgba(255, 255, 255, 0.95);  /* Semi-transparent background */
-    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 50px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     cursor: move;
     user-select: none;
-    padding: 100px;
-    border: 5px;
+    padding: 50px 100px 100px 100px; /* top right bottom left */
+    border: 15px rgba(255, 255, 255, 0.95) solid;
 }
 .keyboard-visible {
     display: block;
 }
 
+.ai-disclaimer {
+    font-size: 0.8em;
+    color: #666;
+    text-align: center;
+    margin-top: 5px;
+    font-style: italic;
+
+}
 .character {
-    width: 30%;
+    width: 35%;
     display: flex;
     flex-direction: column;
     overflow: hidden; 
@@ -388,11 +395,16 @@ body {
     border: 2px solid #000;
     width: 25%;
     min-width: 25%;
-    height: 55vh;
+    height: 58vh;
     background:rgba(255, 255, 255, 0.95);
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin-top: -50px;
+
+}
+.left-faq .btn {
+    font-size: 1em;
 
 }
 .middle-faq {

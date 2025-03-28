@@ -31,7 +31,8 @@ to interact with it to answer questions.
 - [Usage](#usage)
 - [Installation](#installation)
 - [Configuration](#configuration)
-- [File Structure and Operation](#File-Structure-and-Functionality) -[AI Functionality and Training]
+- [File Structure and Operation](#File-Structure-and-Functionality)
+- [AI Functionality and Training](#Ai-functionality-and-training-guide)
 
 ## Usage
 

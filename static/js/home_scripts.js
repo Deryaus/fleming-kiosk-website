@@ -13,7 +13,7 @@ let audioEndTime = 0;
  * The welcome URL is retrieved from the 'data-welcome-url' attribute of the document body.
  */
 function resetInactivityTimeout() {
-    let timeoutLength = 300000; // 5 minutes //TODO change this for deployment
+    let timeoutLength = 45000; // 45 seconds
         clearTimeout(inactivityTimeout);
         inactivityTimeout = setTimeout(() => {
             window.location.href = document.body.getAttribute('data-welcome-url');
@@ -167,7 +167,6 @@ function handleEnterKey(event) {
  * the recording process, and handles the server's response or any errors that occur.
  *
  * @function
- * @returns {void}
  */
 function startRecording() {
     const micButton = document.querySelector('.mic-btn');
@@ -368,7 +367,6 @@ function initializeKeyboard(inputSelector, keyboardSelector = '.simple-keyboard'
             keyboardElement.classList.remove('keyboard-visible');
         }
     });
-    //TODO Need to make sure this can work on touch screen. If not get rid of it.
     keyboardElement.addEventListener('pointerdown', dragStart);
     document.addEventListener('pointermove', drag);
     document.addEventListener('pointerup', dragEnd);

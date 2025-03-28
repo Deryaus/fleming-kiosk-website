@@ -5,10 +5,11 @@ from text_to_speech import sys_text_to_speech, play_edge_tts
 from dotenv import load_dotenv
 import os
 
+load_dotenv()
 systemInstruction = "You are a friendly kiosk at a college designed to help students navigate through their school life"
 
 #Provide a model version number and audio transcriptions to Query the gemini model with input text
-def query_gemini_model(version=11, transcription=None):
+def query_gemini_model(version=15, transcription=None):
     """
     Queries the Gemini generative model with the specified version and transcription.
     Saves the query and response to a log file.
@@ -62,7 +63,7 @@ def gemini_query_response_tts(text=None):
     """
 
     speech = text or speech_to_text_translation()
-    result = query_gemini_model(version=13, transcription=speech)
+    result = query_gemini_model(version=15, transcription=speech)
 
     try:
         print(result.text)

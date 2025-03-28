@@ -54,7 +54,7 @@ def chat():
     """
     try:
         user_input = request.json.get('message', '') # Default value is empty string
-        response = query_gemini_model(13, user_input)
+        response = query_gemini_model(15, user_input)
         try:
             return jsonify({'response': response.text})
         except AttributeError:
@@ -86,8 +86,6 @@ def record_audio():
     except Exception as e:
         print(f"Audio record Error: {e}")
         return jsonify({'error': 'Sorry there was a problem with your request'}), 500
-
-#TODO: Create questions for FAQ 
 
 @app.route('/tts', methods=['POST'])
 def tts():
