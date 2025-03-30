@@ -273,19 +273,19 @@ Add the following content:
         "Status": "locked"
       },
       "browser.cache.disk.enable": {
-        "Value": false,
+        "Value": true,
         "Status": "locked"
       },
       "browser.cache.memory.enable": {
-        "Value": false,
+        "Value": true,
         "Status": "locked"
       },
       "browser.cache.offline.enable": {
-        "Value": false,
+        "Value": true,
         "Status": "locked"
       },
       "browser.cache.check_doc_frequency": {
-        "Value": 1,
+        "Value": 3,
         "Status": "locked"
       }
     }
